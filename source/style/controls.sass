@@ -1,0 +1,106 @@
+@import "constants"
+@import "mixins"
+
+#controls
+	@include box-shadow(10px 0 10px -10px #000 inset)
+	background: $gray-lightest
+	color: $gray-darker
+	font-size: 14px
+	height: 100%
+	line-height: 1.5
+	overflow: scroll
+	// BUGGY: -webkit-overflow-scrolling: touch
+	position: absolute
+	right: 0
+	top: 0
+	width: 40.1%
+
+	> section
+		padding: 40px
+
+	h2
+		background: $orange-dark
+		color: white
+		display: inline
+		font:
+			size: 50px
+			weight: lighter
+		margin: 0
+		line-height: 1.1
+		text-transform: lowercase
+
+	h3
+		background: $gray-darkest
+		color: white
+		display: inline-block
+		font:
+			size: 50px
+			weight: lighter
+		line-height: 1
+		margin: 0.5em 0
+		padding: 20px 20px 10px
+		position: relative
+		text-transform: lowercase
+
+		&:after
+			border:
+				color: transparent transparent transparent $gray-darkest
+				style: solid
+				width: 20px
+			bottom: -20px
+			content: " "
+			display: block
+			height: 0
+			position: absolute
+			left: 0
+			width: 0
+
+	h4
+		color: $gray-darker
+		font:
+			size: 16px
+			weight: bold
+		text-transform: uppercase
+
+	hr
+		border:
+			color: $gray
+			style: solid
+			width: 1px 0
+		height: 5px
+		margin: 2em 0
+
+	p.major
+		font-size: 22px
+
+	p.action
+		text-align: center
+
+		a
+			@include box-sizing(border-box)
+			display: inline-block
+			margin-left: -15px
+			padding: 5px 25px
+			position: relative
+			
+
+		a,
+		a:after
+			@include linear-gradient($orange-lightest, $orange-dark)
+			@include box-shadow(1px 1px $orange-lightest inset)
+			background-color: $orange
+			border: 1px solid $orange-darkest
+			color: white
+			font-size: 16px
+			text-decoration: none
+
+		a:after
+			@include box-sizing(content-box)
+			content: " " // TODO: Image
+			display: block
+			height: 100%
+			left: 100%
+			padding: 0
+			position: absolute
+			top: -1px
+			width: 25px

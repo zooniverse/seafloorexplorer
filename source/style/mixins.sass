@@ -1,0 +1,20 @@
+@mixin box-shadow($value: 0 0 transparent)
+	-webkit-box-shadow: $value
+	box-shadow: $value
+
+@mixin box-sizing($value)
+	-moz-box-sizing: $value
+	-webkit-box-sizing: $value
+	box-sizing: $value
+
+@mixin transition($value)
+	-moz-transition: $value
+	-webkit-transition: $value
+	transition: $value
+
+@mixin linear-gradient($start: transparent, $end: transparent)
+	background-image: -moz-linear-gradient(top, $start, $end)
+	background-image: -ms-linear-gradient(top, $start, $end)
+	background-image: -webkit-linear-gradient(top, $start, $end)
+	background-image: linear-gradient(top, $start, $end)
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$start}', endColorstr='#{$end}')"
