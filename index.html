@@ -7,30 +7,34 @@
 		<title>Seafloor Zoo</title>
 
 		<link href="assets/style/main.css" rel="stylesheet" />
-		
+
 		<!--[if lt IE 9]>
 			<script src="//html5shiv.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
 		<![endif]-->
 	</head>
 
 	<body>
-		<section id="wrapper">
+		<section id="wrapper" data-controller="App" data-curent-page="home">
 			<header>
 				<h1><a href="#"><strong>Seafloor</strong> Zoo</a></h1>
 				<nav>
 					<ul>
-						<li><a href="#">Home</a></li>
-						<li><a href="#">About</a></li>
-						<li><a href="#">Classify</a></li>
-						<li><a href="#">Species</a></li>
-						<li><a href="#">Team</a></li>
+						<li><a href="#/home">Home</a></li>
+						<li><a href="#/about">About</a></li>
+						<li><a href="#/classify">Classify</a></li>
+						<li><a href="#/species">Species</a></li>
+						<li><a href="#/team">Team</a></li>
 					</ul>
 				</nav>
 			</header>
 
-			<div id="main">
-				<div id="asset">
-					
+			<div id="main" data-controller="Main">
+				<div id="subject-wrapper">
+					<div id="subject-container">
+						<div id="subject">
+							<img src="http://hidefwallpaper.org/wp-content/gallery/ocean_09/ocean-turtle.jpg" />
+						</div>
+					</div>
 				</div>
 
 				<div id="controls">
@@ -45,8 +49,13 @@
 					</section>
 				</div>
 			</div>
-			
+
 			<footer></footer>
 		</section>
+
+		<script src="/lib/jquery.js" type="text/javascript"></script>
+		<script src="/lib/spine/lib/spine.js" type="text/javascript"></script>
+		<script src="/lib/spine/lib/route.js" type="text/javascript"></script>
+		<script src="/assets/scripts/app.js" type="text/javascript"></script>
 	</body>
 </html>

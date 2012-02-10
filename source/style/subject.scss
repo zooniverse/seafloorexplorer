@@ -1,0 +1,13 @@
+#subject-wrapper {
+  background: black;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 60%;
+
+  #subject {
+    > img {
+      width: 100%;
+    }
+  }
+}
