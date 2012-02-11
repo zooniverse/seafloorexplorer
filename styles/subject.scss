@@ -1,5 +1,5 @@
 #subject-wrapper {
-  background: black;
+  background: gray;
   height: 100%;
   left: 0;
   position: absolute;
@@ -7,9 +7,8 @@
   width: 60%;
 
   #subject {
-    > img {
-      height: 480px;
-      width: 640px;
-    }
+    // background: url("http://hidefwallpaper.org/wp-content/gallery/ocean_09/ocean-turtle.jpg");
+    height: 100%;
+    width: 100%;
   }
 }
