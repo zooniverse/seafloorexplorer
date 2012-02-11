@@ -1,11 +1,15 @@
 define
 	circle:
 		fill: '#fff'
-		stroke: '#fff'
-		'stroke-width': 2
+		r: 5
+		'stroke-width': 0
+
+	circle_hover:
+		r: 7
 
 	crossCircle:
 		fill: '#f93'
+		r: 10
 		stroke: '#fff'
 		'stroke-width': 2
 
@@ -14,7 +18,13 @@ define
 		'stroke-width': 2
 
 	boundingBox:
-		fill: 'rgba(0, 127, 255, 0.01)'
 		opacity: 0.5
 		stroke: '#fff'
 		'stroke-dasharray': '- '
+		'stroke-linejoin': 'round'
+		'stroke-width': 2
+
+	button:
+		fill: '#000'
+		stroke: '#fff'
+		'stroke-width': 2

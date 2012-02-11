@@ -1,49 +1,65 @@
 define (require) ->
 	Spine = require 'Spine'
+	Raphael = require 'Raphael'
 	$ = require 'jQuery'
 
 	style = require 'style'
 
 	class Marking extends Spine.Controller
+		picker: null
 		circles: null
 		lines: null
 
 		active: false
 		points: null
 
-		crossCircle: null
 		boundingBox: null
-
-		crossCircleRadius: 10
+		crossCircle: null
 
 		constructor: ->
 			super
 
-			@circles.attr style.circle
-			@points = for c in @circles then {x: c.attr('cx'), y: c.attr('cy')}
+			@setupCircleHover()
+			@circles.click @onClick
+			@circles.drag @circleDrag, @dragStart
 
-			@boundingBox = @paper.path @getBoundingPathString()
+			@boundingBox = @picker.paper.path()
+			@boundingBox.toBack()
 			@boundingBox.attr style.boundingBox
+			@hideBoundingBox()
 
-			intersection = @getIntersection()
-
-			@crossCircle = @paper.circle intersection.x, intersection.y, @crossCircleRadius
+			@crossCircle = @picker.paper.circle()
+			@crossCircle.toFront()
 			@crossCircle.attr style.crossCircle
 
-			@crossCircle.click @crossClicked
+			@crossCircle.click @onClick
+			@crossCircle.drag @crossDrag, @dragStart, @dragEnd
+			@crossCircle.hover @showBoundingBox, @hideBoundingBox
 
-			@slideIn()
+			@redraw()
 
-		getBoundingPathString: =>
-			path = []
+			@activate()
 
-			path.push 'M', @points[0].x, @points[0].y
-			path.push 'L', @points[2].x, @points[2].y
-			path.push 'L', @points[1].x, @points[1].y
-			path.push 'L', @points[3].x, @points[3].y
-			path.push 'z'
+		setupCircleHover: =>
+			marking = @
 
-			path.join ' '
+			over = ->
+				marking.overCircle = @
+				@attr style.circle_hover
+
+			out = ->
+				@attr style.circle
+
+			@circles.hover over, out
+
+		redraw: =>
+			@points = ({x: c.attr('cx'), y: c.attr('cy')} for c in @circles)
+			@intersection = @getIntersection()
+
+			@boundingBox.attr path: @getBoundingPathString()
+			@lines[0].attr path: @getLineString @circles[0], @circles[1]
+			@lines[1].attr path: @getLineString @circles[2], @circles[3]
+			@crossCircle.attr cx: @intersection.x, cy: @intersection.y
 
 		getIntersection: =>
 			grad1 = (@points[0].y - @points[1].y) / (@points[0].x - @points[1].x)
@@ -54,11 +70,27 @@ define (require) ->
 
 			x: interX, y: interY
 
-		crossClicked: (e) =>
+		getBoundingPathString: =>
+			path = []
+
+			# Not in order!
+			path.push 'M', @points[0].x, @points[0].y
+			path.push 'L', @points[2].x, @points[2].y
+			path.push 'L', @points[1].x, @points[1].y
+			path.push 'L', @points[3].x, @points[3].y
+			path.push 'z'
+
+			path.join ' '
+
+		getLineString: (c1, c2) =>
+			"M #{c1.attr 'cx'} #{c1.attr 'cy'} L #{c2.attr 'cx'} #{c2.attr 'cy'}"
+
+		onClick: (e) =>
 			e.stopPropagation()
-			if @active then @deactivate() else @activate()
 
 		activate: =>
+			marking.deactivate() for marking in @picker.markings when marking isnt @
+
 			@active = true
 			@slideOut()
 
@@ -70,8 +102,8 @@ define (require) ->
 			@lines.animate Raphael.animation opacity: 0, 200
 
 			toIntersection = Raphael.animation
-				cx: @crossCircle.attr 'cx'
-				cy: @crossCircle.attr 'cy'
+				cx: @intersection.x
+				cy: @intersection.y
 				opacity: 0
 				200
 
@@ -82,3 +114,34 @@ define (require) ->
 
 			@circles.forEach (circle, i) =>
 				circle.animate Raphael.animation cx: @points[i].x, cy: @points[i].y, opacity: 1, 200
+
+		dragStart: =>
+			@wasActive = @active
+			@activate() unless @wasActive
+			@startPoints = (p for p in @points)
+
+		dragEnd: =>
+			@deactivate() if @wasActive and not @moved # Click
+			delete @wasActive
+			delete @startPoints
+			delete @moved
+
+		crossDrag: (dx, dy) =>
+			@moved = true
+			return unless @active
+			@circles.forEach (circle, i) =>
+				circle.attr cx: @startPoints[i].x + dx
+				circle.attr cy: @startPoints[i].y + dy
+
+			@redraw()
+
+		circleDrag: (dx, dy, x, y, e) =>
+			i = Array::indexOf.call @circles, @overCircle
+			@overCircle.attr(cx: @startPoints[i].x + dx, cy: @startPoints[i].y + dy)
+			@redraw()
+
+		showBoundingBox: =>
+			@boundingBox.animate Raphael.animation opacity: 1, 400
+
+		hideBoundingBox: =>
+			@boundingBox.animate Raphael.animation opacity: 0, 400
