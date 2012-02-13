@@ -1,19 +1,19 @@
 @import "constants";
 @import "mixins";
 
-#controls {
+#information {
   @include box-shadow(10px 0 10px -10px black inset);
   background: $gray-lightest;
   color: $gray-darker;
   font-size: 14px;
   height: 100%;
+  left: 759px;
   line-height: 1.5;
   overflow: scroll;
   // BUGGY: -webkit-overflow-scrolling: touch
   position: absolute;
   right: 0;
   top: 0;
-  width: 40.1%;
 
   > section {
     padding: 40px;
@@ -61,7 +61,7 @@
       width: 0;
     }
   }
-  
+
   h4 {
     color: $gray-darker;
     font: {
@@ -116,7 +116,7 @@
       padding: 0;
       position: absolute;
       top: -1px;
-      width: 25px; 
+      width: 25px;
     }
   }
 }

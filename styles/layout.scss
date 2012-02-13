@@ -3,7 +3,7 @@
 @import "mixins";
 
 html {
-  background: red;
+  background: gray;
   color: $gray-darkest;
   font: {
     family: Titillium, "Helvetica Neue", Arial, sans-serif;
@@ -60,10 +60,10 @@ body {
         size: 16px;
         weight: bold;
       };
+      left: 350px;
       line-height: 1.25;
       margin-right: -15px;
       position: absolute;
-      right: 40%;
       text-transform: lowercase;
 
       ul {
@@ -91,7 +91,7 @@ body {
   }
 
   > #main {
-    bottom: 20px;
+    height: 585px;
     left: 0;
     position: absolute;
     top: 100px;
