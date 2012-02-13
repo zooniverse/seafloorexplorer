@@ -1,5 +1,4 @@
-// Colors
-// ------
+$white:           rgb(237, 245, 245);
 
 $gray-lightest:   rgb(237, 245, 245);
 $gray-light:      rgb(214, 221, 221);
@@ -12,3 +11,67 @@ $orange-lightest: rgb(237, 163, 69);
 $orange:          rgb(232, 135, 13);
 $orange-dark:     rgb(224, 88, 18);
 $orange-darkest:  rgb(159, 61, 11);
+
+// Cross-broswer:
+
+@mixin box-shadow($value: 0 0 transparent) {
+  -webkit-box-shadow: $value;
+  box-shadow: $value;
+}
+
+@mixin box-sizing($value) {
+  -moz-box-sizing: $value;
+  -webkit-box-sizing: $value;
+  box-sizing: $value;
+}
+
+@mixin transition($value) {
+  -moz-transition: $value;
+  -webkit-transition: $value;
+  transition: $value;
+}
+
+@mixin linear-gradient($start: transparent, $end: transparent) {
+  background-image: -moz-linear-gradient(top, $start, $end);
+  background-image: -ms-linear-gradient(top, $start, $end);
+  background-image: -webkit-linear-gradient(top, $start, $end);
+  background-image: linear-gradient(top, $start, $end);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$start}', endColorstr='#{$end}')";
+}
+
+// Misc. styles:
+
+@mixin _action-button {
+  @include box-shadow(1px 1px $orange-lightest inset);
+  @include box-sizing(border-box);
+  @include linear-gradient($orange-lightest, $orange-dark);
+  border: 1px solid $orange-darkest;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: inherit;
+  padding: 5px 20px;
+  position: relative;
+  text-decoration: none;
+}
+
+@mixin action-button($icon: false) {
+  @include _action-button;
+
+  @if $icon {
+    margin-right: 32px;
+
+    &:after {
+      @include _action-button;
+      @include box-sizing(content-box);
+      content: " ";
+      display: block;
+      height: 100%;
+      left: 100%;
+      padding: 0;
+      position: absolute;
+      top: -1px;
+      width: 30px;
+    }
+  }
+}

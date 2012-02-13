@@ -34,21 +34,37 @@
 				</div>
 
 				<div id="information">
-					<section id="classifier" data-page="classify">
+					<section data-page="home" class="active page">
+						<h2>Come explore the ocean floor.</h2>
+						<h3>Habcam2</h3>
+						<h4>Lenses</h4>
+						<p class="major">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.</p>
+						<hr />
+						<p class="action">
+							<a href="#dive-in">Dive in</a>
+						</p>
+					</section>
+
+					<section data-page="about" class="page">
+						<h3>About</h3>
+					</section>
+
+					<section id="classifier" data-page="classify" class="page">
 						<div class="details">
 							<div class="position"><span class="latitude">0</span> lat / <span class="longitude">0</span> long</div>
 							<div class="depth"><span class="meters">0</span> m</div>
 						</div>
 
 						<div class="fields">
-							<div class="step">
+							<nav>
 								<a href="#/classify/ground-cover">Ground cover</a>
 								<span class="divider">/</span>
 								<a href="#/classify/species">Species</a>
-							</div>
+							</nav>
 
-							<div data-page="ground-cover">
-								<ul>
+							<div data-page="ground-cover" class="active step">
+								<ul class="toggles">
 									<li><label><input type="radio" name="substrate" value="sand" />Sand</label></li>
 									<li><label><input type="radio" name="substrate" value="cobble" />Cobble</label></li>
 									<li><label><input type="radio" name="substrate" value="boulder" />Boulder</label></li>
@@ -59,13 +75,13 @@
 								<button class="finished">Done identifying ground cover</button>
 							</div>
 
-							<div data-page="species">
-								<ul>
-									<li><button>Seastar <span class="count">0</span></button></li>
-									<li><button>Fish <span class="count">0</span></button></li>
-									<li><button>Scallop <span class="count">0</span></button></li>
-									<li><button>Squid <span class="count">0</span></button></li>
-									<li><button>Shrimp <span class="count">0</span></button></li>
+							<div data-page="species" class="step">
+								<ul class="toggles">
+									<li><label><input type="radio" name="species" value="" />Seastar <span class="count">0</span></label></li>
+									<li><label><input type="radio" name="species" value="" />Fish <span class="count">0</span></label></li>
+									<li><label><input type="radio" name="species" value="" />Scallop <span class="count">0</span></label></li>
+									<li><label><input type="radio" name="species" value="" />Squid <span class="count">0</span></label></li>
+									<li><label><input type="radio" name="species" value="" />Shrimp <span class="count">0</span></label></li>
 								</ul>
 
 								<button class="finished">Done identifying ground cover</button>
@@ -78,14 +94,12 @@
 						</div>
 					</section>
 
-					<section data-page="home">
-						<h2>Come explore the ocean floor.</h2>
-						<h3>Habcam2</h3>
-						<h4>Lenses</h4>
-						<p class="major">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.</p>
-						<hr />
-						<p class="action"><a href="#dive-in">Dive in</a></p>
+					<section data-page="species" class="page">
+						<h3>Species</h3>
+					</section>
+
+					<section data-page="team" class="page">
+						<h3>Team</h3>
 					</section>
 				</div>
 			</div>

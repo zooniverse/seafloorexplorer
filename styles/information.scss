@@ -1,22 +1,27 @@
 @import "constants";
-@import "mixins";
 
 #information {
-  @include box-shadow(10px 0 10px -10px black inset);
+  // @include box-shadow(10px 0 10px -10px black inset);
   background: $gray-lightest;
   color: $gray-darker;
   font-size: 14px;
   height: 100%;
   left: 759px;
   line-height: 1.5;
-  overflow: scroll;
+  min-width: 310px;
+  overflow: auto;
   // BUGGY: -webkit-overflow-scrolling: touch
   position: absolute;
   right: 0;
   top: 0;
 
   > section {
+    display: none;
     padding: 40px;
+
+    &.active {
+      display: block;
+    }
   }
 
   h2 {
@@ -45,6 +50,11 @@
     padding: 20px 20px 10px;
     position: relative;
     text-transform: lowercase;
+
+    &:before {
+      display: block;
+      content: "";
+    }
 
     &:after {
       border: {
@@ -89,34 +99,7 @@
     text-align: center;
 
     a {
-      @include box-sizing(border-box);
-      display: inline-block;
-      margin-left: -15px;
-      padding: 5px 25px;
-      position: relative;
-    }
-
-    a,
-    a:after {
-      @include linear-gradient($orange-lightest, $orange-dark);
-      @include box-shadow(1px 1px $orange-lightest inset);
-      background-color: $orange;
-      border: 1px solid $orange-darkest;
-      color: white;
-      font-size: 16px;
-      text-decoration: none;
-    }
-
-    a:after {
-      @include box-sizing(content-box);
-      content: " ";
-      display: block;
-      height: 100%;
-      left: 100%;
-      padding: 0;
-      position: absolute;
-      top: -1px;
-      width: 25px;
+      @include action-button()
     }
   }
 }

@@ -1,0 +1,95 @@
+@import "constants";
+
+#information > #classifier {
+	@include linear-gradient(rgb(55, 67, 77), rgb(36, 48, 57));
+	color: $white;
+	padding: 0;
+
+	> .details {
+		font-size: 14px;
+		padding: 15px 40px 10px;
+	}
+
+	> .fields {
+		background: $white;
+		color: $gray-darkest;
+		padding: 20px 40px;
+		position: relative;
+
+		&:before {
+			background: blue; // TODO: Perforation
+			bottom: 100%;
+			content: "";
+			height: 10px;
+			left: 0;
+			position: absolute;
+			width: 100%;
+		}
+
+		> nav {
+			font: {
+				size: 12px;
+				weight: bold;
+			};
+			letter-spacing: 1px;
+			text-transform: uppercase;
+
+			> a {
+				color: $gray-light;
+				text-decoration: none;
+
+				&.active {
+					color: $gray-darker;
+				}
+			}
+		}
+
+		> .step {
+			display: none;
+
+			ul.toggles {
+				border: 1px solid $gray;
+				font-size: 20px;
+				padding: 0;
+				text-transform: lowercase;
+
+				> li {
+					display: block;
+
+					> label {
+						@include linear-gradient($gray-lightest, $gray-light);
+						border-bottom: 1px solid $gray;
+						border-top: 1px solid $white;
+					  cursor: pointer;
+						padding: 10px 15px 5px;
+						display: block;
+
+						> input {}
+
+						> .count {
+							float: right;
+							font-size: 16px;
+						}
+
+						&.active {}
+					}
+				}
+			}
+
+			button {
+				@include action-button;
+				width: 100%;
+			}
+
+			&.active {
+				display: block;
+			}
+		}
+
+		> .followup {
+			> button {
+				@include action-button(true);
+			}
+		}
+	}
+}

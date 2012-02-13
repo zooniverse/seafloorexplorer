@@ -1,6 +1,4 @@
 @import "constants";
-@import "fonts";
-@import "mixins";
 
 html {
   background: gray;
@@ -11,13 +9,13 @@ html {
   };
   height: 100%;
   width: 100%;
-}
 
-body {
-  height: 100%;
-  margin: 0;
-  position: absolute;
-  width: 100%;
+  > body {
+    height: 100%;
+    margin: 0;
+    position: absolute;
+    width: 100%;
+  }
 }
 
 #wrapper {
@@ -32,6 +30,7 @@ body {
     border-top: 4px solid $gray-darkest;
     height: 100px;
     left: 0;
+    min-height: 90px;
     position: absolute;
     text-shadow: 1px 1px 0 white;
     top: 0;
