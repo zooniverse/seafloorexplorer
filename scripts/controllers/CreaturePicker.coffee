@@ -22,6 +22,17 @@ define (require) ->
 
 			@resetStrays()
 
+		delegateEvents: =>
+			super
+
+			$(document).keydown (e) =>
+				if e.keyCode is 27 then @clearStrays()
+
+		clearStrays: =>
+			@strayCircles.remove()
+			@strayLines.remove()
+			@resetStrays()
+
 		resetStrays: =>
 			@strayCircles = @paper.set()
 			@strayLines = @paper.set()
