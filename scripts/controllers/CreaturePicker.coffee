@@ -11,6 +11,9 @@ define (require) ->
 		strayLines = null
 		markings: null
 
+		elements:
+			'> img': 'img'
+
 		events:
 			'click': 'onClick'
 
@@ -27,6 +30,9 @@ define (require) ->
 
 			$(document).keydown (e) =>
 				if e.keyCode is 27 then @clearStrays()
+
+		setImgSrc: (src) =>
+			@img.attr 'src', src
 
 		clearStrays: =>
 			@strayCircles.remove()
@@ -61,3 +67,7 @@ define (require) ->
 			if @strayCircles.length is 4
 				@markings.push new Marking picker: @, circles: @strayCircles, lines: @strayLines
 				@resetStrays()
+
+		reset: =>
+			marking.release() for marking in @markings
+			@markings.splice 0, @markings.length

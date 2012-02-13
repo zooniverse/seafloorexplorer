@@ -2,26 +2,48 @@ define (require) ->
 	Spine = require 'Spine'
 
 	class Classifier extends Spine.Controller
-		model: null
+		subject: null
 		picker: null
 
 		elements:
-			'.details > .latitude': 'latitude'
-			'.details > .longitude': 'longitude'
-			'.details > .depth': 'depth'
+			'.details > .position > .latitude': 'latitude'
+			'.details > .position > .longitude': 'longitude'
+			'.details > .depth > .meters': 'depth'
+			'input[name="ground-cover"]': 'groundCoverRadios'
+			'input[name="species"]': 'speciesRadios'
 
 		events:
-			'chang .ground-cover input': 'groundCoverChanged'
-			'click .ground-cover > .finished': 'finishedGroundCover'
-			'click .species button': 'speciesChanged'
+			'change input[name="ground-cover"]': 'groundCoverChanged'
+			'click .ground-cover .finished': 'finishedGroundCover'
+			'change input[name="species"]': 'speciesChanged'
 			'click .species > .finished': 'finishedSpecies'
 
-		setModel: ->
+		constructor: ->
+			super
+			if @subject then @setSubject @subject
 
-		groundCoverChanged: ->
+		setSubject: (@subject) =>
+			@reset()
 
-		finishedGroundCover: ->
+			@picker.setImgSrc @subject.src
+			@latitude.html @subject.latitude
+			@longitude.html @subject.longitude
+			@depth.html @subject.depth
 
-		speciesChanged: ->
+		groundCoverChanged: (e) =>
+			@log 'Ground cover changed', e.target.value
 
-		finishedSpecies: ->
+		finishedGroundCover: =>
+			@log 'Finished ground cover'
+			Spine.Route.navigate '/classify/species', true
+
+		speciesChanged: (e) =>
+			@log 'Species changed', e.target.value
+
+		finishedSpecies: =>
+			# Save the model, show the "receipt"
+
+		reset: =>
+			@picker.reset()
+			@groundCoverRadios.each -> @checked = false
+			@speciesRadios.each -> @checked = false

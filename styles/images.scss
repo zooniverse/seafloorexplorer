@@ -10,5 +10,18 @@
     // background: url("http://hidefwallpaper.org/wp-content/gallery/ocean_09/ocean-turtle.jpg");
     height: 100%;
     width: 100%;
+
+    > svg {
+      position: absolute;
+      z-index: 1;
+    }
+
+    > img {
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
   }
 }

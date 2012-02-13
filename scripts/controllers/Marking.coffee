@@ -42,6 +42,9 @@ define (require) ->
 
 			@activate()
 
+			@release @destroy
+
+
 		setupCircleHover: =>
 			marking = @
 
@@ -147,3 +150,9 @@ define (require) ->
 
 		hideBoundingBox: =>
 			@boundingBox.animate Raphael.animation opacity: 0, 400
+
+		destroy: =>
+			@crossCircle.remove()
+			@circles.remove()
+			@lines.remove()
+			@boundingBox.remove()

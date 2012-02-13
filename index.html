@@ -30,7 +30,9 @@
 
 			<div id="main" data-controller="Main">
 				<div id="images">
-					<div id="subject"></div>
+					<div id="subject">
+						<img id="subject-img" />
+					</div>
 				</div>
 
 				<div id="information">
@@ -63,19 +65,19 @@
 								<a href="#/classify/species">Species</a>
 							</nav>
 
-							<div data-page="ground-cover" class="active step">
+							<div data-page="ground-cover" class="active ground-cover step">
 								<ul class="toggles">
-									<li><label><input type="radio" name="substrate" value="sand" />Sand</label></li>
-									<li><label><input type="radio" name="substrate" value="cobble" />Cobble</label></li>
-									<li><label><input type="radio" name="substrate" value="boulder" />Boulder</label></li>
-									<li><label><input type="radio" name="substrate" value="gravel" />Gravel</label></li>
-									<li><label><input type="radio" name="substrate" value="shell" />Shell hash</label></li>
+									<li><label><input type="radio" name="ground-cover" value="sand" />Sand</label></li>
+									<li><label><input type="radio" name="ground-cover" value="cobble" />Cobble</label></li>
+									<li><label><input type="radio" name="ground-cover" value="boulder" />Boulder</label></li>
+									<li><label><input type="radio" name="ground-cover" value="gravel" />Gravel</label></li>
+									<li><label><input type="radio" name="ground-cover" value="shell" />Shell hash</label></li>
 								</ul>
 
 								<button class="finished">Done identifying ground cover</button>
 							</div>
 
-							<div data-page="species" class="step">
+							<div data-page="species" class="species step">
 								<ul class="toggles">
 									<li><label><input type="radio" name="species" value="" />Seastar <span class="count">0</span></label></li>
 									<li><label><input type="radio" name="species" value="" />Fish <span class="count">0</span></label></li>
@@ -84,7 +86,7 @@
 									<li><label><input type="radio" name="species" value="" />Shrimp <span class="count">0</span></label></li>
 								</ul>
 
-								<button class="finished">Done identifying ground cover</button>
+								<button class="finished">Done identifying species</button>
 							</div>
 
 							<div class="followup">
