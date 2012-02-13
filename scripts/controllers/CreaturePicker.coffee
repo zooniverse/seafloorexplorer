@@ -2,7 +2,7 @@ define (require) ->
 	Spine = require 'Spine'
 	Raphael = require 'Raphael'
 
-	Marking = require 'Marking'
+	Marking = require 'controllers/Marking'
 	style = require 'style'
 
 	class CreaturePicker extends Spine.Controller

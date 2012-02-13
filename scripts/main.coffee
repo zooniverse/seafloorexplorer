@@ -3,11 +3,14 @@ require.config
 		lib: '/lib'
 
 define (require) ->
-	CreaturePicker = require 'CreaturePicker'
 	$ = require 'jQuery'
+	CreaturePicker = require 'controllers/CreaturePicker'
+	Classifier = require 'controllers/Classifier'
 	layout = require 'layout'
 
-	window.creaturePicker = new CreaturePicker el: $('#subject')
+	creaturePicker = new CreaturePicker el: $('#subject')
+
+	classifier = new Classifier el: $('classifier'), picker: creaturePicker
 
 	$(document).ready layout
 	$(window).resize layout

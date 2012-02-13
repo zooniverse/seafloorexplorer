@@ -34,6 +34,50 @@
 				</div>
 
 				<div id="information">
+					<section id="classifier" data-page="classify">
+						<div class="details">
+							<div class="position"><span class="latitude">0</span> lat / <span class="longitude">0</span> long</div>
+							<div class="depth"><span class="meters">0</span> m</div>
+						</div>
+
+						<div class="fields">
+							<div class="step">
+								<a href="#/classify/ground-cover">Ground cover</a>
+								<span class="divider">/</span>
+								<a href="#/classify/species">Species</a>
+							</div>
+
+							<div data-page="ground-cover">
+								<ul>
+									<li><label><input type="radio" name="substrate" value="sand" />Sand</label></li>
+									<li><label><input type="radio" name="substrate" value="cobble" />Cobble</label></li>
+									<li><label><input type="radio" name="substrate" value="boulder" />Boulder</label></li>
+									<li><label><input type="radio" name="substrate" value="gravel" />Gravel</label></li>
+									<li><label><input type="radio" name="substrate" value="shell" />Shell hash</label></li>
+								</ul>
+
+								<button class="finished">Done identifying ground cover</button>
+							</div>
+
+							<div data-page="species">
+								<ul>
+									<li><button>Seastar <span class="count">0</span></button></li>
+									<li><button>Fish <span class="count">0</span></button></li>
+									<li><button>Scallop <span class="count">0</span></button></li>
+									<li><button>Squid <span class="count">0</span></button></li>
+									<li><button>Shrimp <span class="count">0</span></button></li>
+								</ul>
+
+								<button class="finished">Done identifying ground cover</button>
+							</div>
+
+							<div class="followup">
+								<button>Favorite</button>
+								<button>Discuss</button>
+							</div>
+						</div>
+					</section>
+
 					<section data-page="home">
 						<h2>Come explore the ocean floor.</h2>
 						<h3>Habcam2</h3>

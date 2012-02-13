@@ -20,12 +20,14 @@ define (require) ->
 			super
 
 			@setupCircleHover()
+
 			@circles.click @onClick
 			@circles.drag @circleDrag, @dragStart
 
 			@boundingBox = @picker.paper.path()
 			@boundingBox.toBack()
 			@boundingBox.attr style.boundingBox
+
 			@hideBoundingBox()
 
 			@crossCircle = @picker.paper.circle()

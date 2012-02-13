@@ -1,4 +1,6 @@
 .sass-cache
 lib
 scripts/*.js
+scripts/**/*.js
+
 styles/*.css
