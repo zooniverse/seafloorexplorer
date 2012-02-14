@@ -85,6 +85,7 @@ define (require) ->
 				marking.bind 'activate deactivate', @selectionChanged
 
 				# Because "activate" is triggered before we can bind to it:
+				@markingCreated marking
 				@selectionChanged marking
 
 				@resetStrays()
@@ -93,7 +94,12 @@ define (require) ->
 			@log 'Selected marking', marking
 			@trigger 'selected', marking
 
+		markingCreated: (marking) =>
+			@log 'Created marking', marking
+			@trigger 'created', marking
+
 		setDisabled: (@disabled) =>
+			if @disabled then @el.addClass 'disabled' else @el.removeClass 'disabled'
 			if @disabled then marking.deactivate() for marking in @markings when marking.active
 
 		reset: =>

@@ -42,9 +42,11 @@ define (require) ->
 
 			@redraw()
 
-			@activate()
+			@deactivate()
 
 			@release @destroy
+
+			if @type then @setType @type
 
 		setupCircleHover: =>
 			marking = @

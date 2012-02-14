@@ -11,10 +11,14 @@
   z-index: 1;
 
   #subject {
-    // background: url("http://hidefwallpaper.org/wp-content/gallery/ocean_09/ocean-turtle.jpg");
     height: 100%;
     width: 100%;
 
+    &.disabled {
+      cursor: not-allowed;
+    }
+
+    // TODO: What's this element in IE?
     > svg {
       position: absolute;
       z-index: 1;

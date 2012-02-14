@@ -99,6 +99,18 @@
 				}
 			}
 
+			.delete {
+				background: transparent;
+				border: 0;
+				color: $gray-darker;
+				cursor: pointer;
+				padding: 0;
+
+				&:disabled {
+					opacity: 0.5;
+				}
+			}
+
 			.finished {
 				@include action-button;
 				width: 100%;

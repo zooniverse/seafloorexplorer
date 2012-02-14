@@ -16,6 +16,7 @@ define (require) ->
 			'.ground-cover .finished': 'groundCoverFinishedButton'
 			'.species.step': 'speciesStep'
 			'.species.toggles button': 'speciesButtons'
+			'.species .delete': 'deleteButton'
 			'.species .finished': 'speciesFinishedButton'
 			'.summary .total': 'total'
 
@@ -23,6 +24,7 @@ define (require) ->
 			'click .ground-cover.toggles button': 'groundCoverChanged'
 			'click .ground-cover .finished': 'finishedGroundCover'
 			'click .species.toggles button': 'speciesChanged'
+			'click .species .delete': 'deleteSelected'
 			'click .species > .finished': 'finishedSpecies'
 			'click .next': 'reset'
 
@@ -31,7 +33,7 @@ define (require) ->
 
 			@picker.bind 'selected', @selectionChanged
 
-			if @subject then @setSubject @subject
+			@setSubject @subject
 
 		setSubject: (@subject) =>
 			@reset()
@@ -42,18 +44,13 @@ define (require) ->
 			@depth.html @subject.depth
 
 		selectionChanged: (marking) =>
-			@speciesButtons.each ->
-				button = $(@)
-
-				if button.val() is marking?.type
-					button.addClass 'active'
-				else
-					button.removeClass 'active'
-
-			@updateActiveSpeciesToggle()
+			@deleteButton.attr 'disabled', not marking?
+			if marking then @speciesButtons.filter("[value='#{marking.type}']").click()
+			@updateSpeciesCounts()
 
 		groundCoverChanged: (e) =>
 			@log 'Ground cover changed', e.target.value
+
 			@subject.updateAttribute 'groundCover', e.target.value
 
 			@groundCoverButtons.removeClass 'active'
@@ -62,7 +59,6 @@ define (require) ->
 			@groundCoverFinishedButton.attr 'disabled', false
 
 		finishedGroundCover: =>
-			@log 'Finished ground cover'
 			@groundCoverStep.addClass 'finished'
 			@groundCoverStep.removeClass 'active'
 			@speciesStep.addClass 'active'
@@ -70,20 +66,20 @@ define (require) ->
 
 		speciesChanged: (e) =>
 			target = $(e.target)
+			species = target.val()
+
+			@speciesButtons.removeClass 'active'
+			target.addClass 'active'
+
+			@picker.typeForNewMarkings = species
+
 			for marking in @picker.markings when marking.active
-				marking.setType target.val()
-
-			@updateSpeciesCounts()
-			@updateActiveSpeciesToggle()
-
-			@total.html @picker.markings.length
+				marking.setType species
 
 		updateSpeciesCounts: =>
 			@speciesButtons.find('.count').html '0'
 
-			toggled = false
-
-			for marking in @picker.markings when marking.type
+			for marking in @picker.markings
 				button = @speciesButtons.filter "[value='#{marking.type}']"
 				countContainer = button.find '.count'
 				countContainer.html parseInt(countContainer.html(), 10) + 1
@@ -105,6 +101,9 @@ define (require) ->
 				else
 					button.removeClass 'active'
 
+		deleteSelected: =>
+			marking.release() for marking in @picker.markings when marking.active
+
 		finishedSpecies: =>
 			@picker.setDisabled true
 
@@ -125,7 +124,7 @@ define (require) ->
 
 			@groundCoverStep.removeClass 'finished'
 			@groundCoverStep.addClass 'active'
-			@groundCoverButtons.each -> $(@).removeClass 'active'
+			@groundCoverButtons.removeClass 'active'
 
 			@speciesStep.removeClass 'active'
-			@speciesButtons.each -> $(@).removeClass 'active'
+			@speciesButtons.first().click()
