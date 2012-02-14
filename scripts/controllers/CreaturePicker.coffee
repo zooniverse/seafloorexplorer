@@ -11,6 +11,10 @@ define (require) ->
 		strayLines = null
 		markings: null
 
+		disabled: false
+
+		typeForNewMarkings: ''
+
 		elements:
 			'> img': 'img'
 
@@ -37,6 +41,7 @@ define (require) ->
 		clearStrays: =>
 			@strayCircles.remove()
 			@strayLines.remove()
+
 			@resetStrays()
 
 		resetStrays: =>
@@ -44,6 +49,10 @@ define (require) ->
 			@strayLines = @paper.set()
 
 		onClick: (e) ->
+			return if @disabled
+
+			marking.deactivate() for marking in @markings when marking.active
+
 			offset = @el.offset()
 			x = e.pageX - offset.left
 			y = e.pageY - offset.top
@@ -65,8 +74,27 @@ define (require) ->
 
 			# Each set of four makes a marking.
 			if @strayCircles.length is 4
-				@markings.push new Marking picker: @, circles: @strayCircles, lines: @strayLines
+				marking = new Marking
+					picker: @
+					circles: @strayCircles
+					lines: @strayLines
+					type: @typeForNewMarkings
+
+				@markings.push marking
+
+				marking.bind 'activate deactivate', @selectionChanged
+
+				# Because "activate" is triggered before we can bind to it:
+				@selectionChanged marking
+
 				@resetStrays()
+
+		selectionChanged: (marking) =>
+			@log 'Selected marking', marking
+			@trigger 'selected', marking
+
+		setDisabled: (@disabled) =>
+			if @disabled then marking.deactivate() for marking in @markings when marking.active
 
 		reset: =>
 			marking.release() for marking in @markings

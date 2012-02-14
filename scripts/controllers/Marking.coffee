@@ -13,6 +13,8 @@ define (require) ->
 		active: false
 		points: null
 
+		type: '' # "seastar", "fish", "scallop", "squid", "shrimp"
+
 		boundingBox: null
 		crossCircle: null
 
@@ -44,7 +46,6 @@ define (require) ->
 
 			@release @destroy
 
-
 		setupCircleHover: =>
 			marking = @
 
@@ -55,6 +56,7 @@ define (require) ->
 			out = ->
 				@attr style.circle
 
+			# These run in the context of the circle!
 			@circles.hover over, out
 
 		redraw: =>
@@ -98,10 +100,12 @@ define (require) ->
 
 			@active = true
 			@slideOut()
+			@trigger 'activate', @
 
 		deactivate: =>
 			@active = false
 			@slideIn()
+			@trigger 'deactivate'
 
 		slideIn: =>
 			@lines.animate Raphael.animation opacity: 0, 200
@@ -150,6 +154,9 @@ define (require) ->
 
 		hideBoundingBox: =>
 			@boundingBox.animate Raphael.animation opacity: 0, 400
+
+		setType: (@type) =>
+			@crossCircle.attr style[@type]
 
 		destroy: =>
 			@crossCircle.remove()

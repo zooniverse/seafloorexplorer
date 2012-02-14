@@ -8,16 +8,21 @@ define (require) ->
 
 	headerHeight = 0.67
 
+	actualHeight = ($el) ->
+		actualHeaderHeight = $el.height()
+		actualHeaderHeight += parseFloat $el.css 'borderBottomWidth'
+		actualHeaderHeight += parseFloat $el.css 'borderTopWidth'
+
 	layout = ->
 		leftover = win.height() - main.height()
 
-		header.height leftover * headerHeight
+		header.height Math.floor leftover * headerHeight
 
-		main.css top: header.height()
+		main.css top: actualHeight header
 
-		footerHeight = win.height() - (header.height() + main.height())
+		footerHeight = win.height() - (actualHeight(header) + actualHeight(main))
 
-		if footerHeight > 0
+		if footerHeight >= 0
 			footer.css 'display', ''
 			footer.height footerHeight
 		else

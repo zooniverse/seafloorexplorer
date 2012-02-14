@@ -2,31 +2,46 @@
 
 #information > #classifier {
 	@include linear-gradient(rgb(55, 67, 77), rgb(36, 48, 57));
+	@include box-shadow(0 0 10px $black inset);
 	color: $white;
+	height: 100%;
+	overflow: hidden;
 	padding: 0;
+	position: relative;
 
-	> .details {
+	> header {
 		font-size: 14px;
 		padding: 15px 40px 10px;
 	}
 
-	> .fields {
+	> .steps {
+		@include box-sizing(border-box);
+		@include transition(bottom 0.5s ease-in-out);
 		background: $white;
+		bottom: 0;
 		color: $gray-darkest;
+		height: 520px;
+		left: 0;
 		padding: 20px 40px;
-		position: relative;
+		position: absolute;
+		width: 100%;
 
 		&:before {
-			background: blue; // TODO: Perforation
+			background: url("classifier-page-tear.png") bottom center repeat-x;
 			bottom: 100%;
 			content: "";
-			height: 10px;
+			height: 9px;
 			left: 0;
 			position: absolute;
 			width: 100%;
 		}
 
-		> nav {
+		&.finished {
+			bottom: -500px;
+		}
+
+		> .breadcrumbs {
+			color: $gray;
 			font: {
 				size: 12px;
 				weight: bold;
@@ -34,10 +49,7 @@
 			letter-spacing: 1px;
 			text-transform: uppercase;
 
-			> a {
-				color: $gray-light;
-				text-decoration: none;
-
+			> .breadcrumb {
 				&.active {
 					color: $gray-darker;
 				}
@@ -51,34 +63,50 @@
 				border: 1px solid $gray;
 				font-size: 20px;
 				padding: 0;
+				text-shadow: 0 1px 0 $white;
 				text-transform: lowercase;
 
 				> li {
 					display: block;
 
-					> label {
+					> button {
 						@include linear-gradient($gray-lightest, $gray-light);
-						border-bottom: 1px solid $gray;
-						border-top: 1px solid $white;
+						border: 0 {
+							bottom: 1px solid $gray;
+						};
 					  cursor: pointer;
-						padding: 10px 15px 5px;
 						display: block;
-
-						> input {}
+					  font: {
+					  	family: inherit;
+						  size: inherit;
+						};
+						margin: 0;
+						padding: 10px 15px 5px;
+						text-shadow: inherit;
+						width: 100%;
 
 						> .count {
 							float: right;
 							font-size: 16px;
 						}
 
-						&.active {}
+						&.active {
+							@include box-shadow(0 1px 3px rgb(110, 135, 135) inset);
+							background: rgb(184, 200, 200);
+							color: rgb(110, 135, 135);
+						}
 					}
 				}
 			}
 
-			button {
+			.finished {
 				@include action-button;
 				width: 100%;
+
+				&:disabled {
+					cursor: default;
+					opacity: 0.5;
+				}
 			}
 
 			&.active {
@@ -87,9 +115,21 @@
 		}
 
 		> .followup {
+			margin: 20px 0;
+
 			> button {
 				@include action-button(true);
+				float: left;
+				width: 47%;
+
+				&.discuss {
+					float: right;
+				}
 			}
 		}
+	}
+
+	> .summary {
+		padding: 10px 40px;
 	}
 }

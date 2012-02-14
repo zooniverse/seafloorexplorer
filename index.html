@@ -53,46 +53,52 @@
 					</section>
 
 					<section id="classifier" data-page="classify" class="page">
-						<div class="details">
+						<header>
 							<div class="position"><span class="latitude">0</span> lat / <span class="longitude">0</span> long</div>
 							<div class="depth"><span class="meters">0</span> m</div>
-						</div>
+						</header>
 
-						<div class="fields">
-							<nav>
-								<a href="#/classify/ground-cover">Ground cover</a>
+						<div class="steps">
+							<div class="breadcrumbs">
+								<span class="active ground-cover breadcrumb">Ground cover</span>
 								<span class="divider">/</span>
-								<a href="#/classify/species">Species</a>
-							</nav>
-
-							<div data-page="ground-cover" class="active ground-cover step">
-								<ul class="toggles">
-									<li><label><input type="radio" name="ground-cover" value="sand" />Sand</label></li>
-									<li><label><input type="radio" name="ground-cover" value="cobble" />Cobble</label></li>
-									<li><label><input type="radio" name="ground-cover" value="boulder" />Boulder</label></li>
-									<li><label><input type="radio" name="ground-cover" value="gravel" />Gravel</label></li>
-									<li><label><input type="radio" name="ground-cover" value="shell" />Shell hash</label></li>
-								</ul>
-
-								<button class="finished">Done identifying ground cover</button>
+								<span class="species breadcrumb">Species</span>
 							</div>
 
-							<div data-page="species" class="species step">
-								<ul class="toggles">
-									<li><label><input type="radio" name="species" value="" />Seastar <span class="count">0</span></label></li>
-									<li><label><input type="radio" name="species" value="" />Fish <span class="count">0</span></label></li>
-									<li><label><input type="radio" name="species" value="" />Scallop <span class="count">0</span></label></li>
-									<li><label><input type="radio" name="species" value="" />Squid <span class="count">0</span></label></li>
-									<li><label><input type="radio" name="species" value="" />Shrimp <span class="count">0</span></label></li>
+							<div class="active ground-cover step">
+								<ul class="ground-cover toggles">
+									<li><button value="sand" />Sand</button></li>
+									<li><button value="cobble" />Cobble</button></li>
+									<li><button value="boulder" />Boulder</button></li>
+									<li><button value="gravel" />Gravel</button></li>
+									<li><button value="shell" />Shell hash</button></li>
+									<li><button value="cant-tell" />Can't tell</button></li>
+								</ul>
+
+								<button class="finished" disabled="false">Done identifying ground cover</button>
+							</div>
+
+							<div class="species step">
+								<ul class="species toggles">
+									<li><button value="seastar">Seastar <span class="count">0</button></li>
+									<li><button value="fish">Fish <span class="count">0</button></li>
+									<li><button value="scallop">Scallop <span class="count">0</button></li>
+									<li><button value="squid">Squid <span class="count">0</button></li>
+									<li><button value="shrimp">Shrimp <span class="count">0</button></li>
 								</ul>
 
 								<button class="finished">Done identifying species</button>
 							</div>
 
 							<div class="followup">
-								<button>Favorite</button>
-								<button>Discuss</button>
+								<button class="favorite">Favorite</button>
+								<button class="discuss">Discuss</button>
 							</div>
+						</div>
+
+						<div class="summary">
+							<p>You've classified <span class="total">X</span> species!</p>
+							<p><button class="next">Next image!</button>
 						</div>
 					</section>
 

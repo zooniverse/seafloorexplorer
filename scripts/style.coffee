@@ -8,10 +8,25 @@ define
 		r: 7
 
 	crossCircle:
-		fill: '#f93'
+		fill: 'black'
 		r: 10
 		stroke: '#fff'
 		'stroke-width': 2
+
+	seastar:
+		fill: 'orange'
+
+	fish:
+		fill: 'yellow'
+
+	scallop:
+		fill: 'gray'
+
+	squid:
+		fill: 'green'
+
+	shrimp:
+		fill: 'pink'
 
 	line:
 		stroke: '#fff'

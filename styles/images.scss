@@ -1,10 +1,14 @@
+@import "constants";
+
 #images {
+  @include box-shadow(0 0 10px $black);
   background: gray;
   height: 100%;
   left: 0;
   position: absolute;
   top: 0;
   width: 759px;
+  z-index: 1;
 
   #subject {
     // background: url("http://hidefwallpaper.org/wp-content/gallery/ocean_09/ocean-turtle.jpg");

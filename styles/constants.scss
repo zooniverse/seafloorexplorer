@@ -1,3 +1,4 @@
+$black:           rgb(0, 0, 0);
 $white:           rgb(237, 245, 245);
 
 $gray-lightest:   rgb(237, 245, 245);
@@ -41,7 +42,7 @@ $orange-darkest:  rgb(159, 61, 11);
 
 // Misc. styles:
 
-@mixin _action-button {
+@mixin action-button($icon: false) {
   @include box-shadow(1px 1px $orange-lightest inset);
   @include box-sizing(border-box);
   @include linear-gradient($orange-lightest, $orange-dark);
@@ -49,28 +50,33 @@ $orange-darkest:  rgb(159, 61, 11);
   color: white;
   cursor: pointer;
   display: inline-block;
-  font-size: inherit;
-  padding: 5px 20px;
+  font: {
+    family: inherit;
+    size: inherit;
+    weight: inherit;
+  };
+  margin: 0;
+  padding: 10px 0 5px;
   position: relative;
-  text-decoration: none;
-}
-
-@mixin action-button($icon: false) {
-  @include _action-button;
+  text: {
+    align: center;
+    decoration: none;
+  };
 
   @if $icon {
-    margin-right: 32px;
+    padding-right: 25px;
 
     &:after {
-      @include _action-button;
-      @include box-sizing(content-box);
+      @include box-shadow(1px 1px $orange-lightest inset);
+      @include box-sizing(border-box);
+      border-left: 1px solid $orange-darkest;
       content: " ";
       display: block;
       height: 100%;
-      left: 100%;
       padding: 0;
       position: absolute;
-      top: -1px;
+      right: 0;
+      top: 0;
       width: 30px;
     }
   }

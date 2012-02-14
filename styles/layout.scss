@@ -35,6 +35,7 @@ html {
     text-shadow: 1px 1px 0 white;
     top: 0;
     width: 100%;
+    z-index: 3;
 
     h1 {
       bottom: 33%;
@@ -105,5 +106,6 @@ html {
     left: 0;
     position: absolute;
     width: 100%;
+    z-index: 2;
   }
 }

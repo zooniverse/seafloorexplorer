@@ -25,11 +25,13 @@ define (require) ->
 		longitude: 45.6
 		depth: 90
 
-	creaturePicker = new CreaturePicker el: $('#subject')
+	creaturePicker = new CreaturePicker el: $('#subject'), disabled: true
 	window.classifier = new Classifier el: $('#classifier'), picker: creaturePicker, subject: subjects[0]
 
 	window.pagers = $('[data-page]').parent().map -> new Pager el: @
 	NestedRoute.setup()
+
+	# TODO: Prevent direct access to /classify/*
 
 	$(document).ready layout
 	$(window).resize layout
