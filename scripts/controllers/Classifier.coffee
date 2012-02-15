@@ -2,6 +2,8 @@ define (require) ->
 	Spine = require 'Spine'
 	$ = require 'jQuery'
 
+	Subject = require 'models/Subject'
+
 	class Classifier extends Spine.Controller
 		subject: null
 		picker: null
@@ -31,23 +33,23 @@ define (require) ->
 		constructor: ->
 			super
 
-			@setSubject @subject
 			@reset()
+			@setSubject @subject
 			@render()
 
 		setSubject: (@subject) =>
 			@picker.setSubject @subject
 			@subject.bind 'change', @render
+			@subject.trigger 'change'
 
 		reset: =>
-			@picker.reset()
-			@picker.setDisabled true
-
 			@steps.removeClass 'finished'
 			@groundCoverStep.removeClass 'finished'
 			@groundCoverStep.addClass 'active'
 			@speciesStep.removeClass 'active'
-			@speciesButtons.first().click()
+
+			@picker.reset()
+			@changeSpecies null
 
 		render: =>
 			@latitude.html @subject.latitude
@@ -77,19 +79,18 @@ define (require) ->
 			@groundCoverStep.addClass 'finished'
 			@groundCoverStep.removeClass 'active'
 			@speciesStep.addClass 'active'
-			@picker.setDisabled false
 
 		changeSpecies: (e) =>
+			e ?= target: $('<input value="" />')
+
 			target = $(e.target)
 			species = target.val()
 
 			@picker.selectedSpecies = species
+			@picker.setDisabled not species
 
 			@speciesButtons.removeClass 'active'
 			target.addClass 'active'
-
-			for marking in @picker.markings when marking.active
-				marking.model.updateAttribute 'species', species
 
 		deleteSelected: =>
 			index = i for marking, i in @picker.markings when marking.active
@@ -108,6 +109,7 @@ define (require) ->
 			@steps.addClass 'finished'
 
 		nextSubject: =>
-			@setSubject @subject #TODO
 			@reset()
+			subjects = Subject.all()
+			@setSubject subjects[Math.floor Math.random() * subjects.length]
 			@render()
