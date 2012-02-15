@@ -7,13 +7,14 @@ define (require) ->
 
 	class CreaturePicker extends Spine.Controller
 		paper: null
-		strayCircles = null
-		strayLines = null
+
+		strayCircles: null
+		strayLines: null
 		markings: null
 
 		disabled: false
 
-		typeForNewMarkings: ''
+		selectedSpecies: ''
 
 		elements:
 			'> img': 'img'
@@ -23,25 +24,19 @@ define (require) ->
 
 		constructor: ->
 			super
-
 			@paper = Raphael @el[0], '100%', '100%'
 			@markings = []
-
-			@resetStrays()
+			@reset()
 
 		delegateEvents: =>
 			super
+			$(document).keydown (e) => @clearStrays() if e.keyCode is 27 # Escape
 
-			$(document).keydown (e) =>
-				if e.keyCode is 27 then @clearStrays()
+		setSubject: (@subject) =>
+			@img.attr 'src', @subject.src
 
-		setImgSrc: (src) =>
-			@img.attr 'src', src
-
-		clearStrays: =>
-			@strayCircles.remove()
-			@strayLines.remove()
-
+		reset: =>
+			marking.release() for marking in @markings
 			@resetStrays()
 
 		resetStrays: =>
@@ -74,34 +69,27 @@ define (require) ->
 
 			# Each set of four makes a marking.
 			if @strayCircles.length is 4
-				marking = new Marking
+				marking = @subject.markings().create
+					species: @selectedSpecies
+					points: ({x: c.attr('cx'), y: c.attr('cy')} for c in @strayCircles)
+
+				markingController = new Marking
 					picker: @
 					circles: @strayCircles
 					lines: @strayLines
-					type: @typeForNewMarkings
+					model: marking
 
-				@markings.push marking
-
-				marking.bind 'activate deactivate', @selectionChanged
-
-				# Because "activate" is triggered before we can bind to it:
-				@markingCreated marking
-				@selectionChanged marking
+				markingController.deactivate()
+				@markings.push markingController
 
 				@resetStrays()
 
-		selectionChanged: (marking) =>
-			@log 'Selected marking', marking
-			@trigger 'selected', marking
+		clearStrays: =>
+			@strayCircles.remove()
+			@strayLines.remove()
 
-		markingCreated: (marking) =>
-			@log 'Created marking', marking
-			@trigger 'created', marking
+			@resetStrays()
 
 		setDisabled: (@disabled) =>
-			if @disabled then @el.addClass 'disabled' else @el.removeClass 'disabled'
 			if @disabled then marking.deactivate() for marking in @markings when marking.active
-
-		reset: =>
-			marking.release() for marking in @markings
-			@markings.splice 0, @markings.length
+			if @disabled then @el.addClass 'disabled' else @el.removeClass 'disabled'

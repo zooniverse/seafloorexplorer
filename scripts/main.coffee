@@ -4,7 +4,6 @@ require.config
 
 define (require) ->
 	$ = require 'jQuery'
-	Spine = require 'Spine'
 
 	CreaturePicker = require 'controllers/CreaturePicker'
 	Classifier = require 'controllers/Classifier'
@@ -17,21 +16,20 @@ define (require) ->
 
 	layout = require 'layout'
 
-	subjects = []
+	window.pagers = $('[data-page]').parent().map -> new Pager el: @
+	NestedRoute.setup()
 
-	subjects.push new Subject
+	$(document).ready layout
+	$(window).resize layout
+
+	Subject.create
 		src: 'https://encrypted-tbn1.google.com/images?q=tbn:ANd9GcSBV4syySJle_M5M818io0sWRs77KdoMy9XaRV4v0AbwkeyTbfc4g'
 		latitude: 12.3
 		longitude: 45.6
 		depth: 90
 
-	creaturePicker = new CreaturePicker el: $('#subject'), disabled: true
-	window.classifier = new Classifier el: $('#classifier'), picker: creaturePicker, subject: subjects[0]
-
-	window.pagers = $('[data-page]').parent().map -> new Pager el: @
-	NestedRoute.setup()
-
-	# TODO: Prevent direct access to /classify/*
-
-	$(document).ready layout
-	$(window).resize layout
+	window.classifier = new Classifier
+		el: $('#classifier')
+		picker: new CreaturePicker
+			el: $('#subject')
+		subject: Subject.first()
