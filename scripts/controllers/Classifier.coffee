@@ -92,7 +92,8 @@ define (require) ->
 				marking.model.updateAttribute 'species', species
 
 		deleteSelected: =>
-			marking.model.destroy() for marking in @picker.markings when marking.active
+			index = i for marking, i in @picker.markings when marking.active
+			@picker.markings[index].model.destroy()
 
 		finishSpecies: =>
 			@picker.setDisabled true

@@ -163,7 +163,14 @@ define (require) ->
 			@boundingBox.animate Raphael.animation opacity: 0, 400
 
 		destroy: =>
+			@deactivate()
+
 			@crossCircle.remove()
 			@circles.remove()
 			@lines.remove()
 			@boundingBox.remove()
+
+			index = i for marking, i in @picker.markings when marking is @
+			@picker.markings.splice index, 1
+
+			@model.unbind 'change'
