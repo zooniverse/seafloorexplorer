@@ -17,19 +17,20 @@ define (require) ->
 
 		active: false
 
-		type: '' # "seastar", "fish", "scallop", "squid", "shrimp"
-
 		constructor: ->
 			super
+
+			@circles = @picker.paper.set(@picker.paper.circle() for p in @model.points)
+			@circles.toFront()
+			@circles.attr style.circle
 
 			@setupCircleHover()
 			@circles.drag @circleDrag, @dragStart
 			@circles.click @onClick
 
-			@boundingBox = @picker.paper.path()
-			@boundingBox.toBack()
-			@boundingBox.attr style.boundingBox
-			@hideBoundingBox()
+			@lines = @picker.paper.set(@picker.paper.path() for p in @model.points)
+			@lines.toBack()
+			@lines.attr style.line
 
 			@crossCircle = @picker.paper.circle()
 			@crossCircle.toFront()
@@ -38,6 +39,11 @@ define (require) ->
 			@crossCircle.hover @showBoundingBox, @hideBoundingBox
 			@crossCircle.drag @crossDrag, @dragStart, @dragEnd
 			@crossCircle.click @onClick
+
+			@boundingBox = @picker.paper.path()
+			@boundingBox.toBack()
+			@boundingBox.attr style.boundingBox
+			@hideBoundingBox()
 
 			@release @destroy
 
@@ -67,30 +73,42 @@ define (require) ->
 			for circle, i in @circles
 				circle.attr cx: @model.points[i].x, cy: @model.points[i].y
 
-			@lines[0].attr path: @getLineString @circles[0], @circles[1]
-			@lines[1].attr path: @getLineString @circles[2], @circles[3]
+			for line, i in @lines
+				line.attr path: @getLineString @circles[i], @crossCircle
 
 			@boundingBox.attr path: @getBoundingPathString()
 
 		getIntersection: =>
-			grad1 = (@model.points[0].y - @model.points[1].y) / (@model.points[0].x - @model.points[1].x)
-			grad2 = (@model.points[2].y - @model.points[3].y) / (@model.points[2].x - @model.points[3].x)
+			if @model.species is 'seastar'
+				totalX = 0
+				totalX = 0 + totalX + point.x for point in @model.points
+				averageX = totalX / @model.points.length
 
-			interX = ((@model.points[2].y - @model.points[0].y) + (grad1 * @model.points[0].x - grad2 * @model.points[2].x)) / (grad1 - grad2)
-			interY = grad1 * (interX - @model.points[0].x) + @model.points[0].y
+				totalY = 0
+				totalY = 0 + totalY + point.y for point in @model.points
+				averageY = totalY / @model.points.length
 
-			x: interX, y: interY
+				x: averageX, y: averageY
+			else
+				grad1 = (@model.points[0].y - @model.points[1].y) / (@model.points[0].x - @model.points[1].x)
+				grad2 = (@model.points[2].y - @model.points[3].y) / (@model.points[2].x - @model.points[3].x)
+
+				interX = ((@model.points[2].y - @model.points[0].y) + (grad1 * @model.points[0].x - grad2 * @model.points[2].x)) / (grad1 - grad2)
+				interY = grad1 * (interX - @model.points[0].x) + @model.points[0].y
+
+				x: interX, y: interY
 
 		getBoundingPathString: =>
 			path = []
-
-			# Not in order!
 			path.push 'M', @model.points[0].x, @model.points[0].y
-			path.push 'L', @model.points[2].x, @model.points[2].y
-			path.push 'L', @model.points[1].x, @model.points[1].y
-			path.push 'L', @model.points[3].x, @model.points[3].y
-			path.push 'z'
 
+			# Draw a line to the even points, then the odd points.
+			# This draws a nice star around five consecutive points
+			# and a box around crossed points.
+			for point in @model.points by 2 then path.push 'L', point.x, point.y
+			for point in @model.points[1..] by 2 then path.push 'L', point.x, point.y
+
+			path.push 'z'
 			path.join ' '
 
 		getLineString: (c1, c2) =>

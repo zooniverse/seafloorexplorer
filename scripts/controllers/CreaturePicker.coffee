@@ -56,33 +56,35 @@ define (require) ->
 			circle.attr style.circle
 			@strayCircles.push circle
 
-			# Each pair makes a line.
-			if @strayCircles.length is 2
-				line = @paper.path Marking::getLineString @strayCircles[0], @strayCircles[1]
-			else if @strayCircles.length is 4
-				line = @paper.path Marking::getLineString @strayCircles[2], @strayCircles[3]
+			if @selectedSpecies isnt 'seastar'
+				# Each pair makes a line.
+				if @strayCircles.length is 2
+					line = @paper.path Marking::getLineString @strayCircles[0], @strayCircles[1]
+				else if @strayCircles.length is 4
+					line = @paper.path Marking::getLineString @strayCircles[2], @strayCircles[3]
 
-			if line
-				line.toBack()
-				line.attr style.line
-				@strayLines.push line
+				if line
+					line.toBack()
+					line.attr style.boundingBox
+					@strayLines.push line
 
-			# Each set of four makes a marking.
-			if @strayCircles.length is 4
+			# Each set of four (five for seastars) makes a marking.
+			enoughCircles = 4
+			enoughCircles = 5 if @selectedSpecies is 'seastar'
+
+			if @strayCircles.length is enoughCircles
 				marking = @subject.markings().create
 					species: @selectedSpecies
 					points: ({x: c.attr('cx'), y: c.attr('cy')} for c in @strayCircles)
 
 				markingController = new Marking
 					picker: @
-					circles: @strayCircles
-					lines: @strayLines
 					model: marking
 
 				markingController.deactivate()
 				@markings.push markingController
 
-				@resetStrays()
+				@clearStrays()
 
 		clearStrays: =>
 			@strayCircles.remove()
