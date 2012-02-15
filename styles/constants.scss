@@ -42,7 +42,7 @@ $orange-darkest:  rgb(159, 61, 11);
 
 // Misc. styles:
 
-@mixin action-button($icon: false) {
+@mixin action-button($icon: false, $position: 0 0) {
   @include box-shadow(1px 1px $orange-lightest inset);
   @include box-sizing(border-box);
   @include linear-gradient($orange-lightest, $orange-dark);
@@ -69,6 +69,7 @@ $orange-darkest:  rgb(159, 61, 11);
     &:after {
       @include box-shadow(1px 1px $orange-lightest inset);
       @include box-sizing(border-box);
+      background: url($icon) $position no-repeat;
       border-left: 1px solid $orange-darkest;
       content: " ";
       display: block;

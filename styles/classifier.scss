@@ -10,8 +10,22 @@
 	position: relative;
 
 	> header {
-		font-size: 14px;
+		font: {
+			size: 16px;
+			weight: bold;
+		};
 		padding: 15px 40px 10px;
+		text-shadow: 0 1px 1px $black;
+
+		.position,
+		.depth {
+			background: url("classifier-icons.png") 0 -5px no-repeat;
+			padding: 3px 0 3px 35px;
+		}
+
+		.depth {
+			background-position: 0 -43px;
+		}
 	}
 
 	> .steps {
@@ -20,7 +34,7 @@
 		background: $white;
 		bottom: 0;
 		color: $gray-darkest;
-		height: 520px;
+		height: 500px;
 		left: 0;
 		padding: 20px 40px;
 		position: absolute;
@@ -37,7 +51,7 @@
 		}
 
 		&.finished {
-			bottom: -500px;
+			bottom: -490px;
 		}
 
 		> .breadcrumbs {
@@ -130,12 +144,16 @@
 			margin: 20px 0;
 
 			> button {
-				@include action-button(true);
+				@include action-button("classifier-icons.png", 0 -81px);
 				float: left;
 				width: 47%;
 
 				&.discuss {
 					float: right;
+
+					&:after {
+						background-position: 0 -121px;
+					}
 				}
 			}
 		}
