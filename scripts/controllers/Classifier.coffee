@@ -44,7 +44,9 @@ define (require) ->
 			@depth.html @subject.depth
 
 		selectionChanged: (marking) =>
-			@deleteButton.attr 'disabled', not marking?
+			@log 'Selection changed to', marking
+			@deleteButton.attr 'disabled', not marking or not marking.active
+
 			if marking then @speciesButtons.filter("[value='#{marking.type}']").click()
 			@updateSpeciesCounts()
 
