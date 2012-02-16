@@ -22,6 +22,8 @@ define (require) ->
 	$(document).ready layout
 	$(window).resize layout
 
+	$(document).on 'touchmove', (e) -> e.preventDefault()
+
 	Subject.create
 		image: 'https://encrypted-tbn1.google.com/images?q=tbn:ANd9GcSBV4syySJle_M5M818io0sWRs77KdoMy9XaRV4v0AbwkeyTbfc4g'
 		latitude: 12.3
