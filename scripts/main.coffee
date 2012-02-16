@@ -23,19 +23,19 @@ define (require) ->
 	$(window).resize layout
 
 	Subject.create
-		src: 'https://encrypted-tbn1.google.com/images?q=tbn:ANd9GcSBV4syySJle_M5M818io0sWRs77KdoMy9XaRV4v0AbwkeyTbfc4g'
+		image: 'https://encrypted-tbn1.google.com/images?q=tbn:ANd9GcSBV4syySJle_M5M818io0sWRs77KdoMy9XaRV4v0AbwkeyTbfc4g'
 		latitude: 12.3
 		longitude: 45.6
 		depth: 78
 
 	Subject.create
-		src: 'https://encrypted-tbn0.google.com/images?q=tbn:ANd9GcTeAF9IDAi-odszCNkppCUJ8xhJ51JayWH4lh1yQKWC6cE6dPgE'
+		image: 'https://encrypted-tbn0.google.com/images?q=tbn:ANd9GcTeAF9IDAi-odszCNkppCUJ8xhJ51JayWH4lh1yQKWC6cE6dPgE'
 		latitude: 23.4
 		longitude: 56.7
 		depth: 89
 
 	Subject.create
-		src: 'https://encrypted-tbn0.google.com/images?q=tbn:ANd9GcROTUVMDr7ch1zchErqTpSOgL3DSWN9Ljq0Sbkasfh7mupuZy23hQ'
+		image: 'https://encrypted-tbn0.google.com/images?q=tbn:ANd9GcROTUVMDr7ch1zchErqTpSOgL3DSWN9Ljq0Sbkasfh7mupuZy23hQ'
 		latitude: 34.5
 		longitude: 67.8
 		depth: 90

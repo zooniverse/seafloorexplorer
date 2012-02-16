@@ -2,19 +2,22 @@ define (require) ->
 	Spine = require 'Spine'
 	Raphael = require 'Raphael'
 
-	Marking = require 'controllers/Marking'
+	Marker = require 'controllers/Marker'
 	style = require 'style'
 
 	class CreaturePicker extends Spine.Controller
+		classification: null
+
 		paper: null
 
 		strayCircles: null
 		strayLines: null
-		markings: null
 
-		disabled: false
+		markers: null
 
 		selectedSpecies: ''
+
+		disabled: false
 
 		elements:
 			'> img': 'img'
@@ -25,28 +28,27 @@ define (require) ->
 		constructor: ->
 			super
 			@paper = Raphael @el[0], '100%', '100%'
-			@markings = []
-			@reset()
 
 		delegateEvents: =>
 			super
-			$(document).keydown (e) => @clearStrays() if e.keyCode is 27 # Escape
+			ESC = 27
+			$(document).keydown (e) => @clearStrays() if e.keyCode is ESC
 
-		setSubject: (@subject) =>
-			@img.attr 'src', @subject.src
-
-		reset: =>
-			marking.release() for marking in @markings
+		changeClassification: (@classification) =>
+			marker.release() for marker in @markers or []
+			@markers = []
 			@resetStrays()
 
 		resetStrays: =>
+			@strayCircles?.remove()
+			@strayLines?.remove()
 			@strayCircles = @paper.set()
 			@strayLines = @paper.set()
 
 		onClick: (e) ->
 			return if @disabled
 
-			marking.deactivate() for marking in @markings when marking.active
+			marker.deactivate() for marker in @markers when marker.active
 
 			offset = @el.offset()
 			x = e.pageX - offset.left
@@ -59,39 +61,39 @@ define (require) ->
 			if @selectedSpecies isnt 'seastar'
 				# Each pair makes a line.
 				if @strayCircles.length is 2
-					line = @paper.path Marking::getLineString @strayCircles[0], @strayCircles[1]
+					line = @paper.path Marker::getLineString @strayCircles[0], @strayCircles[1]
 				else if @strayCircles.length is 4
-					line = @paper.path Marking::getLineString @strayCircles[2], @strayCircles[3]
+					line = @paper.path Marker::getLineString @strayCircles[2], @strayCircles[3]
 
 				if line
 					line.toBack()
 					line.attr style.boundingBox
 					@strayLines.push line
 
-			# Each set of four (five for seastars) makes a marking.
+			# Each set of four (five for seastars) makes a marker.
 			enoughCircles = 4
 			enoughCircles = 5 if @selectedSpecies is 'seastar'
 
 			if @strayCircles.length is enoughCircles
-				marking = @subject.markings().create
+				marking = @classification.markings().create
 					species: @selectedSpecies
-					points: ({x: c.attr('cx'), y: c.attr('cy')} for c in @strayCircles)
 
-				markingController = new Marking
+				for circle in @strayCircles
+					point = marking.points().create {}
+					point.updateAttributes x: circle.attr('cx'), y: circle.attr('cy')
+
+				marker = new Marker
 					picker: @
-					model: marking
+					marking: marking
 
-				markingController.deactivate()
-				@markings.push markingController
+				@markers.push marker
+				marker.deactivate()
 
-				@clearStrays()
+				@classification.trigger 'change'
 
-		clearStrays: =>
-			@strayCircles.remove()
-			@strayLines.remove()
-
-			@resetStrays()
+				# Markers maintain their own circles and lines.
+				@resetStrays()
 
 		setDisabled: (@disabled) =>
-			if @disabled then marking.deactivate() for marking in @markings when marking.active
+			if @disabled then marker.deactivate() for marker in @markers or [] when marker.active
 			if @disabled then @el.addClass 'disabled' else @el.removeClass 'disabled'

@@ -6,6 +6,8 @@ define (require) ->
 
 	class Classifier extends Spine.Controller
 		subject: null
+		classification: null
+
 		picker: null
 
 		elements:
@@ -32,48 +34,45 @@ define (require) ->
 
 		constructor: ->
 			super
+			@changeSubject @subject
 
-			@reset()
-			@setSubject @subject
-			@render()
-
-		setSubject: (@subject) =>
-			@picker.setSubject @subject
-			@subject.bind 'change', @render
-			@subject.trigger 'change'
-
-		reset: =>
+		changeSubject: (@subject) =>
 			@steps.removeClass 'finished'
 			@groundCoverStep.removeClass 'finished'
 			@groundCoverStep.addClass 'active'
 			@speciesStep.removeClass 'active'
-
-			@picker.reset()
 			@changeSpecies null
 
-		render: =>
 			@latitude.html @subject.latitude
 			@longitude.html @subject.longitude
 			@depth.html @subject.depth
+			@picker.img.attr 'src', @subject.image
 
+			@classification = @subject.classifications().create {}
+			console.log 'New classification', @classification, @classification.id
+			@picker.changeClassification @classification
+
+			@classification.bind 'change', @render
+			@classification.trigger 'change'
+
+		render: =>
 			@groundCoverButtons.removeClass 'active'
-			@groundCoverButtons.filter("[value='#{@subject.groundCover}']").addClass 'active'
-
-			@groundCoverFinishedButton.attr 'disabled', not @subject.groundCover
+			@groundCoverButtons.filter("[value='#{@classification.groundCover}']").addClass 'active'
+			@groundCoverFinishedButton.attr 'disabled', not @classification.groundCover
 
 			@speciesButtons.find('.count').html '0'
-			for marking in @subject.markings().all() when marking.species
+			for marking in @classification.markings().all()
 				button = @speciesButtons.filter "[value='#{marking.species}']"
-				countContainer = button.find '.count'
-				countContainer.html parseInt(countContainer.html(), 10) + 1
+				countElement = button.find '.count'
+				countElement.html parseInt(countElement.html(), 10) + 1
 
-			anythingActive = (m for m in @picker.markings when m.active).length isnt 0
+			anythingActive = (m for m in @picker.markers when m.active).length isnt 0
 			@deleteButton.attr 'disabled', not anythingActive
 
-			@total.html @subject.markings().all().length
+			@total.html @classification.markings().all().length
 
 		changeGroundCover: (e) =>
-			@subject.updateAttribute 'groundCover', e.target.value
+			@classification.updateAttribute 'groundCover', e.target.value
 
 		finishGroundCover: =>
 			@groundCoverStep.addClass 'finished'
@@ -81,7 +80,7 @@ define (require) ->
 			@speciesStep.addClass 'active'
 
 		changeSpecies: (e) =>
-			e ?= target: $('<input value="" />')
+			e ?= target: $('<input value="" />') # Dummy for when we deselect a button
 
 			target = $(e.target)
 			species = target.val()
@@ -93,23 +92,21 @@ define (require) ->
 			target.addClass 'active'
 
 		deleteSelected: =>
-			index = i for marking, i in @picker.markings when marking.active
-			@picker.markings[index].model.destroy()
+			index = i for marking, i in @picker.markers when marking.active
+			@picker.markers[index].marking.destroy()
 
 		finishSpecies: =>
 			@picker.setDisabled true
 
 			species = {}
-			for marking in @picker.markings
+			for marking in @picker.markers
 				species[marking.type] ||= []
 				species[marking.type].push marking.points
 
-			@subject.updateAttribute 'species', species
+			@classification.updateAttribute 'species', species
 
 			@steps.addClass 'finished'
 
 		nextSubject: =>
-			@reset()
 			subjects = Subject.all()
-			@setSubject subjects[Math.floor Math.random() * subjects.length]
-			@render()
+			@changeSubject subjects[Math.floor Math.random() * subjects.length]

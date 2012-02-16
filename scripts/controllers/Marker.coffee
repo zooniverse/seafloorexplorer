@@ -4,14 +4,12 @@ define (require) ->
 
 	style = require 'style'
 
-	class Marking extends Spine.Controller
-		model: null
+	class Marker extends Spine.Controller
+		marking: null
 		picker: null
 
 		circles: null
 		lines: null
-
-		intersection: null
 		crossCircle: null
 		boundingBox: null
 
@@ -19,8 +17,9 @@ define (require) ->
 
 		constructor: ->
 			super
+			points = @marking.points().all()
 
-			@circles = @picker.paper.set(@picker.paper.circle() for p in @model.points)
+			@circles = @picker.paper.set(@picker.paper.circle() for p in points)
 			@circles.toFront()
 			@circles.attr style.circle
 
@@ -28,7 +27,7 @@ define (require) ->
 			@circles.drag @circleDrag, @dragStart
 			@circles.click @onClick
 
-			@lines = @picker.paper.set(@picker.paper.path() for p in @model.points)
+			@lines = @picker.paper.set(@picker.paper.path() for p in points)
 			@lines.toBack()
 			@lines.attr style.line
 
@@ -47,16 +46,16 @@ define (require) ->
 
 			@release @destroy
 
-			@model.bind 'change', @render
-			@model.bind 'destroy', @release
+			@marking.bind 'change', @render
+			@marking.bind 'destroy', @release
 
-			@render()
+			@marking.trigger 'change'
 
 		setupCircleHover: =>
-			marking = @
+			marker = @
 
 			over = ->
-				marking.overCircle = @
+				marker.overCircle = @
 				@attr style.circle_hover
 
 			out = ->
@@ -68,10 +67,11 @@ define (require) ->
 		render: =>
 			intersection = @getIntersection()
 			@crossCircle.attr cx: intersection.x, cy: intersection.y
-			@crossCircle.attr style[@model.species]
+			@crossCircle.attr style[@marking.species] or style.crossCircle
 
+			points = @marking.points().all()
 			for circle, i in @circles
-				circle.attr cx: @model.points[i].x, cy: @model.points[i].y
+				circle.attr cx: points[i].x, cy: points[i].y
 
 			for line, i in @lines
 				line.attr path: @getLineString @circles[i], @crossCircle
@@ -79,34 +79,36 @@ define (require) ->
 			@boundingBox.attr path: @getBoundingPathString()
 
 		getIntersection: =>
-			if @model.species is 'seastar'
+			points = @marking.points().all()
+
+			if @marking.species is 'seastar'
 				totalX = 0
-				totalX = 0 + totalX + point.x for point in @model.points
-				averageX = totalX / @model.points.length
+				totalX = 0 + totalX + point.x for point in points
+				averageX = totalX / points.length
 
 				totalY = 0
-				totalY = 0 + totalY + point.y for point in @model.points
-				averageY = totalY / @model.points.length
+				totalY = 0 + totalY + point.y for point in points
+				averageY = totalY / points.length
 
 				x: averageX, y: averageY
 			else
-				grad1 = (@model.points[0].y - @model.points[1].y) / (@model.points[0].x - @model.points[1].x)
-				grad2 = (@model.points[2].y - @model.points[3].y) / (@model.points[2].x - @model.points[3].x)
+				grad1 = (points[0].y - points[1].y) / (points[0].x - points[1].x)
+				grad2 = (points[2].y - points[3].y) / (points[2].x - points[3].x)
 
-				interX = ((@model.points[2].y - @model.points[0].y) + (grad1 * @model.points[0].x - grad2 * @model.points[2].x)) / (grad1 - grad2)
-				interY = grad1 * (interX - @model.points[0].x) + @model.points[0].y
+				interX = ((points[2].y - points[0].y) + (grad1 * points[0].x - grad2 * points[2].x)) / (grad1 - grad2)
+				interY = grad1 * (interX - points[0].x) + points[0].y
 
 				x: interX, y: interY
 
 		getBoundingPathString: =>
+			points = @marking.points().all()
 			path = []
-			path.push 'M', @model.points[0].x, @model.points[0].y
+			path.push 'M', points[0].x, points[0].y
 
 			# Draw a line to the even points, then the odd points.
-			# This draws a nice star around five consecutive points
-			# and a box around crossed points.
-			for point in @model.points by 2 then path.push 'L', point.x, point.y
-			for point in @model.points[1..] by 2 then path.push 'L', point.x, point.y
+			# This draws a nice star around five consecutive points and a box around crossed points.
+			for point in points by 2 then path.push 'L', point.x, point.y
+			for point in points[1..] by 2 then path.push 'L', point.x, point.y
 
 			path.push 'z'
 			path.join ' '
@@ -119,20 +121,21 @@ define (require) ->
 			e.stopPropagation()
 
 		activate: =>
-			marking.deactivate() for marking in @picker.markings when marking isnt @
+			marker.deactivate() for marker in @picker.markers when marker isnt @
 
 			@active = true
 
 			@lines.animate Raphael.animation opacity: 1, 200
 
+			points = @marking.points().all()
 			for circle, i in @circles
 				circle.animate Raphael.animation
-					cx: @model.points[i].x
-					cy: @model.points[i].y
+					cx: points[i].x
+					cy: points[i].y
 					opacity: 1
 					200
 
-			@model.trigger 'change'
+			@marking.trigger 'change'
 
 		deactivate: =>
 			@active = false
@@ -147,12 +150,10 @@ define (require) ->
 
 			@circles.animate toIntersection
 
-			@model.trigger 'change'
-
 		dragStart: =>
 			@wasActive = @active
 			@activate() unless @wasActive
-			@startPoints = ({x: point.x, y: point.y} for point in @model.points)
+			@startPoints = ({x: point.x, y: point.y} for point in @marking.points().all())
 
 		dragEnd: =>
 			@deactivate() if @wasActive and not @moved # Click
@@ -163,16 +164,20 @@ define (require) ->
 		crossDrag: (dx, dy) =>
 			@moved = true
 
-			for point, i in @model.points
-				point.x = @startPoints[i].x + dx
-				point.y = @startPoints[i].y + dy
-			@model.trigger 'change'
+			for point, i in @marking.points().all()
+				point.updateAttribute 'x', @startPoints[i].x + dx
+				point.updateAttribute 'y', @startPoints[i].y + dy
+
+			@marking.trigger 'change'
 
 		circleDrag: (dx, dy, x, y, e) =>
+			points = @marking.points().all()
+
 			i = Array::indexOf.call @circles, @overCircle
-			@model.points[i].x = @startPoints[i].x + dx
-			@model.points[i].y = @startPoints[i].y + dy
-			@model.trigger 'change'
+			points[i].updateAttribute 'x', @startPoints[i].x + dx
+			points[i].updateAttribute 'y', @startPoints[i].y + dy
+
+			@marking.trigger 'change'
 
 		showBoundingBox: =>
 			@boundingBox.animate Raphael.animation opacity: 1, 400
@@ -188,7 +193,4 @@ define (require) ->
 			@lines.remove()
 			@boundingBox.remove()
 
-			index = i for marking, i in @picker.markings when marking is @
-			@picker.markings.splice index, 1
-
-			@model.unbind 'change'
+			@marking.unbind 'change'
