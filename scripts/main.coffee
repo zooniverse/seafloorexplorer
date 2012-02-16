@@ -24,23 +24,26 @@ define (require) ->
 
 	$(document).on 'touchmove', (e) -> e.preventDefault()
 
-	Subject.create
-		image: 'https://encrypted-tbn1.google.com/images?q=tbn:ANd9GcSBV4syySJle_M5M818io0sWRs77KdoMy9XaRV4v0AbwkeyTbfc4g'
-		latitude: 12.3
-		longitude: 45.6
-		depth: 78
+	# From http://habcam.whoi.edu/habcam2.html
+	sampleImages = [
+		'UNQ.20060928.010920609.jpg'
+		'UNQ.20070726.073105937.jpg'
+		'UNQ.20080731.043833900.jpg'
+		'UNQ.20080811.062244403.jpg'
+		'UNQ.20090626.113420984.jpg'
+		'UNQ.20090627.090015906.jpg'
+		'UNQ.20090629.000241062.jpg'
+		'UNQ.20090629.145917171.jpg'
+		'UNQ.20090714.222541046.jpg'
+		'UNQ.20091201.023850359.jpg'
+	]
 
-	Subject.create
-		image: 'https://encrypted-tbn0.google.com/images?q=tbn:ANd9GcTeAF9IDAi-odszCNkppCUJ8xhJ51JayWH4lh1yQKWC6cE6dPgE'
-		latitude: 23.4
-		longitude: 56.7
-		depth: 89
-
-	Subject.create
-		image: 'https://encrypted-tbn0.google.com/images?q=tbn:ANd9GcROTUVMDr7ch1zchErqTpSOgL3DSWN9Ljq0Sbkasfh7mupuZy23hQ'
-		latitude: 34.5
-		longitude: 67.8
-		depth: 90
+	for sampleImage, i in sampleImages
+		Subject.create
+			image: "sample-images/#{sampleImage}"
+			latitude: parseFloat String(Math.random() * 180)[0..4]
+			longitude: parseFloat String(Math.random() * 180)[0..4]
+			depth: i * 10
 
 	window.classifier = new Classifier
 		el: $('#classifier')
