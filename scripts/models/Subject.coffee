@@ -18,3 +18,9 @@ define (require) ->
 	class Subject extends Spine.Model
 		@configure 'Subject', 'image', 'latitude', 'longitude', 'depth'
 		@hasMany 'classifications', Classification
+
+		@next: ->
+			noClassifications = @select (subject) ->
+				subject.classifications().all().length is 0
+
+			noClassifications[0]

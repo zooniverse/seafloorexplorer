@@ -108,5 +108,12 @@ define (require) ->
 			@steps.addClass 'finished'
 
 		nextSubject: =>
-			subjects = Subject.all()
-			@changeSubject subjects[Math.floor Math.random() * subjects.length]
+			nextSubject = Subject.next()
+
+			if nextSubject
+				@changeSubject nextSubject
+			else
+				@noMoreSubjects()
+
+		noMoreSubjects: =>
+			alert 'No more subjects to classify!'
