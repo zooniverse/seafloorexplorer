@@ -1,4 +1,4 @@
 define (require) ->
-	require 'lib/jquery'
+	require 'lib/order!lib/jquery'
 
 	jQuery

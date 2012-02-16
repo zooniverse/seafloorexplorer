@@ -19,8 +19,8 @@ define (require) ->
 	window.pagers = $('[data-page]').parent().map -> new Pager el: @
 	NestedRoute.setup()
 
-	$(document).ready layout
 	$(window).resize layout
+	$(document).ready layout
 
 	$(document).on 'touchmove', (e) -> e.preventDefault()
 
