@@ -1,13 +1,22 @@
 @import "constants";
 
-#information > #classifier {
+#subject.image-container {
+  &.disabled {
+    cursor: not-allowed;
+  }
+
+  // TODO: What's this element in IE?
+  > svg {
+    position: absolute;
+    z-index: 1;
+  }
+}
+
+#wrapper > #main > section > #classifier {
 	@include linear-gradient(rgb(55, 67, 77), rgb(36, 48, 57));
 	@include box-shadow(0 0 10px $black inset);
 	color: $white;
-	height: 100%;
-	overflow: hidden;
 	padding: 0;
-	position: relative;
 
 	> header {
 		font: {

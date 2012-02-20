@@ -35,9 +35,9 @@ html {
     text-shadow: 1px 1px 0 white;
     top: 0;
     width: 100%;
-    z-index: 3;
+    z-index: 6;
 
-    h1 {
+    > h1 {
       bottom: 33%;
       font-weight: normal;
       left: 20px;
@@ -47,14 +47,14 @@ html {
       text-transform: lowercase;
       word-spacing: -0.25em;
 
-      a {
+      > a {
         color: inherit;
         padding: 15px;
         text-decoration: none;
       }
     }
 
-    nav {
+    > nav {
       bottom: 33%;
       font: {
         size: 16px;
@@ -66,14 +66,15 @@ html {
       position: absolute;
       text-transform: lowercase;
 
-      ul {
+      > ul {
         margin: 0;
-        li {
+
+        > li {
           display: inline;
           margin: 0;
           padding: 0;
 
-          a {
+          > a {
             @include transition(opacity 0.1s ease-in-out);
             color: inherit;
             opacity: 0.67;
@@ -96,6 +97,151 @@ html {
     position: absolute;
     top: 100px;
     width: 100%;
+
+    > section {
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 3;
+
+      > .image-container {
+        @include box-shadow(0 0 10px $black);
+        @include transition(top 0 linear 1s);
+        background: gray;
+        height: 100%;
+        left: 0;
+        overflow: hidden;
+        position: absolute;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        top: 100%;
+        width: 759px;
+        z-index: 1;
+
+        > img {
+          height: 100%;
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: 100%;
+        }
+      }
+
+      > .description {
+        @include box-sizing(border-box);
+        @include transition(opacity 0 linear 1s);
+        background: $gray-lightest;
+        color: $gray-darker;
+        font-size: 14px;
+        height: 100%;
+        left: 759px;
+        line-height: 1.5;
+        min-width: 265px;
+        opacity: 0;
+        overflow: auto;
+        // BUGGY: -webkit-overflow-scrolling: touch
+        padding: 40px;
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        h2 {
+          background: $orange-dark;
+          color: white;
+          display: inline;
+          font: {
+            size: 50px;
+            weight: lighter;
+          };
+          margin: 0;
+          line-height: 1.1;
+          text-transform: lowercase;
+        }
+
+        h3 {
+          background: $gray-darkest;
+          color: white;
+          display: inline-block;
+          font: {
+            size: 50px;
+            weight: lighter;
+          };
+          line-height: 1;
+          margin: 0.5em 0;
+          padding: 20px 20px 10px;
+          position: relative;
+          text-transform: lowercase;
+
+          &:before {
+            display: block;
+            content: "";
+          }
+
+          &:after {
+            border: {
+              color: transparent transparent transparent $gray-darkest;
+              style: solid;
+              width: 20px;
+            };
+            bottom: -20px;
+            content: " ";
+            display: block;
+            height: 0;
+            position: absolute;
+            left: 0;
+            width: 0;
+          }
+        }
+
+        h4 {
+          color: $gray-darker;
+          font: {
+            size: 16px;
+            weight: bold;
+          };
+          text-transform: uppercase;
+        }
+
+        hr {
+          border: {
+            color: $gray;
+            style: solid;
+            width: 1px 0;
+          };
+          height: 5px;
+          margin: 2em 0;
+        }
+
+        p.major {
+          font-size: 22px;
+        }
+
+        p.action {
+          text-align: center;
+
+          a {
+            @include action-button()
+          }
+        }
+      }
+
+      &.active {
+        z-index: 4;
+
+        > .image-container {
+          @include transition(top 0.67s ease-in-out);
+          top: 0;
+        }
+
+        > .description {
+          @include transition(opacity 0.67s ease-in-out);
+          opacity: 1;
+        }
+      }
+    }
+
+    // See classifier.scss for classifier-specific style overrides.
   }
 
   > footer {
@@ -106,6 +252,6 @@ html {
     left: 0;
     position: absolute;
     width: 100%;
-    z-index: 2;
+    z-index: 5;
   }
 }

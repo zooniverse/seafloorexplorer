@@ -30,14 +30,12 @@
 			</header>
 
 			<div id="main" data-controller="Main">
-				<div id="images">
-					<div id="subject">
-						<img id="subject-img" />
+				<section data-page="home">
+					<div class="image-container">
+						<img src="sample-images/UNQ.20070726.073105937.jpg" />
 					</div>
-				</div>
 
-				<div id="information">
-					<section data-page="home" class="active page">
+					<div class="description">
 						<h2>Come explore the ocean floor.</h2>
 						<h3>Habcam2</h3>
 						<h4>Lenses</h4>
@@ -47,13 +45,25 @@
 						<p class="action">
 							<a href="#dive-in">Dive in</a>
 						</p>
-					</section>
+					</div>
+				</section>
 
-					<section data-page="about" class="page">
-						<h3>About</h3>
-					</section>
+				<section data-page="about">
+					<div class="image-container">
+						<img src="sample-images/UNQ.20080731.043833900.jpg" />
+					</div>
 
-					<section id="classifier" data-page="classify" class="page">
+					<div class="description">
+						ABOUT
+					</div>
+				</section>
+
+				<section data-page="classify">
+					<div id="subject" class="image-container">
+						<img id="subject-img" />
+					</div>
+
+					<div id="classifier" class="description">
 						<header>
 							<div class="position"><span class="latitude">0</span> lat / <span class="longitude">0</span> long</div>
 							<div class="depth"><span class="meters">0</span> m</div>
@@ -101,18 +111,30 @@
 
 						<div class="summary">
 							<p>You've classified <span class="total">X</span> species!</p>
-							<p style="text-align: center;"><button class="next">Next image!</button>
+							<p style="text-align: center;"><button class="next">Next image!</button></p>
 						</div>
-					</section>
+					</div>
+				</section>
 
-					<section data-page="species" class="page">
-						<h3>Species</h3>
-					</section>
+				<section data-page="species">
+					<div class="image-container">
+						<img src="sample-images/UNQ.20080811.062244403.jpg" />
+					</div>
 
-					<section data-page="team" class="page">
-						<h3>Team</h3>
-					</section>
-				</div>
+					<div class="description">
+						SPECIES
+					</div>
+				</section>
+
+				<section data-page="team">
+					<div class="image-container">
+						<img src="sample-images/UNQ.20090626.113420984.jpg" />
+					</div>
+
+					<div class="description">
+						TEAM
+					</div>
+				</section>
 			</div>
 
 			<footer></footer>
