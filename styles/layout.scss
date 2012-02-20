@@ -32,7 +32,7 @@ html {
     left: 0;
     min-height: 90px;
     position: absolute;
-    text-shadow: 1px 1px 0 white;
+    text-shadow: 1px 1px 0 $white;
     top: 0;
     width: 100%;
     z-index: 6;
@@ -109,7 +109,7 @@ html {
 
       > .image-container {
         @include box-shadow(0 0 10px $black);
-        @include transition(top 0 linear 1s);
+        @include transition(top 0.1s linear 1s);
         background: gray;
         height: 100%;
         left: 0;
@@ -128,7 +128,7 @@ html {
           width: 100%;
 
           &[data-scroll-with] {
-            @include transition(top 1s ease-in-out);
+            @include transition(top 0.5s ease-in-out);
             z-index: 1;
 
             &.before {
@@ -148,7 +148,7 @@ html {
 
       > .description {
         @include box-sizing(border-box);
-        @include transition(opacity 0 linear 1s);
+        @include transition(opacity 0.1s linear 1s);
         background: $gray-lightest;
         color: $gray-darker;
         font-size: 14px;
@@ -166,7 +166,7 @@ html {
 
         h2 {
           background: $orange-dark;
-          color: white;
+          color: $white;
           display: inline;
           font: {
             size: 50px;
@@ -179,7 +179,7 @@ html {
 
         h3 {
           background: $gray-darkest;
-          color: white;
+          color: $white;
           display: inline-block;
           font: {
             size: 50px;
