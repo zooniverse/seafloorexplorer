@@ -7,8 +7,10 @@
 	{"http://requirejs.org/docs/release/1.0.5/comments/order.js": "scripts/lib/order.js"},
 
 	{"http://code.jquery.com/jquery-1.7.1.js": "scripts/lib/jquery.js"},
-	{"https://github.com/maccman/spine/zipball/df1b4418716e1633a6f7bbe37933ac308e8ad344": "scripts/lib/spine"},
+	{"http://spinejs.com/pages/download": "scripts/lib/spine"},
 	{"http://github.com/DmitryBaranovskiy/raphael/raw/master/raphael.js": "scripts/lib/raphael.js"},
+
+	{"https://raw.github.com/aFarkas/html5shiv/6d46e08c69/src/html5shiv.js": "styles/lib/html5shiv.js"},
 
 	{"http://www.fontsquirrel.com/fontfacekit/TitilliumText": "styles/lib/TitilliumText"}
 ]
