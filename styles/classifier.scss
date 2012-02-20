@@ -6,7 +6,8 @@
   }
 
   // TODO: What's this element in IE?
-  > svg {
+  > svg,
+  > div {
     position: absolute;
     z-index: 1;
   }
