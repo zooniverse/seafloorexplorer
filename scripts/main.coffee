@@ -9,10 +9,14 @@ Subject = require 'models/Subject'
 Pager = require 'controllers/Pager'
 NestedRoute = require 'NestedRoute'
 
+ScrollMatcher = require 'controllers/ScrollMatcher'
+
 layout = require 'layout'
 
 window.pagers = $('[data-page]').parent().map -> new Pager el: @
 NestedRoute.setup()
+
+window.scrollMatchers = $('[data-scroll-name]').parent().map -> new ScrollMatcher el : @
 
 $(window).resize layout
 $(document).ready layout

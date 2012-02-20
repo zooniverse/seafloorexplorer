@@ -101,6 +101,7 @@ html {
     > section {
       height: 100%;
       left: 0;
+      overflow: hidden;
       position: absolute;
       top: 0;
       width: 100%;
@@ -125,6 +126,23 @@ html {
           position: absolute;
           top: 0;
           width: 100%;
+
+          &[data-scroll-with] {
+            @include transition(top 1s ease-in-out);
+            z-index: 1;
+
+            &.before {
+              top: -100%;
+            }
+
+            &.active {
+              top: 0;
+            }
+
+            &.after {
+              top: 100%;
+            }
+          }
         }
       }
 
