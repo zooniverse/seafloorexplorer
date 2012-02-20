@@ -1,4 +1,4 @@
-define
+exports =
 	circle:
 		fill: '#fff'
 		r: 5

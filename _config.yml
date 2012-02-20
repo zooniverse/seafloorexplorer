@@ -1,7 +1,8 @@
 coffee:
-  root: ./scripts
+  amd: true
+  root: 'scripts'
 
 sass:
   syntax: scss
   paths:
-  - './styles'
+  - 'styles'

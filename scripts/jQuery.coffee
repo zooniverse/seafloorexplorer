@@ -1,4 +1,3 @@
-define (require) ->
-	require 'lib/order!lib/jquery'
+require 'lib/order!lib/jquery'
 
-	jQuery
+exports = jQuery
