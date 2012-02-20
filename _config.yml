@@ -1,0 +1,7 @@
+coffee:
+  root: ./scripts
+
+sass:
+  syntax: scss
+  paths:
+  - './styles'
