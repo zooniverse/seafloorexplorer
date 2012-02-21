@@ -116,7 +116,7 @@
 
 						&.active {
 							@include box-shadow(0 1px 3px rgb(110, 135, 135) inset);
-							background: rgb(184, 200, 200);
+							@include linear-gradient(rgb(184, 200, 200));
 							color: rgb(110, 135, 135);
 						}
 					}

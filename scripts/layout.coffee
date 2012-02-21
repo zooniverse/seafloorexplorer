@@ -7,19 +7,14 @@ footer = $('#wrapper > footer')
 
 headerHeight = 0.67
 
-actualHeight = ($el) ->
-	actualHeaderHeight = $el.height()
-	actualHeaderHeight += parseFloat $el.css 'borderBottomWidth'
-	actualHeaderHeight += parseFloat $el.css 'borderTopWidth'
-
 layout = ->
-	leftover = win.height() - main.height()
+	leftover = win.height() - main.outerHeight()
 
 	header.height Math.floor leftover * headerHeight
 
-	main.css top: actualHeight header
+	main.css top: header.outerHeight()
 
-	footerHeight = win.height() - (actualHeight(header) + actualHeight(main))
+	footerHeight = win.height() - (header.outerHeight() + main.outerHeight())
 
 	if footerHeight >= 0
 		footer.css 'display', ''

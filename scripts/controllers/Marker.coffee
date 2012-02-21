@@ -1,6 +1,7 @@
 Spine = require 'Spine'
 Raphael = require 'Raphael'
 
+{indexOf} = require 'util'
 style = require 'style'
 
 class Marker extends Spine.Controller
@@ -172,7 +173,7 @@ class Marker extends Spine.Controller
 	circleDrag: (dx, dy, x, y, e) =>
 		points = @marking.points().all()
 
-		i = Array::indexOf.call @circles, @overCircle
+		i = indexOf @circles, @overCircle
 		points[i].updateAttribute 'x', @startPoints[i].x + dx
 		points[i].updateAttribute 'y', @startPoints[i].y + dy
 

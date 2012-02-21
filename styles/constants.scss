@@ -28,11 +28,16 @@ $orange-darkest:  rgb(159, 61, 11);
 
 @mixin transition($value) {
   -moz-transition: $value;
+  -ms-transition: $value;
   -webkit-transition: $value;
   transition: $value;
 }
 
-@mixin linear-gradient($start: transparent, $end: transparent) {
+@mixin linear-gradient($start: transparent, $end: false) {
+  @if not $end {
+    $end: $start;
+  };
+
   background-image: -moz-linear-gradient(top, $start, $end);
   background-image: -ms-linear-gradient(top, $start, $end);
   background-image: -webkit-linear-gradient(top, $start, $end);
