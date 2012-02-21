@@ -1,8 +1,14 @@
 coffee:
   amd: true
-  root: 'scripts'
+  root: ./scripts
 
 sass:
   syntax: scss
   paths:
-  - 'styles'
+  - ./styles
+
+exclude:
+  - assets.json
+  - Gemfile
+  - Gemfile.lock
+  - README.md

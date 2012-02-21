@@ -15,7 +15,7 @@
 	</head>
 
 	<body>
-		<section id="wrapper" data-controller="App" data-curent-page="home">
+		<section id="wrapper">
 			<header>
 				<h1><a href="#"><strong>Seafloor</strong> Zoo</a></h1>
 				<nav>
@@ -29,10 +29,10 @@
 				</nav>
 			</header>
 
-			<div id="main" data-controller="Main">
-				<section data-page="home">
+			<div id="main">
+				<section data-page="home" class="active">
 					<div class="image-container">
-						<img src="sample-images/UNQ.20070726.073105937.jpg" data-scroll-with="first" />
+						<img src="sample-images/UNQ.20070726.073105937.jpg" data-scroll-with="first" class="active" />
 						<img src="sample-images/UNQ.20080731.043833900.jpg" data-scroll-with="second" />
 						<img src="sample-images/UNQ.20080811.062244403.jpg" data-scroll-with="third" />
 						<img src="sample-images/UNQ.20090626.113420984.jpg" data-scroll-with="fourth" />
@@ -91,12 +91,12 @@
 
 						<div class="steps">
 							<div class="breadcrumbs">
-								<span class="active ground-cover breadcrumb">Ground cover</span>
+								<span class="ground-cover breadcrumb">Ground cover</span>
 								<span class="divider">/</span>
 								<span class="species breadcrumb">Species</span>
 							</div>
 
-							<div class="active ground-cover step">
+							<div class="ground-cover step">
 								<ul class="ground-cover toggles">
 									<li><button value="sand" />Sand</button></li>
 									<li><button value="cobble" />Cobble</button></li>
