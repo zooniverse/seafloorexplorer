@@ -129,13 +129,13 @@ class Marker extends Spine.Controller
 
 		points = @marking.points().all()
 		for circle, i in @circles
-			circle.animate Raphael.animation
+			circle.animate
 				cx: points[i].x
 				cy: points[i].y
 				opacity: 1
 				200
 
-		@marking.trigger 'change'
+		@trigger 'activate', @
 
 	deactivate: =>
 		@active = false
@@ -149,6 +149,8 @@ class Marker extends Spine.Controller
 			200
 
 		@circles.animate toIntersection
+
+		@trigger 'deactivate', @
 
 	dragStart: =>
 		@wasActive = @active
@@ -186,13 +188,13 @@ class Marker extends Spine.Controller
 		@boundingBox.animate Raphael.animation opacity: 0, 400
 
 	destroy: =>
-		@deactivate()
+		@marking.unbind 'change'
 
 		@crossCircle.remove()
 		@circles.remove()
 		@lines.remove()
 		@boundingBox.remove()
 
-		@marking.unbind 'change'
+		@trigger 'deactivate'
 
 exports = Marker

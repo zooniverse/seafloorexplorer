@@ -7,7 +7,4 @@ exports =
 		setTimeout callback, duration
 
 	indexOf: (array, theItem) ->
-		if Array::indexOf?
-			array.indexOf(item)
-		else
-			i for anItem, i in array when anItem is theItem
+		array.indexOf?(theItem) or (i for anItem, i in array when anItem is theItem)[0]

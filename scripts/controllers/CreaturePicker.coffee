@@ -31,10 +31,10 @@ class CreaturePicker extends Spine.Controller
 	delegateEvents: =>
 		super
 		ESC = 27
-		$(document).keydown (e) => @clearStrays() if e.keyCode is ESC
+		$(document).keydown (e) => @resetStrays() if e.keyCode is ESC
 
 	changeClassification: (@classification) =>
-		marker.release() for marker in @markers or []
+		if @markers then @markers[0].release() until @markers.length is 0
 		@markers = []
 		@resetStrays()
 
@@ -84,6 +84,9 @@ class CreaturePicker extends Spine.Controller
 			marker = new Marker
 				picker: @
 				marking: marking
+
+			marker.bind 'activate deactivate', => @trigger 'changed-selection', @
+			marker.bind 'release', => @markers.splice(i, 1) for m, i in @markers when m is marker
 
 			@markers.push marker
 			marker.deactivate()
