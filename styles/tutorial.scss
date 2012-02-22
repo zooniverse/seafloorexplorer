@@ -96,3 +96,10 @@
 		}
 	}
 }
+
+.tutorial:not(.active) {
+	> .message,
+	> .underlay {
+		display: none;
+	}
+}

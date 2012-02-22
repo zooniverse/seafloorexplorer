@@ -26,7 +26,7 @@ class Tutorial extends Spine.Controller
 		@message.appendTo @el
 
 	start: =>
-		@message.add(@underlay).show()
+		@message.add(@underlay).css display: ''
 		@current = -1
 		@next()
 
@@ -39,7 +39,7 @@ class Tutorial extends Spine.Controller
 		if @steps[@current]
 			@steps[@current].enter @
 		else
-			@message.add(@underlay).hide()
+			@message.add(@underlay).css display: 'none'
 
 class Tutorial.Step
 	style: null
