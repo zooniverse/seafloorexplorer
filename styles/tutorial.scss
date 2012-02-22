@@ -1,0 +1,42 @@
+@import "constants";
+
+.tutorial {
+	> .message {
+		@include transition(#{
+			height 0.5s ease-in-out,
+			left 0.5s ease-in-out,
+			top 0.5s ease-in-out,
+			width 0.5s ease-in-out
+		});
+		background: black;
+		color: white;
+		position: absolute;
+		z-index: 2;
+	}
+
+	> .underlay {
+		@include transition(#{
+			height 0.5s ease-in-out,
+			left 0.5s ease-in-out,
+			top 0.5s ease-in-out,
+			opacity 0.5s ease-in-out,
+			width 0.5s ease-in-out
+		});
+		background: transparentize(#888, 0.5);
+		height: 0;
+		left: 50%;
+		opacity: 0;
+		position: absolute;
+		top: 50%;
+		width: 0;
+		z-index: 1;
+
+		&.modal {
+			height: 100%;
+			left: 0;
+			opacity: 1;
+			top: 0;
+			width: 100%;
+		}
+	}
+}

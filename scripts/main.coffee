@@ -46,4 +46,12 @@ window.classifier = new Classifier
 		el: $('#subject')
 	subject: Subject.first()
 
+Tutorial = require 'controllers/Tutorial'
+tutSteps = require 'tutorial-steps'
+window.tutorial = new Tutorial
+	el: $('section[data-page="classify"]')
+	steps: tutSteps
+
+unless loggedInUserAlreadyDidTheTutorial? then tutorial.start()
+
 exports = window.classifier
