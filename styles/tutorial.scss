@@ -2,30 +2,79 @@
 
 .tutorial {
 	> .message {
-		@include border-radius(5px);
 		@include transition(#{
 			background 0.5s ease-in-out,
 			height 0.5s ease-in-out,
-			left 0.5s ease-in-out,
-			top 0.5s ease-in-out,
+			left 0.5s ease-in,
+			top 0.5s ease-out,
 			width 0.5s ease-in-out
 		});
 		background: $blue-dark;
 		color: white;
-		padding: 20px;
+		padding: 3px 20px;
 		position: absolute;
+		text-shadow: 0 1px $blue-dark;
 		z-index: 2;
 
 		&.modal {
 			background: transparentize($blue, 1);
 		}
+
+		&:after {
+			@include transition(border-color 1s ease-in-out);
+			border: 0 solid transparent {
+				width: 15px 15px;
+			};
+			content: " ";
+			margin: 0 -15px;
+			position: absolute;
+		}
+
+		&.top:after {
+			border-top-color: $blue-dark;
+			top: 0;
+		}
+
+		&.bottom:after {
+			border-bottom-color: $blue-dark;
+			bottom: 0;
+		}
+
+		&.left:after {
+			left: 0;
+		}
+
+		&.right:after {
+			right: 0;
+		}
+
+		> .continue {
+			border-top: 1px solid $blue-dark;
+			padding-top: 10px;
+			text-align: right;
+
+			> button {
+				@include linear-gradient($blue, $blue-dark);
+				border: 1px solid $blue-dark {
+					radius: 15px;
+				};
+				color: $white;
+				cursor: pointer;
+				font: {
+					family: inherit;
+					size: inherit;
+				};
+				margin: 0;
+				padding: 5px 15px 2px;
+			}
+		}
 	}
 
 	> .underlay {
 		@include transition(#{
-			height 0.5s ease-in-out,
+			height 0.25s ease-in-out,
 			left 0.5s ease-in-out,
-			top 0.5s ease-in-out,
+			top 0.25s ease-in-out,
 			opacity 0.5s ease-in-out,
 			width 0.5s ease-in-out
 		});

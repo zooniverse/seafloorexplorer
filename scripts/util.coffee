@@ -11,7 +11,7 @@ exports =
 	indexOf: (array, theItem) ->
 		array.indexOf?(theItem) or (i for anItem, i in array when anItem is theItem)[0]
 
-	translate: (term, wrap = 'p') ->
+	translate: (term, wrap = 'p', className = '') ->
 		container = $("<div></div>")
 
 		languages = translations[term]
@@ -21,4 +21,4 @@ exports =
 			for part in parts
 				container.append "<#{wrap} lang=\"#{language}\">#{part}</#{wrap}>"
 
-		container.children()
+		container.children().addClass className

@@ -1,5 +1,6 @@
 Spine = require 'Spine'
 $ = require 'jQuery'
+{delay, translate} = require 'util'
 
 class Tutorial extends Spine.Controller
 	steps: null
@@ -25,6 +26,7 @@ class Tutorial extends Spine.Controller
 		@message.appendTo @el
 
 	start: =>
+		@message.add(@underlay).show()
 		@current = -1
 		@next()
 
@@ -37,7 +39,7 @@ class Tutorial extends Spine.Controller
 		if @steps[@current]
 			@steps[@current].enter @
 		else
-			@message.add(@underlay).remove()
+			@message.add(@underlay).hide()
 
 class Tutorial.Step
 	style: null
@@ -46,6 +48,8 @@ class Tutorial.Step
 	content: ''
 	modal: false
 	nextOn: null
+
+	continueParagraph: null
 
 	constructor: (params) ->
 		@[param] = value for param, value of params
@@ -58,11 +62,15 @@ class Tutorial.Step
 		if @nextOn
 			$(window).on event, selector, tutorial.next for event, selector of @nextOn
 		else
-			tutorial.message.on 'click', tutorial.next
+			buttonsHolder = $('<div class="continue"></div>')
+			continueButtons = translate 'tutorialContinue', 'button'
+			buttonsHolder.append continueButtons
+			tutorial.message.append buttonsHolder
+			tutorial.message.on 'click', '.continue button', tutorial.next
 
 		tutorial.message.css @style
-		both.addClass @className
 		if @modal then both.addClass 'modal'
+		delay 333, => both.addClass @className
 
 	leave: (tutorial) =>
 		both = tutorial.message.add tutorial.underlay
@@ -72,10 +80,10 @@ class Tutorial.Step
 		if @nextOn
 			$(window).off event, selector, tutorial.next for event, selector of @nextOn
 		else
-			tutorial.message.off 'click', tutorial.next
+			tutorial.message.off 'click', '.continue button', tutorial.next
 
 		tutorial.message.css prop: '' for prop of @style
-		both.removeClass @className
 		both.removeClass 'modal'
+		both.removeClass @className
 
 exports = Tutorial

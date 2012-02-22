@@ -4,96 +4,105 @@
 exports = [
 	new Step
 		style: left: 170, top: 200, width: 400, height: 'auto'
-		content: translate 'tutorialStep0'
+		content: translate 'tutorialWelcome'
 		modal: true
 
 	new Step
-		style: left: 550, top: 240, width: 270, height: 'auto'
-		content: translate 'tutorialStep1'
+		style: left: 400, top: 160, width: 340, height: 'auto'
+		className: 'top right'
+		content: translate 'tutorialGroundCover'
 		nextOn: click: '.ground-cover.toggles button'
 
 	new Step
-		style: left: 550, top: 390, width: 300, height: 'auto'
-		content: translate 'tutorialStep2'
+		style: left: 400, top: 350, width: 340, height: 'auto'
+		className: 'bottom right'
+		content: translate 'tutorialGroundCoverFinished'
 		nextOn: click: '.ground-cover .finished'
 
 	new Step
-		style: left: 550, top: 180, width: 270, height: 'auto'
-		content: translate 'tutorialStep3'
+		style: left: 320, top: 200, width: 420, height: 'auto'
+		className: 'top right'
+		content: translate 'tutorialFish'
 		nextOn: 'click': '.species.toggles button[value="fish"]'
 
 	new Step
-		style: left: 450, top: 250, width: 150, height: 'auto'
-		content: translate 'tutorialStep4'
-		modal: true
-
-	new Step
-		style: left: 230, top: 360, width: 250, height: 'auto'
-		content: translate 'tutorialStep5'
+		style: left: 260, top: 280, width: 330, height: 'auto'
+		className: 'bottom left'
+		content: translate 'tutorialFishHead'
 		nextOn: 'click': '#subject'
 
 	new Step
-		style: left: 510, top: 220, width: 220, height: 'auto'
-		content: translate 'tutorialStep6'
+		style: left: 370, top: 250, width: 310, height: 'auto'
+		className: 'top right'
+		content: translate 'tutorialFishTail'
 		nextOn: 'click': '#subject'
 
 	new Step
-		style: left: 260, top: 40, width: 230, height: 'auto'
-		content: translate 'tutorialStep7'
+		style: left: 130, top: 20, width: 220, height: 'auto'
+		className: 'top right'
+		content: translate 'tutorialFishLeft'
 		nextOn: 'click': '#subject'
 
 	new Step
-		style: left: 450, top: 480, width: 180, height: 'auto'
-		content: translate 'tutorialStep8'
+		style: left: 220, top: 510, width: 270, height: 'auto'
+		className: 'bottom right'
+		content: translate 'tutorialFishRight'
 		nextOn: 'click': '#subject'
 
 	new Step
-		style: left: 610, top: 130, width: 200, height: 'auto'
-		content: translate 'tutorialStep9'
+		style: left: 420, top: 160, width: 320, height: 'auto'
+		className: 'top right'
+		content: translate 'tutorialSeastar'
 		nextOn: click: '.species.toggles button[value="seastar"]'
 
 	new Step
-		style: left: 100, top: 110, width: 200, height: 'auto'
-		content: translate 'tutorialStep10'
+		style: left: 190, top: 130, width: 390, height: 'auto'
+		content: translate 'tutorialSeastarExplanation'
 		modal: true
 
 	new Step
-		style: left: 100, top: 110, width: 200, height: 'auto'
-		content: translate 'tutorialStep11'
+		style: left: 190, top: 130, width: 210, height: 'auto'
+		className: 'bottom left'
+		content: translate 'tutorialSeastar1'
 		nextOn: 'click': '#subject'
 
 	new Step
-		style: left: 120, top: 120, width: 200, height: 'auto'
-		content: translate 'tutorialStep12'
+		style: left: 240, top: 150, width: 210, height: 'auto'
+		className: 'bottom left'
+		content: translate 'tutorialSeastar2'
 		nextOn: 'click': '#subject'
 
 	new Step
-		style: left: 130, top: 140, width: 200, height: 'auto'
-		content: translate 'tutorialStep13'
+		style: left: 240, top: 220, width: 210, height: 'auto'
+		className: 'bottom left'
+		content: translate 'tutorialSeastar3'
 		nextOn: 'click': '#subject'
 
 	new Step
-		style: left: 130, top: 140, width: 200, height: 'auto'
-		content: translate 'tutorialStep14'
+		style: left: 160, top: 230, width: 210, height: 'auto'
+		className: 'bottom left'
+		content: translate 'tutorialSeastar4'
 		nextOn: 'click': '#subject'
 
 	new Step
-		style: left: 110, top: 120, width: 200, height: 'auto'
-		content: translate 'tutorialStep15'
+		style: left: 130, top: 180, width: 210, height: 'auto'
+		className: 'bottom left'
+		content: translate 'tutorialSeastar5'
 		nextOn: 'click': '#subject'
 
 	new Step
-		style: left: 130, top: 110, width: 230, height: 'auto'
-		content: translate 'tutorialStep16'
+		style: left: 130, top: 180, width: 360, height: 'auto'
+		content: translate 'tutorialSeastarExtraLegs'
 		modal: true
 
 	new Step
-		style: left: 560, top: 370, width: 260, height: 'auto'
-		content: translate 'tutorialStep17'
+		style: left: 260, top: 400, width: 480, height: 'auto'
+		className: 'top right'
+		content: translate 'tutorialSpeciesFinished'
 		nextOn: click: '.species .finished'
 
 	new Step
-		style: left: 840, top: 270, width: 210, height: 'auto'
-		content: translate 'tutorialStep18'
+		style: left: 260, top: 400, width: 390, height: 'auto'
+		content: translate 'tutorialComplete'
 		modal: true
 ]
