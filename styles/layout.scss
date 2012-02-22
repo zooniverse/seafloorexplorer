@@ -133,7 +133,6 @@ html {
 
           &[data-scroll-with] {
             @include transition(top 0.5s ease-in-out);
-            z-index: 1;
 
             &.before {
               top: -100%;
@@ -141,6 +140,7 @@ html {
 
             &.active {
               top: 0;
+              z-index: 1;
             }
 
             &.after {
