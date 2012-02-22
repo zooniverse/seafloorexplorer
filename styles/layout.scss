@@ -16,6 +16,10 @@ html {
     position: absolute;
     width: 100%;
   }
+
+  &.pre-load * {
+    @include transition(all 0 linear !important);
+  }
 }
 
 #wrapper {

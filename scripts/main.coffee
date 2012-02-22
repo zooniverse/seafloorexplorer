@@ -1,5 +1,7 @@
 $ = require 'jQuery'
 
+$('html').addClass 'pre-load' # Prevent animation while the page is set up.
+
 Pager = require 'controllers/Pager'
 window.pagers = (new Pager el: parent for parent in $('[data-page]').parent())
 
@@ -53,5 +55,8 @@ window.tutorial = new Tutorial
 	steps: tutSteps
 
 unless loggedInUserAlreadyDidTheTutorial? then tutorial.start()
+
+{delay} = require 'util'
+delay -> $('html').removeClass 'pre-load'
 
 exports = window.classifier
