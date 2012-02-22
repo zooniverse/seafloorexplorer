@@ -60,7 +60,7 @@ class Tutorial.Step
 		tutorial.message.html @content
 
 		if @nextOn
-			$(window).on event, selector, tutorial.next for event, selector of @nextOn
+			$(document).on event, selector, tutorial.next for event, selector of @nextOn
 		else
 			buttonsHolder = $('<div class="continue"></div>')
 			continueButtons = translate 'tutorialContinue', 'button'
@@ -78,7 +78,7 @@ class Tutorial.Step
 		tutorial.message.html ''
 
 		if @nextOn
-			$(window).off event, selector, tutorial.next for event, selector of @nextOn
+			$(document).off event, selector, tutorial.next for event, selector of @nextOn
 		else
 			tutorial.message.off 'click', '.continue button', tutorial.next
 
