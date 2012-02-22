@@ -110,12 +110,12 @@ html {
       > .image-container {
         @include box-shadow(0 0 10px $black);
         @include transition(top 0.1s linear 1s);
-        background: gray;
+        background: $gray;
         height: 100%;
         left: 0;
         overflow: hidden;
         position: absolute;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-tap-highlight-color: transparent;
         top: 100%;
         width: 759px;
         z-index: 1;

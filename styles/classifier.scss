@@ -14,7 +14,7 @@
 }
 
 #wrapper > #main > section > #classifier {
-	@include linear-gradient(rgb(55, 67, 77), rgb(36, 48, 57));
+	@include linear-gradient($blue, $blue-dark);
 	@include box-shadow(0 0 10px $black inset);
 	color: $white;
 	padding: 0;
@@ -115,9 +115,9 @@
 						}
 
 						&.active {
-							@include box-shadow(0 1px 3px rgb(110, 135, 135) inset);
-							@include linear-gradient(rgb(184, 200, 200));
-							color: rgb(110, 135, 135);
+							@include box-shadow(0 1px 3px $blue-lighter inset);
+							@include linear-gradient($blue-lightest);
+							color: $blue-lighter;
 						}
 					}
 				}

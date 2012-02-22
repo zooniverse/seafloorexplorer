@@ -8,12 +8,23 @@ $gray-dark:       rgb(158, 174, 174);
 $gray-darker:     rgb(88, 104, 116);
 $gray-darkest:    rgb(40, 54, 65);
 
+$blue:            rgb(55, 67, 77);
+$blue-dark:       rgb(36, 48, 57);
+$blue-lighter:    rgb(110, 135, 135);
+$blue-lightest:   rgb(184, 200, 200);
+
 $orange-lightest: rgb(237, 163, 69);
 $orange:          rgb(232, 135, 13);
 $orange-dark:     rgb(224, 88, 18);
 $orange-darkest:  rgb(159, 61, 11);
 
 // Cross-broswer:
+
+@mixin border-radius($value: 0px) {
+  -moz-border-radius: $value;
+  -webkit-border-radius: $value;
+  border-radius: $value;
+}
 
 @mixin box-shadow($value: 0 0 transparent) {
   -webkit-box-shadow: $value;

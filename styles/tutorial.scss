@@ -2,16 +2,23 @@
 
 .tutorial {
 	> .message {
+		@include border-radius(5px);
 		@include transition(#{
+			background 0.5s ease-in-out,
 			height 0.5s ease-in-out,
 			left 0.5s ease-in-out,
 			top 0.5s ease-in-out,
 			width 0.5s ease-in-out
 		});
-		background: black;
+		background: $blue-dark;
 		color: white;
+		padding: 20px;
 		position: absolute;
 		z-index: 2;
+
+		&.modal {
+			background: transparentize($blue, 1);
+		}
 	}
 
 	> .underlay {
@@ -22,7 +29,7 @@
 			opacity 0.5s ease-in-out,
 			width 0.5s ease-in-out
 		});
-		background: transparentize(#888, 0.5);
+		background: transparentize($blue, 0.5);
 		height: 0;
 		left: 50%;
 		opacity: 0;
