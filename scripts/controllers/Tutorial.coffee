@@ -44,7 +44,6 @@ class Tutorial extends Spine.Controller
 class Tutorial.Step
 	style: null
 	className: ''
-	arrows: '' # "{top|right|bottom|left}-{top|right|bottom|left}"
 	content: ''
 	modal: false
 	nextOn: null

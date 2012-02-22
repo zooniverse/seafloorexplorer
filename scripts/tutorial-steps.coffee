@@ -14,7 +14,7 @@ exports = [
 		nextOn: click: '.ground-cover.toggles button'
 
 	new Step
-		style: left: 400, top: 350, width: 340, height: 'auto'
+		style: left: 400, top: 340, width: 340, height: 'auto'
 		className: 'bottom right'
 		content: translate 'tutorialGroundCoverFinished'
 		nextOn: click: '.ground-cover .finished'
