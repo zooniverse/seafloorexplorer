@@ -113,6 +113,8 @@ class Classifier extends Spine.Controller
 		@steps.addClass 'finished'
 
 	nextSubject: =>
+		@classification.save()
+
 		nextSubject = Subject.next()
 
 		if nextSubject
