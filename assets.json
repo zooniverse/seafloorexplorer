@@ -10,7 +10,7 @@
 	{"http://spinejs.com/pages/download": "scripts/lib/spine"},
 	{"http://github.com/DmitryBaranovskiy/raphael/raw/master/raphael.js": "scripts/lib/raphael.js"},
 
-	{"https://raw.github.com/aFarkas/html5shiv/6d46e08c69/src/html5shiv.js": "styles/lib/html5shiv.js"},
+	{"https://raw.github.com/aFarkas/html5shiv/6d46e08c69/src/html5shiv.js": "scripts/lib/html5shiv.js"},
 
 	{"http://www.fontsquirrel.com/fontfacekit/TitilliumText": "styles/lib/TitilliumText"}
 ]

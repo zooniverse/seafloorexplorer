@@ -1,11 +1,16 @@
 coffee:
   amd: true
-  root: ./scripts
+  paths:
+  - ./scripts
+  exclude:
+  - ./scripts/lib
 
 sass:
   syntax: scss
   paths:
   - ./styles
+  exclude:
+  - ./styles/lib
 
 exclude:
   - assets.json
