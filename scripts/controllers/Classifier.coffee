@@ -34,7 +34,7 @@ class Classifier extends Spine.Controller
 	constructor: ->
 		super
 		@changeSubject @subject
-		@picker.bind 'changed-selection', @render
+		@picker.bind 'change-selection', @render
 
 	changeSubject: (@subject) =>
 		@steps.removeClass 'finished'
@@ -56,15 +56,15 @@ class Classifier extends Spine.Controller
 		@classification.trigger 'change'
 
 	render: =>
-		activeMarker = (m for m in @picker.markers when m.active)[0]
+		selectedMarker = (m for m in @picker.markers when m.selected)[0]
 
 		@groundCoverButtons.removeClass 'active'
 		@groundCoverButtons.filter("[value='#{@classification.groundCover}']").addClass 'active'
 		@groundCoverFinishedButton.attr 'disabled', not @classification.groundCover
 
-		if activeMarker
+		if selectedMarker
 			@speciesButtons.removeClass 'active'
-			@speciesButtons.filter("[value='#{activeMarker.marking.species}']").addClass 'active'
+			@speciesButtons.filter("[value='#{selectedMarker.marking.species}']").addClass 'active'
 
 		@speciesButtons.find('.count').html '0'
 		for marking in @classification.markings().all()
@@ -72,7 +72,7 @@ class Classifier extends Spine.Controller
 			countElement = button.find '.count'
 			countElement.html parseInt(countElement.html(), 10) + 1
 
-		@deleteButton.attr 'disabled', not activeMarker
+		@deleteButton.attr 'disabled', not selectedMarker
 
 		@total.html @classification.markings().all().length
 
@@ -97,7 +97,7 @@ class Classifier extends Spine.Controller
 		target.addClass 'active'
 
 	deleteSelected: =>
-		index = i for marking, i in @picker.markers when marking.active
+		index = i for marking, i in @picker.markers when marking.selected
 		@picker.markers[index].marking.destroy()
 
 	finishSpecies: =>
