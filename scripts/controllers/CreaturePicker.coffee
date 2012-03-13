@@ -34,8 +34,10 @@ class CreaturePicker extends Spine.Controller
 	ESC = 27
 	delegateEvents: =>
 		super
+
 		$(document).on 'mousemove', @onMouseMove
 		$(document).on 'mouseup', @onMouseUp
+
 		$(document).on 'keydown', (e) =>
 			@resetStrays() if e.keyCode is ESC
 
@@ -43,7 +45,7 @@ class CreaturePicker extends Spine.Controller
 		return if @disabled or e.target isnt @paper.canvas
 		@mouseDown = e
 
-		marker.deselect() for marker in @markers when marker.selected
+		m.deselect() for m in @markers when m.selected
 
 		{left, top} = @el.offset()
 		circle = @paper.circle e.pageX - left, e.pageY - top
@@ -59,8 +61,15 @@ class CreaturePicker extends Spine.Controller
 			marker = @createAxesMarker()
 
 		if marker?
-			marker.bind 'select deselect', => @trigger 'change-selection'
-			marker.bind 'release', => @markers.splice(i, 1) for m, i in @markers when m is marker
+			marker.bind 'select', (marker) =>
+				m.deselect() for m in @markers when m isnt marker
+				@trigger 'change-selection'
+
+			marker.bind 'deselect', =>
+				@trigger 'change-selection'
+
+			marker.bind 'release', =>
+				@markers.splice(i, 1) for m, i in @markers when m is marker
 
 			@markers.push marker
 			marker.deselect()

@@ -117,7 +117,6 @@ class AxesMarker extends Marker
 		@boundingBox.animate opacity: 0, 250
 
 	crossDrag: (dx, dy) =>
-		@log 'Cross drag'
 		@moved = true
 
 		for point, i in @marking.points().all()
@@ -127,7 +126,6 @@ class AxesMarker extends Marker
 		@marking.trigger 'change'
 
 	circleDrag: (dx, dy) =>
-		@log 'Circle drag'
 		@moved = true
 
 		points = @marking.points().all()

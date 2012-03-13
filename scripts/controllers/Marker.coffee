@@ -19,11 +19,11 @@ class Marker extends Spine.Controller
 
 	select: =>
 		@selected = true
-		@trigger 'select'
+		@trigger 'select', @
 
 	deselect: =>
 		@selected = false
-		@trigger 'deselect'
+		@trigger 'deselect', @
 
 	dragStart: =>
 		@startPoints = ({x: point.x, y: point.y} for point in @marking.points().all())
