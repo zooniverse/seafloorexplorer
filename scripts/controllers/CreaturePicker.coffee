@@ -52,30 +52,30 @@ class CreaturePicker extends Spine.Controller
 		circle.attr style.circle
 		@strayCircles.push circle
 
-		if @strayCircles.length is 2
-			if @selectedSpecies is 'seastar'
-				marker = @createCircleMarker()
-			else
-				@createAxis()
-		else if @strayCircles.length is 4
-			marker = @createAxesMarker()
-
-		if marker?
-			marker.bind 'select', (marker) =>
-				m.deselect() for m in @markers when m isnt marker
-				@trigger 'change-selection'
-
-			marker.bind 'deselect', =>
-				@trigger 'change-selection'
-
-			marker.bind 'release', =>
-				@markers.splice(i, 1) for m, i in @markers when m is marker
-
-			@markers.push marker
-			marker.deselect()
-
+	mouseMoves: 0
+	mouseCircle: null
+	mouseLine: null
 	onMouseMove: (e) =>
 		return unless @mouseDown and not @disabled
+		@mouseMoves += 1
+		return unless @mouseMoves > 10
+
+		unless @mouseCircle
+			@mouseCircle = @paper.circle()
+			@mouseCircle.attr style.circle
+			@strayCircles.push @mouseCircle
+
+		unless @mouseLine
+			@mouseLine = @paper.path()
+			@mouseLine.attr style.boundingBox
+
+		{left, top} = @el.offset()
+		@mouseCircle.attr
+			cx: e.pageX - left
+			cy: e.pageY - top
+
+		@mouseLine.attr
+			path: Marker::lineBetween @strayCircles[@strayCircles.length - 2], @mouseCircle
 
 	createCircleMarker: (x, y) =>
 		marking = @createMarking()
@@ -112,7 +112,37 @@ class CreaturePicker extends Spine.Controller
 		marking
 
 	onMouseUp: (e) =>
-		return if @disabled
+		return unless @mouseDown and not @disabled
+		@mouseMoves = 0
+		delete @mouseDown
+		delete @mouseCircle
+
+		@mouseLine?.remove()
+		delete @mouseLine
+
+		if @strayCircles.length is 2
+			if @selectedSpecies is 'seastar'
+				marker = @createCircleMarker()
+			else
+				@createAxis()
+		else if @strayCircles.length is 4
+			marker = @createAxesMarker()
+		else if @strayCircles.length > 4
+			@resetStrays() # Something has gone horribly wrong.
+
+		if marker?
+			marker.bind 'select', (marker) =>
+				m.deselect() for m in @markers when m isnt marker
+				@trigger 'change-selection'
+
+			marker.bind 'deselect', =>
+				@trigger 'change-selection'
+
+			marker.bind 'release', =>
+				@markers.splice(i, 1) for m, i in @markers when m is marker
+
+			@markers.push marker
+			marker.deselect()
 
 	setDisabled: (@disabled) =>
 		if @disabled then marker.deactivate() for marker in @markers or [] when marker.active
