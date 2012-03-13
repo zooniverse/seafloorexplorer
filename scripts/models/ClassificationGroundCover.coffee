@@ -6,7 +6,6 @@ Spine = require 'Spine'
 
 class ClassificationGroundCover extends Spine.Model
 	@configure 'ClassificationGroundCover'
-
 	@extend Spine.Model.Local
 
 exports = ClassificationGroundCover

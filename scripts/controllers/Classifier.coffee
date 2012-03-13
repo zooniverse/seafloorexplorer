@@ -56,7 +56,6 @@ class Classifier extends Spine.Controller
 		@picker.img.attr 'src', @subject.image
 
 		@classification = @subject.classifications().create {}
-		console.log 'New classification', @classification, @classification.id
 		@picker.changeClassification @classification
 
 		@classification.bind 'change', @render
@@ -65,7 +64,12 @@ class Classifier extends Spine.Controller
 	render: =>
 		for button in @groundCoverList.find 'button'
 			button = $(button)
-			if @classification.groundCovers().findByAttribute 'ground_cover_id', button.val()
+
+			# Is .groundCovers().findByAttribute broken?
+			groundCovers = @classification.groundCovers().all()
+			groundCover = (gc for gc in groundCovers when gc.ground_cover_id is button.val())[0]
+
+			if groundCover
 				button.addClass 'active'
 			else
 				button.removeClass 'active'
@@ -90,13 +94,13 @@ class Classifier extends Spine.Controller
 	toggleGroundCover: (e) =>
 		target = $(e.target)
 
-		groundCovers = @classification.groundCovers()
-		groundCover = groundCovers.findByAttribute 'ground_cover_id', target.val()
+		groundCovers = @classification.groundCovers().all()
+		groundCover = (gc for gc in groundCovers when gc.ground_cover_id is target.val())[0]
 
 		if groundCover
 			groundCover.destroy()
 		else
-			groundCovers.create groundCover: GroundCover.find target.val()
+			@classification.groundCovers().create ground_cover_id: target.val()
 
 		@classification.trigger 'change'
 

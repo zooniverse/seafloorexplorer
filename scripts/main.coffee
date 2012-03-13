@@ -58,6 +58,7 @@ window.tutorial = new Tutorial
 	el: $('section[data-page="classify"]')
 	steps: tutSteps
 
+loggedInUserAlreadyDidTheTutorial = true
 unless loggedInUserAlreadyDidTheTutorial? then tutorial.start()
 
 {delay} = require 'util'
