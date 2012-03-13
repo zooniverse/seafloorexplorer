@@ -18,6 +18,10 @@ $(document).ready layout
 # Prevent scrolling the page on iPads.
 $(document).on 'touchmove', (e) -> e.preventDefault()
 
+GroundCover = require 'models/GroundCover'
+for description in ['Sand', 'Cobble', 'Boulder', 'Gravel', 'Shell hash', 'Can\'t tell']
+	GroundCover.create description: description
+
 # From http://habcam.whoi.edu/habcam2.html
 sampleImages = [
 	'sample-images/UNQ.20060928.010920609.jpg'

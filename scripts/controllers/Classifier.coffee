@@ -2,6 +2,7 @@ Spine = require 'Spine'
 $ = require 'jQuery'
 
 Subject = require 'models/Subject'
+GroundCover = require 'models/GroundCover'
 
 class Classifier extends Spine.Controller
 	subject: null
@@ -15,7 +16,7 @@ class Classifier extends Spine.Controller
 		'.depth > .meters': 'depth'
 		'.steps': 'steps'
 		'.ground-cover.step': 'groundCoverStep'
-		'.ground-cover.toggles button': 'groundCoverButtons'
+		'.ground-cover.toggles': 'groundCoverList'
 		'.ground-cover .finished': 'groundCoverFinishedButton'
 		'.species.step': 'speciesStep'
 		'.species.toggles button': 'speciesButtons'
@@ -24,7 +25,7 @@ class Classifier extends Spine.Controller
 		'.summary .total': 'total'
 
 	events:
-		'click .ground-cover.toggles button': 'changeGroundCover'
+		'click .ground-cover.toggles button': 'toggleGroundCover'
 		'click .ground-cover .finished': 'finishGroundCover'
 		'click .species.toggles button': 'changeSpecies'
 		'click .species .delete': 'deleteSelected'
@@ -35,6 +36,12 @@ class Classifier extends Spine.Controller
 		super
 		@changeSubject @subject
 		@picker.bind 'change-selection', @render
+		for groundCover in GroundCover.all()
+			@groundCoverList.append """
+				<li>
+					<button value="#{groundCover.id}">#{groundCover.description}</button>
+				</li>
+			"""
 
 	changeSubject: (@subject) =>
 		@steps.removeClass 'finished'
@@ -56,12 +63,16 @@ class Classifier extends Spine.Controller
 		@classification.trigger 'change'
 
 	render: =>
+		for button in @groundCoverList.find 'button'
+			button = $(button)
+			if @classification.groundCovers().findByAttribute 'ground_cover_id', button.val()
+				button.addClass 'active'
+			else
+				button.removeClass 'active'
+
+		@groundCoverFinishedButton.attr 'disabled', @classification.groundCovers().all().length is 0
+
 		selectedMarker = (m for m in @picker.markers when m.selected)[0]
-
-		@groundCoverButtons.removeClass 'active'
-		@groundCoverButtons.filter("[value='#{@classification.groundCover}']").addClass 'active'
-		@groundCoverFinishedButton.attr 'disabled', not @classification.groundCover
-
 		if selectedMarker
 			@speciesButtons.removeClass 'active'
 			@speciesButtons.filter("[value='#{selectedMarker.marking.species}']").addClass 'active'
@@ -76,8 +87,18 @@ class Classifier extends Spine.Controller
 
 		@total.html @classification.markings().all().length
 
-	changeGroundCover: (e) =>
-		@classification.updateAttribute 'groundCover', e.target.value
+	toggleGroundCover: (e) =>
+		target = $(e.target)
+
+		groundCovers = @classification.groundCovers()
+		groundCover = groundCovers.findByAttribute 'ground_cover_id', target.val()
+
+		if groundCover
+			groundCover.destroy()
+		else
+			groundCovers.create groundCover: GroundCover.find target.val()
+
+		@classification.trigger 'change'
 
 	finishGroundCover: =>
 		@groundCoverStep.addClass 'finished'
