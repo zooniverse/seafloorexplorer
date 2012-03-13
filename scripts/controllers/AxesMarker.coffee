@@ -23,6 +23,7 @@ class AxesMarker extends Marker
 		points = @marking.points().all()
 
 		@circles = @paper.set(@paper.circle() for p in points)
+		@circles.toBack()
 		@circles.attr style.circle
 
 		@setupCircleHover()
