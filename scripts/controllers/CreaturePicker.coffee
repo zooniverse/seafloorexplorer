@@ -13,7 +13,7 @@ class CreaturePicker extends Spine.Controller
 	paper: null
 
 	strayCircles: null
-	strayLines: null
+	strayAxes: null
 
 	markers: null
 
@@ -41,53 +41,68 @@ class CreaturePicker extends Spine.Controller
 		$(document).on 'keydown', (e) =>
 			@resetStrays() if e.keyCode is ESC
 
+	mouseIsDown: false
 	onMouseDown: (e) =>
 		return if @disabled or e.target isnt @paper.canvas
-		@mouseDown = e
+
+		@mouseIsDown = true
 
 		m.deselect() for m in @markers when m.selected
 
 		{left, top} = @el.offset()
-		circle = @paper.circle e.pageX - left, e.pageY - top
+		@createStrayCircle e.pageX - left, e.pageY - top
+
+		@checkStrays()
+
+	createStrayCircle: (cx, cy) =>
+		circle = @paper.circle cx, cy
 		circle.attr style.circle
 		@strayCircles.push circle
+		circle
 
-	mouseMoves: 0
-	mouseCircle: null
-	mouseLine: null
+	createStrayAxis: =>
+		strayCircle1 = @strayCircles[@strayCircles.length - 2]
+		strayCircle2 = @strayCircles[@strayCircles.length - 1]
+
+		line = @paper.path Marker::lineBetween strayCircle1, strayCircle2
+		line.toBack()
+		line.attr style.boundingBox
+		@strayAxes.push line
+
+		line
+
+	movementCircle: null
+	movementAxis: null
 	onMouseMove: (e) =>
-		return unless @mouseDown and not @disabled
-		@mouseMoves += 1
-		return unless @mouseMoves > 10
+		return unless @mouseIsDown and not @disabled
+		return if @strayCircles.length % 2 is 0 and not @movementCircle
 
-		unless @mouseCircle
-			@mouseCircle = @paper.circle()
-			@mouseCircle.attr style.circle
-			@strayCircles.push @mouseCircle
-
-		unless @mouseLine
-			@mouseLine = @paper.path()
-			@mouseLine.attr style.boundingBox
+		@movementCircle = @createStrayCircle() unless @movementCircle?
+		@movementAxis = @createStrayAxis() unless @movementAxis?
 
 		{left, top} = @el.offset()
-		@mouseCircle.attr
+		@movementCircle.attr
 			cx: e.pageX - left
 			cy: e.pageY - top
 
-		@mouseLine.attr
-			path: Marker::lineBetween @strayCircles[@strayCircles.length - 2], @mouseCircle
+		secondLastCircle = @strayCircles[@strayCircles.length - 2]
+		@movementAxis.attr
+			path: Marker::lineBetween secondLastCircle, @movementCircle
+
+	onMouseUp: (e) =>
+		return unless @mouseIsDown and not @disabled
+		@mouseIsDown = false
+
+		delete @movementCircle
+		delete @movementAxis
+
+		@checkStrays()
 
 	createCircleMarker: (x, y) =>
 		marking = @createMarking()
 		marker = new CircleMarker
 			marking: marking
 			paper: @paper
-
-	createAxis: =>
-			line = @paper.path Marker::lineBetween @strayCircles[0], @strayCircles[1]
-			line.toBack()
-			line.attr style.boundingBox
-			@strayLines.push line
 
 	createAxesMarker: =>
 		marking = @createMarking()
@@ -107,30 +122,22 @@ class CreaturePicker extends Spine.Controller
 				y: circle.attr 'cy'
 
 		@classification.trigger 'change'
-		@resetStrays()
 
 		marking
 
-	onMouseUp: (e) =>
-		return unless @mouseDown and not @disabled
-		@mouseMoves = 0
-		delete @mouseDown
-		delete @mouseCircle
-
-		@mouseLine?.remove()
-		delete @mouseLine
-
+	checkStrays: =>
 		if @strayCircles.length is 2
 			if @selectedSpecies is 'seastar'
 				marker = @createCircleMarker()
-			else
-				@createAxis()
+			else if @strayAxes.length is 0
+				@createStrayAxis()
 		else if @strayCircles.length is 4
 			marker = @createAxesMarker()
-		else if @strayCircles.length > 4
-			@resetStrays() # Something has gone horribly wrong.
 
 		if marker?
+			@markers.push marker
+			marker.deselect()
+
 			marker.bind 'select', (marker) =>
 				m.deselect() for m in @markers when m isnt marker
 				@trigger 'change-selection'
@@ -141,8 +148,7 @@ class CreaturePicker extends Spine.Controller
 			marker.bind 'release', =>
 				@markers.splice(i, 1) for m, i in @markers when m is marker
 
-			@markers.push marker
-			marker.deselect()
+			@resetStrays()
 
 	setDisabled: (@disabled) =>
 		if @disabled then marker.deactivate() for marker in @markers or [] when marker.active
@@ -157,7 +163,7 @@ class CreaturePicker extends Spine.Controller
 		@strayCircles?.remove()
 		@strayCircles = @paper.set()
 
-		@strayLines?.remove()
-		@strayLines = @paper.set()
+		@strayAxes?.remove()
+		@strayAxes = @paper.set()
 
 exports = CreaturePicker
