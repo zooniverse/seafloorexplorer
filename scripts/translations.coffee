@@ -1,20 +1,21 @@
 exports =
 	tutorialContinue:
 		en: 'Continue'
-		de: 'Decontinue'
-		po: 'Pocontinue'
 	tutorialWelcome:
 		en: [
 			'Welcome to Seafloor Zoo!'
 			'This tutorial will step you through the Seafloor Zoo classification process.'
-			'Unfortunately, it won\'t make much sense until I find the right image.'
+			'NOTE: This won\'t entirely make sense until I find the right image. Pretend the scallop is a sea star.'
 		]
-		de: ['Delcome to Seafloor Zoo!']
-		po: ['Polcome to Seafloor Zoo!']
-	tutorialGroundCover:
-		en: ['First, choose the ground cover from the list that best describes what you can see in the image.']
+	tutorialGroundCover1:
+		en: [
+			'First, choose the ground covers from the list that best describes what you can see in the image.'
+			'This one looks like mostly sand...'
+		]
+	tutorialGroundCover2:
+		en: ['...and there\'s gravel as well.']
 	tutorialGroundCoverFinished:
-		en: ['Click "Done" once you\'ve picked the best one.']
+		en: ['Click "Done" once you\'re finished choosing.']
 	tutorialFish:
 		en: [
 			'Now we need to classify the creatures in the image.'
@@ -39,28 +40,13 @@ exports =
 		en: [
 			'Great! Next we\'ll mark the seastar.'
 			'Choose "Seastar" from the list of species.'
-			'(Pretend the scallop is a seastar for now.)'
 		]
 	tutorialSeastarExplanation:
-		en: [
-			'Seastars are a little different.'
-			'We\'re going to click at the end of each of its five arms.'
-		]
-	tutorialSeastar1:
-		en: ['Start by clicking one arm...']
-	tutorialSeastar2:
-		en: ['...then the next...']
-	tutorialSeastar3:
-		en: ['...and work your way around...']
-	tutorialSeastar4:
-		en: ['...to the rest...']
-	tutorialSeastar5:
-		en: ['...until you\'ve marked five.']
-	tutorialSeastarExtraLegs:
-		en: [
-			'Some seastars have more than five arms.'
-			'Just try to distribute the five points around evenly.'
-		]
+		en: ['Seastars are generally radial, so we\'ll define a circle around each one.']
+	tutorialSeastarCenter:
+		en: ['First, mark the center point...']
+	tutorialSeastarTip:
+		en: ['...and then mark a point at the tip of the longest arm.']
 	tutorialSpeciesFinished:
 		en: ['Once we\'ve finished marking all the species in an image, click "Done".']
 	tutorialComplete:
