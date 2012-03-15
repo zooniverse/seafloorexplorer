@@ -71,11 +71,16 @@ class CreaturePicker extends Spine.Controller
 
 		line
 
+	dragThreshold: 10
+	mouseMoves: 0
 	movementCircle: null
 	movementAxis: null
 	onMouseMove: (e) =>
 		return unless @mouseIsDown and not @disabled
 		return if @strayCircles.length % 2 is 0 and not @movementCircle
+
+		@mouseMoves += 1
+		return if @mouseMoves < @dragThreshold
 
 		@movementCircle = @createStrayCircle() unless @movementCircle?
 		@movementAxis = @createStrayAxis() unless @movementAxis?
@@ -92,9 +97,10 @@ class CreaturePicker extends Spine.Controller
 	onMouseUp: (e) =>
 		return unless @mouseIsDown and not @disabled
 		@mouseIsDown = false
+		@mouseMoves = 0
 
-		delete @movementCircle
-		delete @movementAxis
+		@movementCircle = null
+		@movementAxis = null
 
 		@checkStrays()
 
@@ -106,7 +112,6 @@ class CreaturePicker extends Spine.Controller
 
 	createAxesMarker: =>
 		marking = @createMarking()
-
 		marker = new AxesMarker
 			marking: marking
 			paper: @paper
