@@ -35,25 +35,25 @@ exports = [
 		style: left: 260, top: 280, width: 330, height: 'auto'
 		className: 'bottom left'
 		content: translate 'tutorialFishHead'
-		nextOn: mousedown: '#subject'
+		nextOn: 'create-stray-circle': '#subject'
 
 	new Step
 		style: left: 370, top: 250, width: 310, height: 'auto'
 		className: 'top right'
 		content: translate 'tutorialFishTail'
-		nextOn: mousedown: '#subject'
+		nextOn: 'create-stray-axis': '#subject'
 
 	new Step
 		style: left: 130, top: 20, width: 220, height: 'auto'
 		className: 'top right'
 		content: translate 'tutorialFishLeft'
-		nextOn: mousedown: '#subject'
+		nextOn: 'create-stray-circle': '#subject'
 
 	new Step
 		style: left: 220, top: 510, width: 270, height: 'auto'
 		className: 'bottom right'
 		content: translate 'tutorialFishRight'
-		nextOn: mousedown: '#subject'
+		nextOn: 'create-marking': '#subject'
 
 	new Step
 		style: left: 420, top: 160, width: 320, height: 'auto'
@@ -70,13 +70,13 @@ exports = [
 		style: left: 190, top: 180, width: 210, height: 'auto'
 		className: 'bottom left'
 		content: translate 'tutorialSeastarCenter'
-		nextOn: mousedown: '#subject'
+		nextOn: 'create-stray-circle': '#subject'
 
 	new Step
 		style: left: 250, top: 180, width: 210, height: 'auto'
 		className: 'bottom left'
 		content: translate 'tutorialSeastarTip'
-		nextOn: mousedown: '#subject'
+		nextOn: 'create-marking': '#subject'
 
 	new Step
 		style: left: 260, top: 400, width: 480, height: 'auto'

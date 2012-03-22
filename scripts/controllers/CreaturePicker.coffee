@@ -60,6 +60,9 @@ class CreaturePicker extends Spine.Controller
 		circle = @paper.circle cx, cy
 		circle.attr style.circle
 		@strayCircles.push circle
+
+		@el.trigger 'create-stray-circle'
+
 		circle
 
 	createStrayAxis: =>
@@ -70,6 +73,8 @@ class CreaturePicker extends Spine.Controller
 		line.toBack()
 		line.attr style.boundingBox
 		@strayAxes.push line
+
+		@el.trigger 'create-stray-axis'
 
 		line
 
@@ -129,6 +134,8 @@ class CreaturePicker extends Spine.Controller
 				y: circle.attr 'cy'
 
 		@classification.trigger 'change'
+
+		@el.trigger 'create-marking'
 
 		marking
 
