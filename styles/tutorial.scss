@@ -21,10 +21,8 @@
 		}
 
 		&:after {
-			@include transition(border-color 1s ease-in-out);
-			border: 0 solid transparent {
-				width: 15px 15px;
-			};
+			@include transition(border-color 0s ease-in-out);
+			border: 15px solid transparent;
 			content: " ";
 			margin: 0 -15px;
 			position: absolute;
