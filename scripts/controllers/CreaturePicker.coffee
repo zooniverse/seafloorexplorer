@@ -54,6 +54,8 @@ class CreaturePicker extends Spine.Controller
 
 		@checkStrays()
 
+		e.preventDefault() # Disable text selection
+
 	createStrayCircle: (cx, cy) =>
 		circle = @paper.circle cx, cy
 		circle.attr style.circle
