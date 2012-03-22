@@ -167,7 +167,7 @@ class CreaturePicker extends Spine.Controller
 			@resetStrays()
 
 	setDisabled: (@disabled) =>
-		if @disabled then marker.deactivate() for marker in @markers or [] when marker.active
+		if @disabled then marker.deselect() for marker in @markers or [] when marker.selected
 		if @disabled then @el.addClass 'disabled' else @el.removeClass 'disabled'
 
 	changeClassification: (@classification) =>
