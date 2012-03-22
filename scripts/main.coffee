@@ -53,10 +53,10 @@ window.classifier = new Classifier
 	subject: Subject.first()
 
 Tutorial = require 'controllers/Tutorial'
-tutSteps = require 'tutorial-steps'
+tutorialSteps = require 'tutorialSteps'
 window.tutorial = new Tutorial
 	el: $('section[data-page="classify"]')
-	steps: tutSteps
+	steps: tutorialSteps
 
 # loggedInUserAlreadyDidTheTutorial = true
 unless loggedInUserAlreadyDidTheTutorial? then tutorial.start()
