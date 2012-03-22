@@ -79,6 +79,11 @@ exports = [
 		nextOn: 'create-marking': '#subject'
 
 	new Step
+		style: left: 300, top: 20, width: '370px', height: 'auto'
+		content: translate 'adjustMarkers'
+		modal: true
+
+	new Step
 		style: left: 260, top: 400, width: 480, height: 'auto'
 		className: 'top right'
 		content: translate 'tutorialSpeciesFinished'

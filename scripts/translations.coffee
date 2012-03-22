@@ -47,6 +47,12 @@ exports =
 		en: ['First, mark the center point...']
 	tutorialSeastarTip:
 		en: ['...and then mark a point at the tip of the longest arm.']
+	adjustMarkers:
+		en: [
+			'You can adjust markers that you\'ve placed.'
+			'Click a point to select it., then try dragging the points around to make sure each marker is just right.'
+			'You can also delete the currently selected marker'
+		]
 	tutorialSpeciesFinished:
 		en: ['Once we\'ve finished marking all the species in an image, click "Done".']
 	tutorialComplete:
