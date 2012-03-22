@@ -13,9 +13,9 @@ exports =
 			'This one looks like mostly sand...'
 		]
 	tutorialGroundCover2:
-		en: ['...and there\'s gravel as well.']
+		en: '...and there\'s gravel as well.'
 	tutorialGroundCoverFinished:
-		en: ['Click "Done" once you\'re finished choosing.']
+		en: 'Click "Done" once you\'re finished choosing.'
 	tutorialFish:
 		en: [
 			'Now we need to classify the creatures in the image.'
@@ -28,25 +28,25 @@ exports =
 			'Click once on the outermost point at the head...'
 		]
 	tutorialFishTail:
-		en: ['...and then the end of the tail to make a line.']
+		en: '...and then the end of the tail to make a line.'
 	tutorialFishLeft:
 		en: [
 			'Now, measure the shorter axis.'
 			'Click at the end of left fin...'
 		]
 	tutorialFishRight:
-		en: ['...and then at the end of the right fin.']
+		en: '...and then at the end of the right fin.'
 	tutorialSeastar:
 		en: [
 			'Great! Next we\'ll mark the seastar.'
 			'Choose "Seastar" from the list of species.'
 		]
 	tutorialSeastarExplanation:
-		en: ['Seastars are generally radial, so we\'ll define a circle around each one.']
+		en: 'Seastars are generally radial, so we\'ll define a circle around each one.'
 	tutorialSeastarCenter:
-		en: ['First, mark the center point...']
+		en: 'First, mark the center point...'
 	tutorialSeastarTip:
-		en: ['...and then mark a point at the tip of the longest arm.']
+		en: '...and then mark a point at the tip of the longest arm.'
 	adjustMarkers:
 		en: [
 			'You can adjust markers that you\'ve placed.'
@@ -54,6 +54,6 @@ exports =
 			'You can also delete the currently selected marker'
 		]
 	tutorialSpeciesFinished:
-		en: ['Once we\'ve finished marking all the species in an image, click "Done".']
+		en: 'Once we\'ve finished marking all the species in an image, click "Done".'
 	tutorialComplete:
-		en: ['Now you\'re ready to classify some images on your own!']
+		en: 'Now you\'re ready to classify some images on your own!'
