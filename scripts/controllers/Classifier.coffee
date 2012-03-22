@@ -124,6 +124,7 @@ class Classifier extends Spine.Controller
 	deleteSelected: =>
 		index = i for marking, i in @picker.markers when marking.selected
 		@picker.markers[index].marking.destroy()
+		@classification.trigger 'change'
 
 	finishSpecies: =>
 		@picker.setDisabled true
