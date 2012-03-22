@@ -22,7 +22,7 @@ class CreaturePicker extends Spine.Controller
 	disabled: false
 
 	elements:
-		'> img': 'img'
+		'> img': 'image'
 
 	events:
 		'mousedown': 'onMouseDown'
@@ -30,6 +30,7 @@ class CreaturePicker extends Spine.Controller
 	constructor: ->
 		super
 		@paper = Raphael @el[0], '100%', '100%'
+		@image.insertBefore @paper.canvas
 
 	ESC = 27
 	delegateEvents: =>
@@ -43,7 +44,8 @@ class CreaturePicker extends Spine.Controller
 
 	mouseIsDown: false
 	onMouseDown: (e) =>
-		return if @disabled or e.target isnt @paper.canvas
+		return if @disabled
+		return unless @image.add(@paper.canvas).is e.target
 
 		@mouseIsDown = true
 

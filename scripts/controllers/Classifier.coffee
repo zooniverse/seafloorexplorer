@@ -53,7 +53,7 @@ class Classifier extends Spine.Controller
 		@latitude.html @subject.latitude
 		@longitude.html @subject.longitude
 		@depth.html @subject.depth
-		@picker.img.attr 'src', @subject.image
+		@picker.image.attr 'src', @subject.image
 
 		@classification = @subject.classifications().create {}
 		@picker.changeClassification @classification
