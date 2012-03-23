@@ -1,5 +1,6 @@
 Spine = require 'Spine'
 Raphael = require 'Raphael'
+$ = require 'jQuery'
 
 {delay} = require 'util'
 
@@ -51,6 +52,10 @@ class Marker extends Spine.Controller
 				y: point2.attr 'cy'
 
 		"M #{point1.x} #{point1.y} L #{point2.x} #{point2.y}"
+
+	paperSize: =>
+		parent = $(@paper.canvas.parentNode)
+		width: parent.width(), height: parent.height()
 
 	destroy: =>
 		@marking.unbind 'change'

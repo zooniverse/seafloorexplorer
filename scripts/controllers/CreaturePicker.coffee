@@ -36,11 +36,22 @@ class CreaturePicker extends Spine.Controller
 	delegateEvents: =>
 		super
 
+		$(window).on 'resize', @resize
+
 		$(document).on 'mousemove', @onMouseMove
 		$(document).on 'mouseup', @onMouseUp
 
 		$(document).on 'keydown', (e) =>
 			@resetStrays() if e.keyCode is ESC
+
+	getSize: =>
+		parent = $(@paper.canvas.parentNode)
+		width: parent.width(), height: parent.height()
+
+	resize: =>
+		size = @getSize()
+		@paper.setSize size.width, size.height
+		marker.render() for marker in @markers
 
 	mouseIsDown: false
 	onMouseDown: (e) =>
@@ -129,11 +140,13 @@ class CreaturePicker extends Spine.Controller
 		marking = @classification.markings().create
 			species: @selectedSpecies
 
+		{width: w, height: h} = @getSize()
+
 		for circle in @strayCircles
 			point = marking.points().create {}
 			point.updateAttributes
-				x: circle.attr 'cx'
-				y: circle.attr 'cy'
+				x: circle.attr('cx') / w
+				y: circle.attr('cy') / h
 
 		@classification.trigger 'change'
 

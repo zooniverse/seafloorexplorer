@@ -35,53 +35,61 @@ class CircleMarker extends Marker
 		@marking.trigger 'change'
 
 	render: =>
+		{width: w, height: h} = @paperSize()
+
 		centerPoint = @marking.points().first()
 		@centerCircle.attr
-			cx: centerPoint.x
-			cy: centerPoint.y
+			cx: centerPoint.x * w
+			cy: centerPoint.y * h
 
 		radiusPoint = @marking.points().last()
 		@radiusHandle.attr
-			cx: radiusPoint.x
-			cy: radiusPoint.y
+			cx: radiusPoint.x * w
+			cy: radiusPoint.y * h
 
 		@radiusLine.attr
-			path: @lineBetween centerPoint, radiusPoint
+			path: @lineBetween @centerCircle, @radiusHandle
 
 		@boundingCircle.attr
-			cx: centerPoint.x
-			cy: centerPoint.y
+			cx: centerPoint.x * w
+			cy: centerPoint.y * h
 			r: do ->
-				aSquared = Math.pow centerPoint.x - radiusPoint.x, 2
-				bSquared = Math.pow centerPoint.y - radiusPoint.y, 2
+				aSquared = Math.pow (centerPoint.x * w) - (radiusPoint.x * w), 2
+				bSquared = Math.pow (centerPoint.y * h) - (radiusPoint.y * h), 2
 				Math.sqrt aSquared + bSquared
 
 	centerCircleDrag: (dx, dy) =>
 		@moved = true
 
+		{width: w, height: h} = @paperSize()
+
 		for point, i in @marking.points().all()
-			point.updateAttribute 'x', @startPoints[i].x + dx
-			point.updateAttribute 'y', @startPoints[i].y + dy
+			point.updateAttributes
+				x: ((@startPoints[i].x * w) + dx) / w
+				y: ((@startPoints[i].y * h) + dy) / h
 
 		@marking.trigger 'change'
 
 	radiusHandleDrag: (dx, dy) =>
 		@moved = true
 
-		point = @marking.points().last()
-		point.updateAttributes
-			x: @startPoints[1].x + dx
-			y: @startPoints[1].y + dy
+		{width: w, height: h} = @paperSize()
+
+		@marking.points().last().updateAttributes
+			x: ((@startPoints[1].x * w) + dx) / w
+			y: ((@startPoints[1].y * h) + dy) / h
 
 		@marking.trigger 'change'
 
 	select: =>
 		super
 
+		{width: w, height: h} = @paperSize()
+
 		radiusPoint = @marking.points().last()
 		@radiusHandle.animate
-			cx: radiusPoint.x
-			cy: radiusPoint.y
+			cx: radiusPoint.x * w
+			cy: radiusPoint.y * h
 			250
 
 		@radiusLine.animate
@@ -95,10 +103,12 @@ class CircleMarker extends Marker
 	deselect: =>
 		super
 
+		{width: w, height: h} = @paperSize()
+
 		centerPoint = @marking.points().first()
 		@radiusHandle.animate
-			cx: centerPoint.x
-			cy: centerPoint.y
+			cx: centerPoint.x * w
+			cy: centerPoint.y * h
 			250
 
 		@radiusLine.animate
