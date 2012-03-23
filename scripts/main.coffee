@@ -11,9 +11,9 @@ NestedRoute.setup()
 ScrollMatcher = require 'controllers/ScrollMatcher'
 window.scrollMatchers = (new ScrollMatcher el : parent for parent in $('[data-scroll-name]').parent())
 
-layout = require 'layout'
-$(window).on 'resize', layout
-$(document).ready layout
+# layout = require 'layout'
+# $(window).on 'resize', layout
+# $(document).ready layout
 
 # Prevent scrolling the page on iPads.
 $(document).on 'touchmove', (e) -> e.preventDefault()
@@ -58,7 +58,7 @@ window.tutorial = new Tutorial
 	el: $('section[data-page="classify"]')
 	steps: tutorialSteps
 
-# loggedInUserAlreadyDidTheTutorial = true
+loggedInUserAlreadyDidTheTutorial = true
 unless loggedInUserAlreadyDidTheTutorial? then tutorial.start()
 
 {delay} = require 'util'

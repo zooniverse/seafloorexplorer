@@ -1,24 +1,46 @@
 @import "constants";
 
-#subject.image-container {
-  &.disabled {
-    cursor: not-allowed;
-  }
-
-  // TODO: What's this element in IE?
-  > svg,
-  > div {
-    position: absolute;
-    z-index: 1;
-  }
+#classification {
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
 }
 
-#wrapper > #main > section > #classifier {
+#subject {
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 320px;
+	top: 0;
+
+	&.disabled {
+		cursor: not-allowed;
+	}
+
+	> .selection-area {
+		position: absolute;
+
+		> img {
+			left: 0;
+			position: absolute;
+			top: 0;
+		}
+	}
+}
+
+#classifier {
 	@include linear-gradient($blue, $blue-dark);
 	@include box-shadow(0 0 10px $black inset);
+	bottom: 0;
 	color: $white;
 	overflow: hidden;
 	padding: 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 320px;
 
 	> header {
 		font: {
@@ -99,11 +121,11 @@
 						border: 0 {
 							bottom: 1px solid $gray;
 						};
-					  cursor: pointer;
+						cursor: pointer;
 						display: block;
-					  font: {
-					  	family: inherit;
-						  size: inherit;
+						font: {
+							family: inherit;
+							size: inherit;
 						};
 						line-height: 1;
 						margin: 0;

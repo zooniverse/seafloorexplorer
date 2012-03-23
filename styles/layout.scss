@@ -18,7 +18,8 @@ html {
   }
 
   &.pre-load * {
-    @include transition(all 0 linear !important);
+    // Nothing will animate until this class is removed.
+    @include transition(all 0 linear 0 !important);
   }
 }
 
@@ -96,21 +97,7 @@ html {
   }
 
   > #main {
-    height: 585px;
-    left: 0;
-    position: absolute;
-    top: 100px;
-    width: 100%;
-
     > section {
-      height: 100%;
-      left: 0;
-      overflow: hidden;
-      position: absolute;
-      top: 0;
-      width: 100%;
-      z-index: 3;
-
       > .image-container {
         @include box-shadow(0 0 10px $black);
         @include transition(top 0.1s linear 1s);

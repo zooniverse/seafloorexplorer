@@ -10,6 +10,13 @@ style = require 'style'
 class CreaturePicker extends Spine.Controller
 	classification: null
 
+	className: 'creature-picker'
+	template: '''
+		<div class="selection-area">
+			<img />
+		</div>
+	'''
+
 	paper: null
 
 	strayCircles: null
@@ -22,15 +29,19 @@ class CreaturePicker extends Spine.Controller
 	disabled: false
 
 	elements:
-		'> img': 'image'
+		'> .selection-area': 'selectionArea'
+		'> .selection-area > img': 'image'
 
 	events:
 		'mousedown': 'onMouseDown'
 
 	constructor: ->
 		super
-		@paper = Raphael @el[0], '100%', '100%'
+		@el.html @template
+		@refreshElements()
+		@paper = Raphael @selectionArea[0]
 		@image.insertBefore @paper.canvas
+		@image.on 'load', @resize
 
 	ESC = 27
 	delegateEvents: =>
@@ -45,13 +56,26 @@ class CreaturePicker extends Spine.Controller
 			@resetStrays() if e.keyCode is ESC
 
 	getSize: =>
-		parent = $(@paper.canvas.parentNode)
-		width: parent.width(), height: parent.height()
+		width: @image.width(), height: @image.height()
 
 	resize: =>
-		size = @getSize()
-		@paper.setSize size.width, size.height
-		marker.render() for marker in @markers
+		imageProportion = @image[0].naturalWidth / @image[0].naturalHeight
+		elProportion = @el.width() / @el.height()
+
+		if imageProportion < elProportion
+			@selectionArea.css width: '', height: '100%'
+			@image.css width: '', height: '100%'
+			@selectionArea.css width: @image.width()
+			@selectionArea.css left: (@el.width() - @selectionArea.width()) / 2, top: ''
+		else
+			@selectionArea.css width: '100%', height: ''
+			@image.css width: '100%', height: ''
+			@selectionArea.css height: @image.height()
+			@selectionArea.css left: '', top: (@el.height() - @selectionArea.height()) / 2
+
+		@paper.setSize @selectionArea.width(), @selectionArea.height()
+
+		marker.render() for marker in @markers or []
 
 	mouseIsDown: false
 	onMouseDown: (e) =>
@@ -62,7 +86,7 @@ class CreaturePicker extends Spine.Controller
 
 		m.deselect() for m in @markers when m.selected
 
-		{left, top} = @el.offset()
+		{left, top} = @selectionArea.offset()
 		@createStrayCircle e.pageX - left, e.pageY - top
 
 		@checkStrays()
@@ -105,7 +129,7 @@ class CreaturePicker extends Spine.Controller
 		@movementCircle = @createStrayCircle() unless @movementCircle?
 		@movementAxis = @createStrayAxis() unless @movementAxis?
 
-		{left, top} = @el.offset()
+		{left, top} = @selectionArea.offset()
 		@movementCircle.attr
 			cx: e.pageX - left
 			cy: e.pageY - top
