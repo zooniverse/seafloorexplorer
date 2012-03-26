@@ -76,11 +76,17 @@ class AxesMarker extends Marker
 	getIntersection: =>
 		points = @marking.points().all()
 
-		grad1 = (points[0].y - points[1].y) / (points[0].x - points[1].x)
-		grad2 = (points[2].y - points[3].y) / (points[2].x - points[3].x)
+		grads = [
+			(points[0].y - points[1].y) / (points[0].x - points[1].x)
+			(points[2].y - points[3].y) / (points[2].x - points[3].x)
+		]
 
-		interX = ((points[2].y - points[0].y) + (grad1 * points[0].x - grad2 * points[2].x)) / (grad1 - grad2)
-		interY = grad1 * (interX - points[0].x) + points[0].y
+		# Check for divide-by-zero errors.
+		for grad, i in grads
+			if isNaN(grad) or grad is Infinity or grad is -Infinity then grads[i] = 0.001
+
+		interX = ((points[2].y - points[0].y) + (grads[0] * points[0].x - grads[1] * points[2].x)) / (grads[0] - grads[1])
+		interY = grads[0] * (interX - points[0].x) + points[0].y
 
 		x: interX, y: interY
 
