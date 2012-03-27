@@ -5,17 +5,15 @@ Marker = require 'controllers/Marker'
 CircleMarker = require 'controllers/CircleMarker'
 AxesMarker = require 'controllers/AxesMarker'
 
+TEMPLATE = require 'lib/text!views/CreaturePicker.html'
+
 style = require 'style'
 
 class CreaturePicker extends Spine.Controller
 	classification: null
 
 	className: 'creature-picker'
-	template: '''
-		<div class="selection-area">
-			<img />
-		</div>
-	'''
+	template: TEMPLATE
 
 	paper: null
 
@@ -37,17 +35,19 @@ class CreaturePicker extends Spine.Controller
 
 	constructor: ->
 		super
+
 		@el.html @template
 		@refreshElements()
-		@paper = Raphael @selectionArea[0]
+
+		@paper = Raphael @selectionArea[0], '100%', '100%'
 		@image.insertBefore @paper.canvas
-		@image.on 'load', @resize
+		# @image.on 'load', @resize
 
 	ESC = 27
 	delegateEvents: =>
 		super
 
-		$(window).on 'resize', @resize
+		# $(window).on 'resize', @resize
 
 		$(document).on 'mousemove', @onMouseMove
 		$(document).on 'mouseup', @onMouseUp
@@ -205,7 +205,7 @@ class CreaturePicker extends Spine.Controller
 
 	setDisabled: (@disabled) =>
 		if @disabled then marker.deselect() for marker in @markers or [] when marker.selected
-		if @disabled then @el.addClass 'disabled' else @el.removeClass 'disabled'
+		if @disabled then @selectionArea.addClass 'disabled' else @selectionArea.removeClass 'disabled'
 
 	changeClassification: (@classification) =>
 		if @markers then @markers[0].release() until @markers.length is 0

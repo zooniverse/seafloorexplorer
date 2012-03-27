@@ -1,0 +1,44 @@
+<header>
+	<div class="position"><span class="latitude">0</span> lat / <span class="longitude">0</span> long</div>
+	<div class="depth"><span class="meters">0</span> m</div>
+</header>
+
+<div class="steps">
+	<div class="breadcrumbs">
+		<span class="ground-cover breadcrumb">Ground cover</span>
+		<span class="divider">/</span>
+		<span class="species breadcrumb">Species</span>
+	</div>
+
+	<div class="ground-cover step">
+		<ul class="ground-cover toggles">
+			<!--<li><button value="id">description</button></li>-->
+		</ul>
+
+		<button disabled="disabled" class="finished">Done identifying ground cover</button>
+	</div>
+
+	<div class="species step">
+		<ul class="species toggles">
+			<li><button value="seastar">Seastar <span class="count">0</button></li>
+			<li><button value="fish">Fish <span class="count">0</button></li>
+			<li><button value="scallop">Scallop <span class="count">0</button></li>
+			<li><button value="squid">Squid <span class="count">0</button></li>
+			<li><button value="shrimp">Shrimp <span class="count">0</button></li>
+		</ul>
+
+		<p style="text-align: center;"><button disabled="disabled" class="delete">Delete this marking</button><br /></p>
+
+		<button class="finished">Done identifying species</button>
+	</div>
+
+	<div class="followup">
+		<button class="favorite">Favorite</button>
+		<button class="discuss">Discuss</button>
+	</div>
+</div>
+
+<div class="summary">
+	<p>You've classified <span class="total">X</span> species!</p>
+	<p style="text-align: center;"><button class="next">Next image!</button></p>
+</div>

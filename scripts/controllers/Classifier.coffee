@@ -4,11 +4,14 @@ $ = require 'jQuery'
 Subject = require 'models/Subject'
 GroundCover = require 'models/GroundCover'
 
+TEMPLATE = require 'lib/text!views/Classifier.html'
+
 class Classifier extends Spine.Controller
 	subject: null
 	classification: null
 
 	picker: null
+	template: TEMPLATE
 
 	elements:
 		'.position > .latitude': 'latitude'
@@ -34,6 +37,10 @@ class Classifier extends Spine.Controller
 
 	constructor: ->
 		super
+
+		@el.html @template
+		@refreshElements()
+
 		@changeSubject @subject
 		@picker.bind 'change-selection', @render
 		for groundCover in GroundCover.all()
