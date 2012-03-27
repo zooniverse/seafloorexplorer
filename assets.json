@@ -3,8 +3,9 @@
 	{"https://raw.github.com/brian-c/jekyll-plugins/master/_plugins/coffee.rb": "_plugins/coffee.rb"},
 	{"https://raw.github.com/brian-c/jekyll-plugins/master/_plugins/sass.rb": "_plugins/sass.rb"},
 
-	{"http://requirejs.org/docs/release/1.0.4/comments/require.js": "scripts/lib/require.js"},
+	{"http://requirejs.org/docs/release/1.0.7/comments/require.js": "scripts/lib/require.js"},
 	{"http://requirejs.org/docs/release/1.0.5/comments/order.js": "scripts/lib/order.js"},
+	{"http://requirejs.org/docs/release/1.0.7/comments/text.js": "scripts/lib/text.js"},
 
 	{"http://code.jquery.com/jquery-1.7.1.js": "scripts/lib/jquery.js"},
 	{"http://spinejs.com/pages/download": "scripts/lib/spine"},
