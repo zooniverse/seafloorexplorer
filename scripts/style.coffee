@@ -1,32 +1,29 @@
 exports =
+	label:
+		text:
+			fill: '#fff'
+			font: '12px "Helvetica Neue"'
+			'text-anchor': 'start'
+
+		deleteButton:
+			'stroke-width': 0
+
+		rect:
+			'stroke-width': 0
+
 	circle:
 		fill: '#fff'
 		r: 5
 		'stroke-width': 0
 
-	circle_hover:
-		r: 7
+		hover:
+			r: 7
 
 	crossCircle:
-		fill: 'black'
-		r: 10
+		fill: '#fff'
+		r: 7
 		stroke: '#fff'
 		'stroke-width': 2
-
-	seastar:
-		fill: 'orange'
-
-	fish:
-		fill: 'yellow'
-
-	scallop:
-		fill: 'gray'
-
-	squid:
-		fill: 'green'
-
-	shrimp:
-		fill: 'pink'
 
 	line:
 		stroke: '#fff'
@@ -43,3 +40,9 @@ exports =
 		fill: '#000'
 		stroke: '#fff'
 		'stroke-width': 2
+
+	seastar: 'orange'
+	fish: 'yellow'
+	scallop: 'gray'
+	squid: 'green'
+	shrimp: 'pink'

@@ -1,200 +1,82 @@
 @import "constants";
 
 #classification {
-	height: 100%;
-	left: 0;
+	$width: 1000px;
+	$height: 570px;
+
+	height: $height;
+	margin-left: -$width / 2;
+	left: 50%;
 	position: absolute;
 	top: 0;
-	width: 100%;
+	width: $width;
 }
 
 #subject {
-	bottom: 0;
-	left: 0;
-	position: absolute;
-	right: 320px;
-	top: 0;
-
-	&.disabled {
-		cursor: not-allowed;
-	}
+	background: $white;
+	height: 560px;
+	padding: 5px;
+	position: relative;
+	width: 705px;
+	z-index: 1;
 
 	> .selection-area {
-		position: absolute;
-
-		> img {
-			left: 0;
-			position: absolute;
-			top: 0;
-		}
-	}
-}
-
-#classifier {
-	@include linear-gradient($blue, $blue-dark);
-	@include box-shadow(0 0 10px $black inset);
-	bottom: 0;
-	color: $white;
-	overflow: hidden;
-	padding: 0;
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 320px;
-
-	> header {
-		font: {
-			size: 16px;
-			weight: bold;
-		};
-		padding: 15px 40px 10px;
-		text-shadow: 0 1px 1px $black;
-
-		.position,
-		.depth {
-			background: url("classifier-icons.png") 0 -5px no-repeat;
-			padding: 3px 0 3px 35px;
-		}
-
-		.depth {
-			background-position: 0 -43px;
-		}
-	}
-
-	> .steps {
-		@include box-sizing(border-box);
-		@include transition(bottom 0.5s ease-in-out);
-		background: $white;
-		bottom: 0;
-		color: $gray-darkest;
-		height: 500px;
-		left: 0;
-		padding: 20px 40px;
-		position: absolute;
+		height: 100%;
+		position: relative;
 		width: 100%;
 
-		&:before {
-			background: url("classifier-page-tear.png") bottom center repeat-x;
-			bottom: 100%;
-			content: "";
-			height: 9px;
-			left: 0;
+		&.disabled {
+			cursor: not-allowed;
+		}
+
+		> img {
+			height: 100%;
 			position: absolute;
 			width: 100%;
 		}
 
-		&.finished {
-			bottom: -490px;
-		}
+		// Raphael's canvas
+		// Styled inline by Raphael.
+		> svg,
+		> div {}
+	}
+}
 
-		> .breadcrumbs {
-			color: $gray;
-			font: {
-				size: 12px;
-				weight: bold;
-			};
-			letter-spacing: 1px;
-			text-transform: uppercase;
+#classifier {
+	background: $white;
+	bottom: 0;
+	overflow: auto;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 290px;
 
-			> .breadcrumb {
-				&.active {
-					color: $gray-darker;
-				}
-			}
-		}
+	> header {
+		.position,
+		.depth {}
+	}
 
+	> .steps {
 		> .step {
-			display: none;
-
 			ul.toggles {
-				border: 1px solid $gray;
-				font-size: 20px;
-				padding: 0;
-				text-shadow: 0 1px 0 $white;
-				text-transform: lowercase;
-
 				> li {
-					display: block;
-
 					> button {
-						@include linear-gradient($gray-lightest, $gray-light);
-						border: 0 {
-							bottom: 1px solid $gray;
-						};
-						cursor: pointer;
-						display: block;
-						font: {
-							family: inherit;
-							size: inherit;
-						};
-						line-height: 1;
-						margin: 0;
-						padding: 10px 15px 5px;
-						text-shadow: inherit;
-						width: 100%;
+						> .count {}
 
-						> .count {
-							float: right;
-							font-size: 16px;
-						}
-
-						&.active {
-							@include box-shadow(0 1px 3px $blue-lighter inset);
-							@include linear-gradient($blue-lightest);
-							color: $blue-lighter;
-						}
+						&.active {}
 					}
 				}
 			}
 
-			.delete {
-				background: transparent;
-				border: 0;
-				color: $gray-darker;
-				cursor: pointer;
-				padding: 0;
-
-				&:disabled {
-					cursor: default;
-					opacity: 0.5;
-				}
-			}
+			.delete {}
 
 			.finished {
-				@include action-button;
-				width: 100%;
-
-				&:disabled {
-					cursor: default;
-					opacity: 0.5;
-				}
+				&:disabled {}
 			}
 
-			&.active {
-				display: block;
-			}
-		}
-
-		> .followup {
-			margin: 20px 0;
-
-			> button {
-				@include action-button("classifier-icons.png", 0 -81px);
-				float: left;
-				width: 47%;
-
-				&.discuss {
-					float: right;
-
-					&:after {
-						background-position: 0 -121px;
-					}
-				}
-			}
+			&.active {}
 		}
 	}
 
-	> .summary {
-		padding: 10px 40px;
-	}
+	> .summary {}
 }

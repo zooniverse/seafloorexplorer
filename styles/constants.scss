@@ -1,22 +1,10 @@
 $black:           rgb(0, 0, 0);
-$white:           rgb(237, 245, 245);
+$white:           rgb(241, 241, 241);
 
-$gray-lightest:   rgb(237, 245, 245);
-$gray-light:      rgb(214, 221, 221);
-$gray:            rgb(192, 192, 192);
-$gray-dark:       rgb(158, 174, 174);
-$gray-darker:     rgb(88, 104, 116);
-$gray-darkest:    rgb(40, 54, 65);
+$blue:            rgb(0, 168, 198);
+$blue-dark:       rgb(0, 66, 80);
 
-$blue:            rgb(55, 67, 77);
-$blue-dark:       rgb(36, 48, 57);
-$blue-lighter:    rgb(110, 135, 135);
-$blue-lightest:   rgb(184, 200, 200);
-
-$orange-lightest: rgb(237, 163, 69);
-$orange:          rgb(232, 135, 13);
-$orange-dark:     rgb(224, 88, 18);
-$orange-darkest:  rgb(159, 61, 11);
+$orange:          rgb(224, 88, 18);
 
 // Cross-broswer:
 
@@ -45,9 +33,8 @@ $orange-darkest:  rgb(159, 61, 11);
 }
 
 @mixin linear-gradient($start: transparent, $end: false) {
-  @if not $end {
-    $end: $start;
-  };
+  // Use a same-to-same gradient to override a regular one.
+  @if not $end {$end: $start;};
 
   background-image: -moz-linear-gradient(top, $start, $end);
   background-image: -ms-linear-gradient(top, $start, $end);
@@ -59,10 +46,10 @@ $orange-darkest:  rgb(159, 61, 11);
 // Misc. styles:
 
 @mixin action-button($icon: false, $position: 0 0) {
-  @include box-shadow(1px 1px $orange-lightest inset);
+  // @include box-shadow(1px 1px $orange-lightest inset);
   @include box-sizing(border-box);
-  @include linear-gradient($orange-lightest, $orange-dark);
-  border: 1px solid $orange-darkest;
+  // @include linear-gradient($orange-lightest, $orange-dark);
+  // border: 1px solid $orange-darkest;
   color: white;
   cursor: pointer;
   display: inline-block;
@@ -83,10 +70,10 @@ $orange-darkest:  rgb(159, 61, 11);
     padding-right: 25px;
 
     &:after {
-      @include box-shadow(1px 1px $orange-lightest inset);
+      // @include box-shadow(1px 1px $orange-lightest inset);
       @include box-sizing(border-box);
       background: url($icon) $position no-repeat;
-      border-left: 1px solid $orange-darkest;
+      // border-left: 1px solid $orange-darkest;
       content: " ";
       display: block;
       height: 100%;

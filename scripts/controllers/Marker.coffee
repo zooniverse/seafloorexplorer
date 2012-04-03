@@ -2,6 +2,7 @@ Spine = require 'Spine'
 Raphael = require 'Raphael'
 $ = require 'jQuery'
 
+style = require 'style'
 {delay} = require 'util'
 
 class Marker extends Spine.Controller
@@ -13,10 +14,48 @@ class Marker extends Spine.Controller
 	constructor: ->
 		super
 
+		@drawLabel()
+
 		@marking.bind 'change', @render
 		@marking.bind 'destroy', @release
 
 		@release @destroy
+
+	drawLabel: (text) =>
+		@labelText = @paper.text()
+		@labelText.attr style.label.text
+		@labelText.transform 'T20,0'
+
+		labelHeight = (style.crossCircle.r * 2) + style.crossCircle['stroke-width']
+
+		@deleteButton = @paper.rect 0, 0, labelHeight, labelHeight
+		@deleteButton.attr style.label.deleteButton
+		@deleteButton.click @onClickDelete
+
+		@labelRect = @paper.rect 0, 0, 0, labelHeight
+		@labelRect.toBack()
+		@labelRect.attr style.label.rect
+		@labelRect.transform "T0,#{-labelHeight / 2}"
+
+		@label = @paper.set @labelText, @labelRect, @deleteButton
+
+	showLabel: =>
+		@label.show()
+		@label.animate opacity: 1, 100
+
+	hideLabel: =>
+		@label.animate opacity: 0, 100, => @label.hide()
+
+	onClickDelete: =>
+		console.log 'CLICKED DELETE'
+
+	render: =>
+		@labelText.attr text: @marking.species.charAt(0).toUpperCase() + @marking.species.slice 1
+		textBox = @labelText.getBBox()
+		@labelRect.attr width: 20 + textBox.width + 10
+		@deleteButton.transform "T#{@labelRect.attr 'width'},#{-style.crossCircle.r - (style.crossCircle['stroke-width'] / 2)}"
+		@labelRect.attr fill: style[@marking.species]
+		@deleteButton.attr fill: style[@marking.species]
 
 	select: =>
 		@selected = true

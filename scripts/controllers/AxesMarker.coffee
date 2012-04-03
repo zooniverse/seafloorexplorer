@@ -44,7 +44,7 @@ class AxesMarker extends Marker
 
 		over = ->
 			marker.overCircle = @
-			@attr style.circle_hover
+			@attr style.circle.hover
 
 		out = ->
 			@attr style.circle
@@ -53,6 +53,8 @@ class AxesMarker extends Marker
 		@circles.hover over, out
 
 	render: =>
+		super
+
 		{width: w, height: h} = @paperSize()
 
 		intersection = @getIntersection()

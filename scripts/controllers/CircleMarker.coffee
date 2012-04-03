@@ -35,12 +35,19 @@ class CircleMarker extends Marker
 		@marking.trigger 'change'
 
 	render: =>
+		super
+
 		{width: w, height: h} = @paperSize()
 
 		centerPoint = @marking.points().first()
 		@centerCircle.attr
+			stroke: style[@marking.species]
 			cx: centerPoint.x * w
 			cy: centerPoint.y * h
+
+		@label.attr
+			x: centerPoint.x * w
+			y: centerPoint.y * h
 
 		radiusPoint = @marking.points().last()
 		@radiusHandle.attr
