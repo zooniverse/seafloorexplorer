@@ -6,19 +6,12 @@ Marker = require 'controllers/Marker'
 style = require 'style'
 
 class AxesMarker extends Marker
-	crossCircle: null
 	circles: null
 	lines: null
 	boundingBox: null
 
 	constructor: ->
 		super
-
-		@crossCircle = @paper.circle()
-		@crossCircle.attr style.crossCircle
-
-		@crossCircle.hover @showBoundingBox, @hideBoundingBox
-		@crossCircle.drag @crossDrag, @dragStart, @dragEnd
 
 		points = @marking.points().all()
 
@@ -58,11 +51,15 @@ class AxesMarker extends Marker
 		{width: w, height: h} = @paperSize()
 
 		intersection = @getIntersection()
-		@crossCircle.attr
+		@centerCircle.attr
 			cx: intersection.x * w
 			cy: intersection.y * h
 
-		@crossCircle.attr style[@marking.species] or style.crossCircle
+		@centerCircle.attr stroke: style[@marking.species]
+
+		@label.attr
+			x: intersection.x * w
+			y: intersection.y * h
 
 		points = @marking.points().all()
 		for circle, i in @circles
@@ -71,7 +68,7 @@ class AxesMarker extends Marker
 				cy: points[i].y * h
 
 		for line, i in @lines
-			line.attr path: @lineBetween @circles[i], @crossCircle
+			line.attr path: @lineBetween @circles[i], @centerCircle
 
 		@boundingBox.attr path: @getBoundingPathString()
 
@@ -127,15 +124,15 @@ class AxesMarker extends Marker
 		super
 
 		@circles.animate
-			cx: @crossCircle.attr 'cx'
-			cy: @crossCircle.attr 'cy'
+			cx: @centerCircle.attr 'cx'
+			cy: @centerCircle.attr 'cy'
 			opacity: 0
 			250
 
 		@lines.animate opacity: 0, 125
 		@boundingBox.animate opacity: 0, 250
 
-	crossDrag: (dx, dy) =>
+	centerCircleDrag: (dx, dy) =>
 		@moved = true
 
 		{width: w, height: h} = @paperSize()
@@ -162,7 +159,7 @@ class AxesMarker extends Marker
 
 	destroy: =>
 		super
-		@crossCircle.remove()
+		@centerCircle.remove()
 		@circles.remove()
 		@lines.remove()
 		@boundingBox.remove()

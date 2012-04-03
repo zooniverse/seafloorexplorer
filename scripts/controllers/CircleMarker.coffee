@@ -5,18 +5,12 @@ Marker = require 'controllers/Marker'
 style = require 'style'
 
 class CircleMarker extends Marker
-	centerCircle: null
 	radiusHandle: null
 	radiusLine: null
 	boundingCircle: null
 
 	constructor: ->
 		super
-
-		@centerCircle = @paper.circle()
-		@centerCircle.attr style.crossCircle
-		@centerCircle.click @stopPropagation
-		@centerCircle.drag @centerCircleDrag, @dragStart, @dragEnd
 
 		@radiusHandle = @paper.circle()
 		@radiusHandle.toBack()

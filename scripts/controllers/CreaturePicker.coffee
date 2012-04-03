@@ -164,6 +164,8 @@ class CreaturePicker extends Spine.Controller
 		marking = @classification.markings().create
 			species: @selectedSpecies
 
+		marking.bind 'destroy', => @classification.trigger 'change'
+
 		{width: w, height: h} = @getSize()
 
 		for circle in @strayCircles

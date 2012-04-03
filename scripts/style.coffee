@@ -2,11 +2,16 @@ exports =
 	label:
 		text:
 			fill: '#fff'
-			font: '12px "Helvetica Neue"'
+			font: '11px Titillium, sans-serif'
 			'text-anchor': 'start'
 
 		deleteButton:
 			'stroke-width': 0
+
+			text:
+				fill: '#fff'
+				font: '11px Titillium, sans-serif'
+				'text-anchor': 'start'
 
 		rect:
 			'stroke-width': 0
@@ -41,8 +46,8 @@ exports =
 		stroke: '#fff'
 		'stroke-width': 2
 
-	seastar: 'orange'
-	fish: 'yellow'
-	scallop: 'gray'
-	squid: 'green'
-	shrimp: 'pink'
+	seastar: '#990'
+	fish: '#099'
+	scallop: '#909'
+	squid: '#900'
+	shrimp: '#009'
