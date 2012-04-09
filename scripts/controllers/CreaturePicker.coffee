@@ -36,12 +36,11 @@ class CreaturePicker extends Spine.Controller
 	constructor: ->
 		super
 
-		@el.html @template
+		@html @template
 		@refreshElements()
 
 		@paper = Raphael @selectionArea[0], '100%', '100%'
 		@image.insertBefore @paper.canvas
-		# @image.on 'load', @resize
 
 	ESC = 27
 	delegateEvents: =>

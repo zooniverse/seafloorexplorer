@@ -1,82 +1,197 @@
 @import "constants";
 
-#classification {
-	$width: 1000px;
-	$height: 570px;
-
-	height: $height;
-	margin-left: -$width / 2;
-	left: 50%;
-	position: absolute;
-	top: 0;
-	width: $width;
-}
-
-#subject {
-	background: $white;
-	height: 560px;
-	padding: 5px;
-	position: relative;
-	width: 705px;
-	z-index: 1;
-
-	> .selection-area {
-		height: 100%;
-		position: relative;
-		width: 100%;
-
-		&.disabled {
-			cursor: not-allowed;
-		}
-
-		> img {
-			height: 100%;
-			position: absolute;
-			width: 100%;
-		}
-
-		// Raphael's canvas
-		// Styled inline by Raphael.
-		> svg,
-		> div {}
-	}
-}
-
 #classifier {
-	background: $white;
-	bottom: 0;
-	overflow: auto;
-	position: absolute;
-	right: 0;
-	top: 0;
-	width: 290px;
+	$blue: rgb(0, 66, 80);
+	$gray-light: rgb(236, 236, 236);
+	$gray-dark: rgb(227, 227, 227);
+	$gray-darker: rgb(190, 190, 190);
+	$orange-lighter: rgb(240, 172, 86);
+	$orange-light: rgb(232, 135, 13);
+	$orange-dark: rgb(224, 90, 18);
+	$orange-darker: rgb(159, 61, 11);
 
-	> header {
-		.position,
-		.depth {}
+	$classification-height: 570px;
+
+	> .image {
+		@include box-sizing(border-box);
+		background: $white;
+		border: 5px solid $white;
+		height: $classification-height;
+		position: relative;
+		width: $three-quarter-width;
+		z-index: 2;
+
+		> .selection-area {
+			height: 100%;
+			position: relative;
+			width: 100%;
+
+			&.disabled {
+				cursor: not-allowed;
+			}
+
+			> img {
+				height: 100%;
+				position: absolute;
+				width: 100%;
+			}
+
+			// Raphael's canvas
+			// Styled inline by Raphael.
+			> svg,
+			> div {}
+		}
 	}
 
-	> .steps {
-		> .step {
-			ul.toggles {
-				> li {
-					> button {
-						> .count {}
+	> .options {
+		height: $classification-height;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: $quarter-width + $gutter-width;
 
-						&.active {}
+		> .steps {
+			@include box-sizing(border-box);
+			@include transition(right 0.25s ease-in-out);
+			background: $white; // TODO: Torn edge
+			height: 100%;
+			padding: $gutter-width * 1.5;
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 100%;
+			z-index: 1;
+
+			&:after {
+				background: url("torn-edge.png");
+				content: " ";
+				height: 100%;
+				left: 100%;
+				position: absolute;
+				top: 0;
+				width: 15px;
+			}
+
+			&.finished {
+				right: 100%;
+			}
+
+			> nav {
+				border: 1px solid $gray-darker;
+				margin-bottom: $gutter-width;
+				overflow: hidden;
+
+				> a {
+					@include linear-gradient($gray-light, $gray-dark);
+					color: $blue;
+					display: block;
+					float: left;
+					font: {
+						size: 10px;
+						weight: bold;
+					};
+					padding: 5px 0 3px;
+					text: {
+						align: center;
+						decoration: none;
+						transform: uppercase;
+					};
+					width: 50%;
+
+					&.active {
+						@include linear-gradient($blue);
+						color: $white;
 					}
 				}
 			}
 
-			.delete {}
+			[data-page] {
+				display: none;
 
-			.finished {
-				&:disabled {}
+				&.active {
+					display: block;
+				}
 			}
 
-			&.active {}
+			.toggles {
+				margin: $gutter-width 0;
+				padding: 0;
+
+				> li {
+					display: block;
+
+					> button {
+						@include linear-gradient($gray-light, $gray-dark);
+						border: 1px solid $gray-darker;
+						color: inherit;
+						display: block;
+						font: {
+							family: inherit;
+							size: 24px;
+						};
+						padding: 15px 15px 10px;
+						margin-top: -1px;
+						text: {
+							align: left;
+							transform: lowercase;
+						};
+						width: 100%;
+
+						> .count {
+							float: right;
+						}
+
+						&.active {
+							@include linear-gradient($blue);
+							border-color: ($blue + $gray-darker) / 2;
+							color: $white;
+						}
+					}
+				}
+			}
+
+			.finished {
+				@include box-shadow(0 1px $orange-lighter inset);
+				@include linear-gradient($orange-light, $orange-dark);
+				border: 1px solid $orange-darker;
+				color: $white;
+				font: {
+					family: inherit;
+					size: 12px;
+					weight: bold;
+				};
+				padding: 10px 0 7px;
+				width: 100%;
+
+				&:disabled {
+					opacity: 0.5;
+				}
+			}
+
+			> .followup {
+				margin-top: $gutter-width;
+
+				> button {
+					@include box-shadow(0 1px $orange-lighter inset);
+					@include linear-gradient($orange-light, $orange-dark);
+					border: 1px solid $orange-darker;
+					color: $white;
+					font: {
+						family: inherit;
+						size: 12px;
+						weight: bold;
+					};
+					margin-top: -1px;
+					padding: 10px 0 7px;
+					width: 100%;
+				}
+			}
+		}
+
+		> .summary {
+			left: 0;
+			position: absolute;
+			top: 0;
 		}
 	}
-
-	> .summary {}
 }

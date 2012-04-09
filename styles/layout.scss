@@ -6,59 +6,37 @@ html {
 
   > body {
     margin: 0;
-  }
 
-  &.pre-load * {
-    // Nothing will animate until this class is removed.
-    @include transition(all 0 linear 0 !important);
+    &.pre-load * {
+      // Nothing will animate until this class is removed.
+      @include transition(all 0 linear 0 !important);
+    }
   }
 }
 
 #wrapper {
+  margin: 0 auto;
+  width: $full-width;
+
   > header {
-    color: $white;
-    height: 80px;
-    line-height: 50px;
-    margin: 0 auto;
-
     > h1 {
-      float: left;
-      margin: 0;
-
-      > a {
-        color: inherit;
-        display: inline-block;
-        margin-left: -15px;
-        padding: 15px;
-        text-decoration: none;
-      }
+      > a {}
     }
 
     > nav {
-      float: right;
-      margin-right: -15px;
-
       > ul {
-        margin: 0;
-        padding: 0;
-
         > li {
-          display: inline-block;
+          display: inline;
 
-          > a {
-            color: inherit;
-            display: inline-block;
-            padding: 15px;
-            text-decoration: none;
-          }
+          > a {}
         }
       }
     }
   }
 
   > #main {
-    position: relative;
-
-    > section {}
+    > section {
+      position: relative;
+    }
   }
 }

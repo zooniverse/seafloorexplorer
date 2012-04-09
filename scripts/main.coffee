@@ -45,11 +45,8 @@ for sampleImage, i in sampleImages
 		depth: i * 10
 
 Classifier = require 'controllers/Classifier'
-CreaturePicker = require 'controllers/CreaturePicker'
 window.classifier = new Classifier
 	el: $('#classifier')
-	picker: new CreaturePicker
-		el: $('#subject')
 	subject: Subject.first()
 
 Tutorial = require 'controllers/Tutorial'

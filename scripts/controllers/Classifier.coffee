@@ -1,6 +1,9 @@
 Spine = require 'Spine'
 $ = require 'jQuery'
 
+CreaturePicker = require 'controllers/CreaturePicker'
+Pager = require 'controllers/Pager'
+
 Subject = require 'models/Subject'
 GroundCover = require 'models/GroundCover'
 
@@ -14,35 +17,36 @@ class Classifier extends Spine.Controller
 	template: TEMPLATE
 
 	elements:
-		'.position > .latitude': 'latitude'
-		'.position > .longitude': 'longitude'
-		'.depth > .meters': 'depth'
 		'.steps': 'steps'
-		'.ground-cover.step': 'groundCoverStep'
-		'.ground-cover.toggles': 'groundCoverList'
+		'.ground-cover .toggles': 'groundCoverList'
 		'.ground-cover .finished': 'groundCoverFinishedButton'
-		'.species.step': 'speciesStep'
-		'.species.toggles button': 'speciesButtons'
-		'.species .delete': 'deleteButton'
+		'.species .toggles button': 'speciesButtons'
 		'.species .finished': 'speciesFinishedButton'
+		'.summary': 'summary'
 		'.summary .total': 'total'
 
 	events:
-		'click .ground-cover.toggles button': 'toggleGroundCover'
+		'click .ground-cover .toggles button': 'toggleGroundCover'
 		'click .ground-cover .finished': 'finishGroundCover'
-		'click .species.toggles button': 'changeSpecies'
-		'click .species .delete': 'deleteSelected'
-		'click .species > .finished': 'finishSpecies'
-		'click .next': 'nextSubject'
+		'click .species .toggles button': 'changeSpecies'
+		'click .species .finished': 'finishSpecies'
+		'click .talk .yes': 'goToTalk'
+		'click .talk .no': 'nextSubject'
 
 	constructor: ->
 		super
 
-		@el.html @template
-		@refreshElements()
+		@html @template
+
+		@picker = new CreaturePicker
+			el: @el.find '.image'
+
+		new Pager el: parent for parent in @el.find('[data-page]').parent()
 
 		@changeSubject @subject
+
 		@picker.bind 'change-selection', @render
+
 		for groundCover in GroundCover.all()
 			@groundCoverList.append """
 				<li>
@@ -51,22 +55,18 @@ class Classifier extends Spine.Controller
 			"""
 
 	changeSubject: (@subject) =>
-		@steps.removeClass 'finished'
-		@groundCoverStep.removeClass 'finished'
-		@groundCoverStep.addClass 'active'
-		@speciesStep.removeClass 'active'
 		@changeSpecies null
 
-		@latitude.html @subject.latitude
-		@longitude.html @subject.longitude
-		@depth.html @subject.depth
-		@picker.image.attr 'src', @subject.image
-
 		@classification = @subject.classifications().create {}
+
+		@picker.image.attr 'src', @subject.image
 		@picker.changeClassification @classification
 
 		@classification.bind 'change', @render
 		@classification.trigger 'change'
+
+		location.hash = '#/classify/ground-cover'
+		@steps.removeClass 'finished'
 
 	render: =>
 		for button in @groundCoverList.find 'button'
@@ -81,7 +81,9 @@ class Classifier extends Spine.Controller
 			else
 				button.removeClass 'active'
 
-		@groundCoverFinishedButton.attr 'disabled', @classification.groundCovers().all().length is 0
+		groundCoverPicked = @classification.groundCovers().all().length isnt 0
+		@groundCoverFinishedButton.attr 'disabled', not groundCoverPicked
+		@speciesFinishedButton.attr 'disabled', not groundCoverPicked
 
 		selectedMarker = (m for m in @picker.markers when m.selected)[0]
 		if selectedMarker
@@ -93,8 +95,6 @@ class Classifier extends Spine.Controller
 			button = @speciesButtons.filter "[value='#{marking.species}']"
 			countElement = button.find '.count'
 			countElement.html parseInt(countElement.html(), 10) + 1
-
-		@deleteButton.attr 'disabled', not selectedMarker
 
 		@total.html @classification.markings().all().length
 
@@ -112,9 +112,7 @@ class Classifier extends Spine.Controller
 		@classification.trigger 'change'
 
 	finishGroundCover: =>
-		@groundCoverStep.addClass 'finished'
-		@groundCoverStep.removeClass 'active'
-		@speciesStep.addClass 'active'
+		location.hash = '#/classify/species'
 
 	changeSpecies: (e) =>
 		e ?= target: $('<input value="" />') # Dummy for when we deselect a button
@@ -128,22 +126,14 @@ class Classifier extends Spine.Controller
 		@speciesButtons.removeClass 'active'
 		target.addClass 'active'
 
-	deleteSelected: =>
-		index = i for marking, i in @picker.markers when marking.selected
-		@picker.markers[index].marking.destroy()
-		@classification.trigger 'change'
-
 	finishSpecies: =>
 		@picker.setDisabled true
-
-		species = {}
-		for marking in @picker.markers
-			species[marking.type] ||= []
-			species[marking.type].push marking.points
-
-		@classification.updateAttribute 'species', species
-
 		@steps.addClass 'finished'
+
+		# TODO: Update summary
+
+	goToTalk: =>
+		alert 'TODO: Go to talk'
 
 	nextSubject: =>
 		@classification.save()

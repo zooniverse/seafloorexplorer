@@ -6,6 +6,17 @@ $blue-dark:       rgb(0, 66, 80);
 
 $orange:          rgb(224, 88, 18);
 
+// Grid:
+
+$twelfth-width: 65px;
+$gutter-width: 20px;
+$quarter-width: ($twelfth-width * 3) + ($gutter-width * 2);
+$half-width: ($twelfth-width * 6) + ($gutter-width * 5);
+$third-width: ($twelfth-width * 4) + ($gutter-width * 3);
+$two-third-width: ($third-width * 2) + $gutter-width;
+$three-quarter-width: ($quarter-width * 3) + ($gutter-width * 2);
+$full-width: ($twelfth-width * 12) + ($gutter-width * 11);
+
 // Cross-broswer:
 
 @mixin border-radius($value: 0px) {
@@ -83,5 +94,13 @@ $orange:          rgb(224, 88, 18);
       top: 0;
       width: 30px;
     }
+  }
+}
+
+@mixin contain-floats {
+  &:after {
+    content: "";
+    clear: both;
+    display: table;
   }
 }
