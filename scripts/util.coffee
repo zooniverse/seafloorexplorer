@@ -1,3 +1,4 @@
+$ = require 'jQuery'
 translations = require 'translations'
 
 exports =
@@ -10,6 +11,22 @@ exports =
 
 	indexOf: (array, theItem) ->
 		array.indexOf?(theItem) or (i for anItem, i in array when anItem is theItem)[0]
+
+	offsetOf: (selector, horizontal = 'left', vertical = 'top') ->
+		selection = $(selector).first()
+		offset = selection.offset()
+
+		if horizontal isnt 'left'
+			width = selection.width()
+			if horizontal is 'center' then offset.left += width / 2
+			if horizontal is 'right' then offset.left += width
+
+		if vertical isnt 'top'
+			height = selection.height()
+			if vertical is 'middle' then offset.top += height / 2
+			if vertical is 'bottom' then offset.top += height
+
+		offset
 
 	translate: (term, wrap = 'p', className = '') ->
 		container = $("<div></div>")
