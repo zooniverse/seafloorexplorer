@@ -22,14 +22,17 @@ class Classifier extends Spine.Controller
 		'.ground-cover .finished': 'groundCoverFinishedButton'
 		'.species .toggles button': 'speciesButtons'
 		'.species .finished': 'speciesFinishedButton'
-		'.summary': 'summary'
-		'.summary .total': 'total'
+		'.summary .thumbnail img': 'thumbnail'
+		'.summary table.ground-cover tbody': 'summaryGroundCoverTable'
+		'.summary table.species tbody': 'summarySpeciesTable'
 
 	events:
 		'click .ground-cover .toggles button': 'toggleGroundCover'
 		'click .ground-cover .finished': 'finishGroundCover'
 		'click .species .toggles button': 'changeSpecies'
 		'click .species .finished': 'finishSpecies'
+		'click .thumbnail img': 'toggleMap'
+		'click .toggle-map': 'toggleMap'
 		'click .talk .yes': 'goToTalk'
 		'click .talk .no': 'nextSubject'
 
@@ -55,10 +58,14 @@ class Classifier extends Spine.Controller
 			"""
 
 	changeSubject: (@subject) =>
+		@el.toggleClass 'show-map', false
+
 		@changeSpecies null
 
 		@classification = @subject.classifications().create {}
 
+		@thumbnail.attr 'src', @subject.image
+		@picker.map.attr 'src', "http://maps.googleapis.com/maps/api/staticmap?center=#{@subject.latitude},#{@subject.longitude}&zoom=10&size=745x570&maptype=satellite&sensor=false"
 		@picker.image.attr 'src', @subject.image
 		@picker.changeClassification @classification
 
@@ -72,7 +79,7 @@ class Classifier extends Spine.Controller
 		for button in @groundCoverList.find 'button'
 			button = $(button)
 
-			# Is .groundCovers().findByAttribute broken?
+			# Is @classification.groundCovers().findByAttribute broken?
 			groundCovers = @classification.groundCovers().all()
 			groundCover = (gc for gc in groundCovers when gc.ground_cover_id is button.val())[0]
 
@@ -96,7 +103,32 @@ class Classifier extends Spine.Controller
 			countElement = button.find '.count'
 			countElement.html parseInt(countElement.html(), 10) + 1
 
-		@total.html @classification.markings().all().length
+		@renderSummary()
+
+	renderSummary: =>
+		groundCovers = []
+		for {ground_cover_id} in @classification.groundCovers().all()
+			groundCovers.push GroundCover.find(ground_cover_id).description;
+
+		@summaryGroundCoverTable.empty()
+		for groundCover in groundCovers
+			@summaryGroundCoverTable.append """
+				<tr><td>#{groundCover}</td></tr>
+			"""
+
+		speciesCounts = {}
+		for {species} in @classification.markings().all()
+			speciesCounts[species] ||= 0
+			speciesCounts[species] += 1
+
+		@summarySpeciesTable.empty()
+		for species, count of speciesCounts
+			@summarySpeciesTable.append """
+				<tr>
+					<td>#{species}</td>
+					<td class="count">#{count}</td>
+				</tr>
+			"""
 
 	toggleGroundCover: (e) =>
 		target = $(e.target)
@@ -131,6 +163,10 @@ class Classifier extends Spine.Controller
 		@steps.addClass 'finished'
 
 		# TODO: Update summary
+
+	toggleMap: (show) =>
+		unless typeof show is 'boolean' then show = undefined
+		@el.toggleClass 'show-map', show
 
 	goToTalk: =>
 		alert 'TODO: Go to talk'

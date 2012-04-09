@@ -27,8 +27,9 @@ class CreaturePicker extends Spine.Controller
 	disabled: false
 
 	elements:
-		'> .selection-area': 'selectionArea'
-		'> .selection-area > img': 'image'
+		'.map img': 'map'
+		'.selection-area': 'selectionArea'
+		'.selection-area img': 'image'
 
 	events:
 		'mousedown': 'onMouseDown'

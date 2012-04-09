@@ -40,7 +40,7 @@ Subject = require 'models/Subject'
 for sampleImage, i in sampleImages
 	Subject.create
 		image: sampleImage
-		latitude: parseFloat String(Math.random() * 180)[0..4]
+		latitude: parseFloat String(Math.random() * 80)[0..4]
 		longitude: parseFloat String(Math.random() * 180)[0..4]
 		depth: i * 10
 

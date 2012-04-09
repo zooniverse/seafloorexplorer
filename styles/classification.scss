@@ -21,7 +21,22 @@
 		width: $three-quarter-width;
 		z-index: 2;
 
+		> .map {
+			height: 100%;
+			position: absolute;
+			width: 100%;
+
+			> img {
+				height: 100%;
+				width: 100%;
+			}
+		}
+
 		> .selection-area {
+			@include transition(#{
+				opacity 0.25s ease-in-out,
+				-moz-transform 0.25s ease-in-out
+			});
 			height: 100%;
 			position: relative;
 			width: 100%;
@@ -63,13 +78,13 @@
 			z-index: 1;
 
 			&:after {
-				background: url("torn-edge.png");
+				background: url("torn-edge.png") right 4px;
 				content: " ";
 				height: 100%;
 				left: 100%;
 				position: absolute;
 				top: 0;
-				width: 15px;
+				width: 3px;
 			}
 
 			&.finished {
@@ -189,9 +204,90 @@
 		}
 
 		> .summary {
+			font: {
+				size: 14px;
+				weight: bold;
+			};
 			left: 0;
+			padding: $gutter-width $gutter-width $gutter-width $gutter-width * 1.5;
 			position: absolute;
 			top: 0;
+
+			button {
+				background: $blue;
+				border: 1px solid $black;
+				color: $white;
+				font: {
+					family: inherit;
+					size: inherit;
+					weight: inherit;
+				};
+				padding: 10px 0 7px;
+				text-align: center;
+				width: 100%;
+			}
+
+			> .heading {
+				font: {
+					size: 20px;
+					weight: normal;
+				};
+			}
+
+			> .thumbnail {
+				@include transition(#{
+					border-width 0.25s ease-in-out,
+					margin-bottom 0.25s ease-in-out,
+					max-height 0.25s ease-in-out
+				});
+				border: 0 solid $white;
+				margin-bottom: 0;
+				max-height: 0;
+				overflow: hidden;
+
+				> img {
+					display: block;
+					width: 100%;
+				}
+			}
+
+			> table {
+				border-collapse: collapse;
+				border-spacing: 0;
+				margin: $gutter-width 0;
+				width: 100%;
+
+				td {
+					border: 1px solid $black;
+					padding: 10px 10px 5px;
+
+					&.count {
+						text-align: center;
+						width: 1em;
+					}
+				}
+			}
+
+			> .talk {
+				margin-top: $gutter-width;
+
+				button {
+					width: 49%;
+				}
+			}
+		}
+	}
+
+	&.show-map {
+		> .image > .selection-area {
+			@include transform(scale(0.01));
+			opacity: 0;
+		}
+
+		> .options > .summary > .thumbnail {
+			border-width: 3px;
+			margin-bottom: $gutter-width;
+			max-height: 170px;
 		}
 	}
 }
