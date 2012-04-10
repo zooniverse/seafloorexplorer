@@ -72,8 +72,9 @@ class Classifier extends Spine.Controller
 		@classification.bind 'change', @render
 		@classification.trigger 'change'
 
-		location.hash = '#/classify/ground-cover'
 		@steps.removeClass 'finished'
+		if ~location.hash.indexOf '/classify'
+			location.hash = '#/classify/ground-cover'
 
 	render: =>
 		for button in @groundCoverList.find 'button'

@@ -19,16 +19,36 @@ html {
   width: $full-width;
 
   > header {
+    color: $white;
+    overflow: hidden;
+
     > h1 {
-      > a {}
+      float: left;
+      font-weight: inherit;
+
+      > a {
+        color: inherit;
+        letter-spacing: 1px;
+        text: {
+          decoration: none;
+          transform: lowercase;
+        };
+        word-spacing: -0.25em;
+      }
     }
 
     > nav {
+      float: right;
+
       > ul {
         > li {
           display: inline;
 
-          > a {}
+          > a {
+            color: inherit;
+            padding: 10px;
+            text-decoration: none;
+          }
         }
       }
     }
