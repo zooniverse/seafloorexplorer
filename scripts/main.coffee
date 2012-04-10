@@ -55,8 +55,7 @@ window.tutorial = new Tutorial
 	el: $('section[data-page="classify"]')
 	steps: tutorialSteps
 
-loggedInUserAlreadyDidTheTutorial = true
-unless loggedInUserAlreadyDidTheTutorial? then tutorial.start()
+unless ~location.search.indexOf 'notut' then tutorial.start()
 
 {delay} = require 'util'
 delay -> $('html').removeClass 'pre-load'
