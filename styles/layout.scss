@@ -21,10 +21,12 @@ html {
   > header {
     color: $white;
     overflow: hidden;
+    padding: 10px 0;
 
     > h1 {
       float: left;
       font-weight: inherit;
+      margin: 25px 0 0;
 
       > a {
         color: inherit;
@@ -39,15 +41,32 @@ html {
 
     > nav {
       float: right;
+      font: {
+        size: 10px;
+        weight: bold;
+      };
 
       > ul {
+        margin: 0;
+        padding: 0;
+
         > li {
-          display: inline;
+          display: block;
+          float: left;
 
           > a {
             color: inherit;
-            padding: 10px;
-            text-decoration: none;
+            display: inline-block;
+            text: {
+              align: center;
+              decoration: none;
+            };
+            width: $twelfth-width + $gutter-width;
+
+            > img {
+              display: block;
+              margin: 0 auto;
+            }
           }
         }
       }
