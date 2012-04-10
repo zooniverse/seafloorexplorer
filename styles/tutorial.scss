@@ -14,7 +14,7 @@
 		padding: 3px 20px;
 		position: absolute;
 		text-shadow: 0 1px $blue-dark;
-		z-index: 2;
+		z-index: 4;
 
 		&.modal {
 			background: transparentize($blue, 1);
@@ -82,14 +82,14 @@
 		position: absolute;
 		top: 50%;
 		width: 0;
-		z-index: 1;
+		z-index: 3;
 
 		&.modal {
 			height: 100%;
 			left: 0;
 			opacity: 1;
 			top: 0;
-			width: 100%;
+			width: 101%;
 		}
 	}
 }
