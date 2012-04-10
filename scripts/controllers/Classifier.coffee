@@ -94,8 +94,7 @@ class Classifier extends Spine.Controller
 
 		selectedMarker = (m for m in @picker.markers when m.selected)[0]
 		if selectedMarker
-			@speciesButtons.removeClass 'active'
-			@speciesButtons.filter("[value='#{selectedMarker.marking.species}']").addClass 'active'
+			@speciesButtons.filter("[value='#{selectedMarker.marking.species}']").trigger 'click'
 
 		@speciesButtons.find('.count').html '0'
 		for marking in @classification.markings().all()
