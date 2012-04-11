@@ -40,8 +40,8 @@ class CircleMarker extends Marker
 			cy: centerPoint.y * h
 
 		@label.attr
-			x: centerPoint.x * w
-			y: centerPoint.y * h
+			x: Math.round centerPoint.x * w
+			y: Math.round centerPoint.y * h
 
 		radiusPoint = @marking.points().last()
 		@radiusHandle.attr
