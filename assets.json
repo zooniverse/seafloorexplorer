@@ -1,7 +1,5 @@
 [
-	{"https://raw.github.com/brian-c/jekyll-plugins/master/_plugins/extension_converter.rb": "_plugins/extension_converter.rb"},
-	{"https://raw.github.com/brian-c/jekyll-plugins/master/_plugins/coffee.rb": "_plugins/coffee.rb"},
-	{"https://raw.github.com/brian-c/jekyll-plugins/master/_plugins/sass.rb": "_plugins/sass.rb"},
+	{"git://github.com/brian-c/jekyll-plugins.git": {"_plugins": "_plugins"}},
 
 	{"http://requirejs.org/docs/release/1.0.7/comments/require.js": "scripts/lib/require.js"},
 	{"http://requirejs.org/docs/release/1.0.5/comments/order.js": "scripts/lib/order.js"},
@@ -10,6 +8,14 @@
 	{"http://code.jquery.com/jquery-1.7.1.js": "scripts/lib/jquery.js"},
 	{"http://spinejs.com/pages/download": "scripts/lib/spine"},
 	{"http://github.com/DmitryBaranovskiy/raphael/raw/master/raphael.js": "scripts/lib/raphael.js"},
+
+	{"git@github.com:zooniverse/Front-End-Assets.git": [
+		{"zooniverse-bar/ZooniverseBar.js": "scripts/lib/ZooniverseBar.js"},
+		{"zooniverse-bar/zooniverse-bar.css": "styles/lib/zooniverse-bar.css"},
+		{"pager/Pager.js": "scripts/lib/Pager.js"}
+	]},
+
+	{"git://github.com/brian-c/route.git": {"Route.js": "scripts/lib/Route.js"}},
 
 	{"https://raw.github.com/aFarkas/html5shiv/6d46e08c69/src/html5shiv.js": "scripts/lib/html5shiv.js"},
 

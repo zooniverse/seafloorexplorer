@@ -1,19 +1,7 @@
 $ = require 'jQuery'
 
-$('html').addClass 'pre-load' # Prevent animation while the page is set up.
-
-Pager = require 'controllers/Pager'
+Pager = require 'lib/Pager'
 window.pagers = (new Pager el: parent for parent in $('[data-page]').parent())
-
-NestedRoute = require 'NestedRoute'
-NestedRoute.setup()
-
-ScrollMatcher = require 'controllers/ScrollMatcher'
-window.scrollMatchers = (new ScrollMatcher el : parent for parent in $('[data-scroll-name]').parent())
-
-# layout = require 'layout'
-# $(window).on 'resize', layout
-# $(document).ready layout
 
 # Prevent scrolling the page on iPads.
 $(document).on 'touchmove', (e) -> e.preventDefault()
@@ -56,8 +44,5 @@ window.tutorial = new Tutorial
 	steps: tutorialSteps
 
 unless ~location.search.indexOf 'notut' then tutorial.start()
-
-{delay} = require 'util'
-delay -> $('html').removeClass 'pre-load'
 
 exports = window.classifier

@@ -2,7 +2,7 @@ Spine = require 'Spine'
 $ = require 'jQuery'
 
 CreaturePicker = require 'controllers/CreaturePicker'
-Pager = require 'controllers/Pager'
+Pager = require 'lib/Pager'
 
 Subject = require 'models/Subject'
 GroundCover = require 'models/GroundCover'

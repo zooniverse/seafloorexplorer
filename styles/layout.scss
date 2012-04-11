@@ -6,11 +6,6 @@ html {
 
   > body {
     margin: 0;
-
-    &.pre-load * {
-      // Nothing will animate until this class is removed.
-      @include transition(all 0 linear 0 !important);
-    }
   }
 }
 
@@ -75,7 +70,12 @@ html {
 
   > #main {
     > section {
+      display: none;
       position: relative;
+
+      &.active {
+        display: block;
+      }
     }
   }
 }
