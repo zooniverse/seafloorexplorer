@@ -46,8 +46,12 @@ exports =
 		stroke: '#fff'
 		'stroke-width': 2
 
-	seastar: '#990'
-	fish: '#099'
-	scallop: '#909'
-	squid: '#900'
-	shrimp: '#009'
+	fish: '#0bc7e8'
+
+	scallop: '#fd6500'
+
+	crustacean: '#b9ca00'
+
+	seastar: '#c512e0'
+
+	cool: '#000'

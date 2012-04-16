@@ -23,6 +23,7 @@ class CreaturePicker extends Spine.Controller
 	markers: null
 
 	selectedSpecies: ''
+	selectedMarkerType: ''
 
 	disabled: false
 
@@ -137,7 +138,7 @@ class CreaturePicker extends Spine.Controller
 		@movementCircle ||= @createStrayCircle()
 		@movementAxis ||= @createStrayAxis()
 
-		if @selectedSpecies is 'seastar'
+		if @selectedMarkerType is 'circle'
 			@movementBoundingCircle ||= @createStrayBoundingCircle @strayCircles[0].attr('cx'), @strayCircles[0].attr('cy')
 
 		{left, top} = @selectionArea.offset()
@@ -200,7 +201,7 @@ class CreaturePicker extends Spine.Controller
 
 	checkStrays: =>
 		if @strayCircles.length is 2
-			if @selectedSpecies is 'seastar'
+			if @selectedMarkerType is 'circle'
 				marker = @createCircleMarker()
 			else if @strayAxes.length is 0
 				@createStrayAxis()

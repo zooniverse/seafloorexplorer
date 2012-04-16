@@ -147,12 +147,14 @@ class Classifier extends Spine.Controller
 		location.hash = '#/classify/species'
 
 	changeSpecies: (e) =>
-		e ?= target: $('<input value="" />') # Dummy for when we deselect a button
+		e ?= target: $('<input />') # Dummy for when we deselect a button
 
 		target = $(e.target)
 		species = target.val()
 
 		@picker.selectedSpecies = species
+		@picker.selectedMarkerType = target.data 'marker'
+
 		@picker.setDisabled not species
 
 		@speciesButtons.removeClass 'active'
