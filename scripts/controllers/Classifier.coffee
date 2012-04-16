@@ -27,6 +27,7 @@ class Classifier extends Spine.Controller
 		'.summary table.species tbody': 'summarySpeciesTable'
 
 	events:
+		'click .steps nav a': (e) -> e.preventDefault()
 		'click .ground-cover .toggles button': 'toggleGroundCover'
 		'click .ground-cover .finished': 'finishGroundCover'
 		'click .species .toggles button': 'changeSpecies'
