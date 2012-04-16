@@ -75,8 +75,8 @@ class Marker extends Spine.Controller
 		@labelText.attr text: @marking.species.toUpperCase()
 		textBox = @labelText.getBBox()
 		@labelRect.attr width: 20 + Math.round(textBox.width) + 10
-		@deleteButton.transform "T#{@labelRect.attr 'width'},#{-style.crossCircle.r - (style.crossCircle['stroke-width'] / 2)}"
-		@deleteText.transform "T#{@labelRect.attr('width') + 5},0}"
+		@deleteButton.transform "T#{@labelRect.attr('width') - 1},#{-style.crossCircle.r - (style.crossCircle['stroke-width'] / 2)}"
+		@deleteText.transform "T#{@labelRect.attr('width') + 3},-1}"
 		@labelRect.attr fill: style[@marking.species]
 		@deleteButton.attr fill: style[@marking.species]
 
