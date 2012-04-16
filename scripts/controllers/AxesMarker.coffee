@@ -8,7 +8,6 @@ style = require 'style'
 class AxesMarker extends Marker
 	circles: null
 	lines: null
-	boundingBox: null
 
 	constructor: ->
 		super
@@ -24,11 +23,7 @@ class AxesMarker extends Marker
 
 		@lines = @paper.set(@paper.path() for p in points)
 		@lines.toBack()
-		@lines.attr style.line
-
-		@boundingBox = @paper.path()
-		@boundingBox.toBack()
-		@boundingBox.attr style.boundingBox
+		@lines.attr style.boundingBox
 
 		@marking.trigger 'change'
 
@@ -69,8 +64,6 @@ class AxesMarker extends Marker
 
 		for line, i in @lines
 			line.attr path: @lineBetween @circles[i], @centerCircle
-
-		@boundingBox.attr path: @getBoundingPathString()
 
 	getIntersection: =>
 		points = @marking.points().all()
@@ -118,7 +111,6 @@ class AxesMarker extends Marker
 				200
 
 		@lines.animate opacity: 1, 333
-		@boundingBox.animate opacity: 1, 250
 
 	deselect: =>
 		super
@@ -130,7 +122,6 @@ class AxesMarker extends Marker
 			250
 
 		@lines.animate opacity: 0, 125
-		@boundingBox.animate opacity: 0, 250
 
 	centerCircleDrag: (dx, dy) =>
 		@moved = true
@@ -162,6 +153,5 @@ class AxesMarker extends Marker
 		@centerCircle.remove()
 		@circles.remove()
 		@lines.remove()
-		@boundingBox.remove()
 
 exports = AxesMarker

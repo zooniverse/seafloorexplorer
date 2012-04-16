@@ -24,7 +24,7 @@ class CircleMarker extends Marker
 
 		@boundingCircle = @paper.circle()
 		@boundingCircle.toBack()
-		@boundingCircle.attr style.boundingBox
+		@boundingCircle.attr style.line
 
 		@marking.trigger 'change'
 
