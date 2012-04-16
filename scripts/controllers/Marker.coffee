@@ -89,12 +89,24 @@ class Marker extends Spine.Controller
 		@trigger 'deselect', @
 
 	dragStart: =>
+		return unless $(@centerCircle.node).closest(':disabled, .disabled').length is 0
+
 		@startPoints = ({x: point.x, y: point.y} for point in @marking.points().all())
 		@wasSelected = @selected
 		@select() unless @wasSelected
 
-	centerCircleDrag: =>
-		# Override
+	centerCircleDrag: (dx, dy) =>
+		return unless @startPoints?
+		@moved = true
+
+		{width: w, height: h} = @paperSize()
+
+		for point, i in @marking.points().all()
+			point.updateAttributes
+				x: ((@startPoints[i].x * w) + dx) / w
+				y: ((@startPoints[i].y * h) + dy) / h
+
+		@marking.trigger 'change'
 
 	dragEnd: =>
 		@deselect() if @wasSelected and not @moved # Basically, a click

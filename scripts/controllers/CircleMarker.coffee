@@ -59,18 +59,6 @@ class CircleMarker extends Marker
 				bSquared = Math.pow (centerPoint.y * h) - (radiusPoint.y * h), 2
 				Math.sqrt aSquared + bSquared
 
-	centerCircleDrag: (dx, dy) =>
-		@moved = true
-
-		{width: w, height: h} = @paperSize()
-
-		for point, i in @marking.points().all()
-			point.updateAttributes
-				x: ((@startPoints[i].x * w) + dx) / w
-				y: ((@startPoints[i].y * h) + dy) / h
-
-		@marking.trigger 'change'
-
 	radiusHandleDrag: (dx, dy) =>
 		@moved = true
 

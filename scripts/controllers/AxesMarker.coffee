@@ -123,18 +123,6 @@ class AxesMarker extends Marker
 
 		@lines.animate opacity: 0, 125
 
-	centerCircleDrag: (dx, dy) =>
-		@moved = true
-
-		{width: w, height: h} = @paperSize()
-
-		for point, i in @marking.points().all()
-			point.updateAttributes
-				x: ((@startPoints[i].x * w) + dx) / w
-				y: ((@startPoints[i].y * h) + dy) / h
-
-		@marking.trigger 'change'
-
 	circleDrag: (dx, dy) =>
 		@moved = true
 
