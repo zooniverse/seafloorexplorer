@@ -54,4 +54,4 @@ exports =
 
 	seastar: '#c512e0'
 
-	cool: '#000'
+	cool: '#001e29'

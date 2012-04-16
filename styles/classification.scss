@@ -2,6 +2,7 @@
 
 #classifier {
 	$blue: rgb(0, 66, 80);
+	$blue-dark: #001e29;
 	$gray-light: rgb(236, 236, 236);
 	$gray-dark: rgb(227, 227, 227);
 	$gray-darker: rgb(190, 190, 190);
@@ -138,7 +139,7 @@
 					> button {
 						@include linear-gradient($gray-light, $gray-dark);
 						border: 1px solid $gray-darker;
-						color: inherit;
+						color: $blue-dark;
 						display: block;
 						font: {
 							family: inherit;
