@@ -115,10 +115,18 @@ class CreaturePicker extends Spine.Controller
 
 		line
 
+	createStrayBoundingCircle: (cx, cy) =>
+		circle = @paper.circle cx, cy
+		circle.attr style.line
+		#@strayAxes.push circle
+
+		circle
+
 	dragThreshold: 10
 	mouseMoves: 0
 	movementCircle: null
 	movementAxis: null
+	movementBoundingCircle: null
 	onMouseMove: (e) =>
 		return unless @mouseIsDown and not @disabled
 		return if @strayCircles.length % 2 is 0 and not @movementCircle
@@ -126,10 +134,14 @@ class CreaturePicker extends Spine.Controller
 		@mouseMoves += 1
 		return if @mouseMoves < @dragThreshold
 
-		@movementCircle = @createStrayCircle() unless @movementCircle?
-		@movementAxis = @createStrayAxis() unless @movementAxis?
+		@movementCircle ||= @createStrayCircle()
+		@movementAxis ||= @createStrayAxis()
+
+		if @selectedSpecies is 'seastar'
+			@movementBoundingCircle ||= @createStrayBoundingCircle @strayCircles[0].attr('cx'), @strayCircles[0].attr('cy')
 
 		{left, top} = @selectionArea.offset()
+
 		@movementCircle.attr
 			cx: e.pageX - left
 			cy: e.pageY - top
@@ -138,15 +150,21 @@ class CreaturePicker extends Spine.Controller
 		@movementAxis.attr
 			path: Marker::lineBetween secondLastCircle, @movementCircle
 
+		@movementBoundingCircle?.attr
+			r: @movementAxis.getTotalLength()
+
 	onMouseUp: (e) =>
 		return unless @mouseIsDown and not @disabled
 		@mouseIsDown = false
 		@mouseMoves = 0
 
+		@checkStrays()
+
 		@movementCircle = null
 		@movementAxis = null
 
-		@checkStrays()
+		@movementBoundingCircle?.remove()
+		@movementBoundingCircle = null
 
 	createCircleMarker: (x, y) =>
 		marking = @createMarking()
