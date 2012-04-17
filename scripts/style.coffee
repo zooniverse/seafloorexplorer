@@ -55,3 +55,12 @@ exports =
 	seastar: '#c512e0'
 
 	cool: '#001e29'
+
+	helperCircle:
+		opacity: 0.5
+		r: 3
+		'stroke-width': 0
+
+		active:
+			opacity: 1
+			r: 5

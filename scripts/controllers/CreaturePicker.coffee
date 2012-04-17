@@ -16,6 +16,7 @@ class CreaturePicker extends Spine.Controller
 	template: TEMPLATE
 
 	paper: null
+	indicator: null
 
 	strayCircles: null
 	strayAxes: null
@@ -119,7 +120,6 @@ class CreaturePicker extends Spine.Controller
 	createStrayBoundingCircle: (cx, cy) =>
 		circle = @paper.circle cx, cy
 		circle.attr style.line
-		#@strayAxes.push circle
 
 		circle
 
@@ -200,6 +200,8 @@ class CreaturePicker extends Spine.Controller
 		marking
 
 	checkStrays: =>
+		@indicator.setStep @strayCircles.length
+
 		if @strayCircles.length is 2
 			if @selectedMarkerType is 'circle'
 				marker = @createCircleMarker()

@@ -167,6 +167,22 @@
 				}
 			}
 
+			.indicator {
+				height: 100px;
+				position: relative;
+				text-align: center;
+
+				> img {}
+
+				> .points {
+					height: 100%;
+					left: 0;
+					position: absolute;
+					top: 0;
+					width: 100%;
+				}
+			}
+
 			.finished {
 				@include box-shadow(0 1px $orange-lighter inset);
 				@include linear-gradient($orange-light, $orange-dark);

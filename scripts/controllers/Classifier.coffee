@@ -2,6 +2,7 @@ Spine = require 'Spine'
 $ = require 'jQuery'
 
 CreaturePicker = require 'controllers/CreaturePicker'
+MarkerIndicator = require 'controllers/MarkerIndicator'
 Pager = require 'lib/Pager'
 
 Subject = require 'models/Subject'
@@ -14,6 +15,8 @@ class Classifier extends Spine.Controller
 	classification: null
 
 	picker: null
+	indicator: null
+
 	template: TEMPLATE
 
 	elements:
@@ -42,14 +45,16 @@ class Classifier extends Spine.Controller
 
 		@html @template
 
+		@indicator = new MarkerIndicator
+			el: @el.find '.indicator'
+
 		@picker = new CreaturePicker
 			el: @el.find '.image'
-
-		new Pager el: parent for parent in @el.find('[data-page]').parent()
-
-		@changeSubject @subject
+			indicator: @indicator
 
 		@picker.bind 'change-selection', @render
+
+		new Pager el: parent for parent in @el.find('[data-page]').parent()
 
 		for groundCover in GroundCover.all()
 			@groundCoverList.append """
@@ -57,6 +62,8 @@ class Classifier extends Spine.Controller
 					<button value="#{groundCover.id}">#{groundCover.description}</button>
 				</li>
 			"""
+
+		@changeSubject @subject
 
 	changeSubject: (@subject) =>
 		@el.toggleClass 'show-map', false
@@ -158,6 +165,8 @@ class Classifier extends Spine.Controller
 
 		@picker.setDisabled not species
 
+		@indicator.setSpecies species
+
 		@speciesButtons.removeClass 'active'
 		target.addClass 'active'
 
@@ -165,10 +174,8 @@ class Classifier extends Spine.Controller
 		@picker.setDisabled true
 		@steps.addClass 'finished'
 
-		# TODO: Update summary
-
 	toggleMap: (show) =>
-		unless typeof show is 'boolean' then show = undefined
+		unless typeof show is 'boolean' then show = (do -> arguments[0])
 		@el.toggleClass 'show-map', show
 
 	goToTalk: =>
