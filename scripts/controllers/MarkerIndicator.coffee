@@ -1,6 +1,9 @@
 Spine = require 'Spine'
 Raphael = require 'Raphael'
 
+Marker = require 'controllers/Marker'
+{delay} = require 'util'
+
 template = require 'lib/text!views/MarkerIndicator.html'
 
 style = require 'style'
@@ -40,8 +43,10 @@ class MarkerIndicator extends Spine.Controller
     @html @template
     @paper = Raphael @points[0], '100%', '100%'
 
-  setSpecies: (@species) =>
-    return unless @species
+  setSpecies: (species) =>
+    return unless species
+    return if species is @species
+    @species = species
 
     @image.attr 'src', @helpers[@species].image
     @image.one 'load', =>
@@ -56,12 +61,19 @@ class MarkerIndicator extends Spine.Controller
       circle.attr cx: coords.x, cy: coords.y, fill: style[@species]
       @circles.push circle
 
+    @step = -1
     @setStep 0
 
-  setStep: (@step) =>
-    @step %= @helpers[@species].points.length
-    console.log 'step', @step
+  setStep: (step) =>
+    step %= @helpers[@species].points.length
+    return if step is @step
+    @step = step
+
     @circles.attr style.helperCircle
-    @circles[@step].animate style.helperCircle.active
+
+    # Flicker the active dot.
+    @circles[@step].animate style.helperCircle.active, 100, =>
+      @circles[@step].animate style.helperCircle, 100, =>
+        @circles[@step].animate style.helperCircle.active, 100
 
 exports = MarkerIndicator
