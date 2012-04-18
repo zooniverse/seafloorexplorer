@@ -8,12 +8,12 @@ style = require 'style'
 class Marker extends Spine.Controller
 	marking: null
 	paper: null
-	@label: null
-	@labelText: null
-	@deleteButton: null
-	@labelRect: null
+	label: null
+	labelText: null
+	deleteButton: null
+	labelRect: null
 
-	@centerPoint: null
+	centerPoint: null
 
 	selected: false
 
