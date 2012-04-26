@@ -2,7 +2,8 @@
 
 html {
   background: $blue;
-  font: 16px Titillium, sans-serif;
+  color: $blue-darker;
+  font: 12px "Open Sans", sans-serif;
 
   > body {
     margin: 0;
@@ -69,12 +70,43 @@ html {
   }
 
   > #main {
+    // Main pages
     > section {
       display: none;
       position: relative;
 
       &.active {
         display: block;
+      }
+
+      // Module on a main page
+      > section {
+        @include box-sizing(border-box);
+        background: $white;
+        border-top: 5px solid $blue-darker;
+        border-radius: 3px;
+        box-shadow: 0 3px 3px -3px transparentize($black, 0.33);
+        margin: ($gutter-width / 2) 0;
+
+        &.content {
+          padding: $gutter-width;
+        }
+
+        h1 {
+          font: {
+            size: 35px;
+            weight: 800;
+          };
+          margin: 0;
+        }
+
+        h2 {
+          font: {
+            size: 15px;
+            weight: 600;
+          };
+          margin: 0;
+        }
       }
     }
   }

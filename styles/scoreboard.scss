@@ -1,0 +1,39 @@
+@import "constants";
+
+.scoreboard {
+  @include contain-floats;
+  margin: 0;
+  padding: 0;
+
+  > li {
+    @include box-sizing(border-box);
+    border-left: 1px solid $gray-light;
+    display: block;
+    float: left;
+    text-align: right;
+    width: 20%;
+
+    &:first-child {
+      border-left: 0;
+    }
+
+    > .description {
+      color: $white;
+      font-weight: 800;
+      line-height: 1.5;
+      padding: ($gutter-width * 2) $gutter-width $gutter-width;
+    }
+
+    &.cool       > .description {background: $cool-color;}
+    &.seastar    > .description {background: $seastar-color;}
+    &.fish       > .description {background: $fish-color;}
+    &.scallop    > .description {background: $scallop-color;}
+    &.crustacean > .description {background: $crustacean-color;}
+
+    > .score {
+      font-size: 20px;
+      line-height: 1;
+      padding: $gutter-width;
+    }
+  }
+}

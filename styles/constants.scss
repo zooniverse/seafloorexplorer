@@ -1,10 +1,22 @@
-$black:           rgb(0, 0, 0);
-$white:           rgb(241, 241, 241);
+// Colors
 
-$blue:            rgb(0, 168, 198);
-$blue-dark:       rgb(0, 66, 80);
+$black: rgb(0, 0, 0);
+$white: rgb(241, 241, 241);
+$gray-light: #dbdbdb;
 
-$orange:          rgb(224, 88, 18);
+$blue: rgb(0, 168, 198);
+$blue-dark: rgb(0, 66, 80);
+$blue-darker: #001e29;
+
+$orange: rgb(224, 88, 18);
+
+// Classification types
+
+$fish-color: #0bc7e8;
+$scallop-color: #fd6500;
+$crustacean-color: #b9ca00;
+$seastar-color: #c512e0;
+$cool-color: #001e29;
 
 // Grid:
 

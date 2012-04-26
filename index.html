@@ -3,7 +3,6 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 
 		<title>Seafloor Zoo</title>
 
@@ -17,39 +16,71 @@
 	<body>
 		<section id="wrapper">
 			<header>
-				<h1><a href="#"><strong>Seafloor</strong> Zoo</a></h1>
+				<h1><a href="#/home"><strong>Seafloor</strong> Explorer</a></h1>
 				<nav>
 					<ul>
-						<li>
-							<a href="#/profile">
-								<img src="images/navigation/profile.png" />
-								Profile
-							</a>
-						</li>
-						<li>
-							<a href="#/guide">
-								<img src="images/navigation/guide.png" />
-								Guide
-							</a>
-						</li>
-						<li>
-							<a href="#/home">
-								<img src="images/navigation/home.png" />
-								Home
-							</a>
-						</li>
+						<li><a href="#/home">Home</a></li>
+						<li><a href="#/about">About</a></li>
+						<li><a href="#/classify">Classify</a></li>
+						<li><a href="#/profile">Profile</a></li>
+						<li><a href="#/talk">Talk</a></li>
+						<li><a href="#/blog">Blog</a></li>
 					</ul>
 				</nav>
 			</header>
 
 			<div id="main">
+				<section data-page="home">
+					<section>
+						<div class="map">
+							<img src="http://placehold.it/1000x250.png&amp;text=%28Map%29+1000x250" style="display: block;" />
+						</div>
+
+						<ul class="scoreboard">
+							<li class="seastar score">
+								<div class="description">Total number of<br />seastars marked</div>
+								<div class="score">0</div>
+							</li>
+
+							<li class="fish score">
+								<div class="description">Total number of<br />fish marked</div>
+								<div class="score">0</div>
+							</li>
+
+							<li class="scallop score">
+								<div class="description">Total number of<br />scallops marked</div>
+								<div class="score">0</div>
+							</li>
+
+							<li class="crustacean score">
+								<div class="description">Total number of<br />crustaceans marked</div>
+								<div class="score">0</div>
+							</li>
+
+							<li class="cool score">
+								<div class="description">Total number of<br />cool things marked</div>
+								<div class="score">0</div>
+							</li>
+						</ul>
+					</section>
+
+					<section class="content">
+						<a href="#/classify">Dive in!</a>
+						<h1>Help explore the ocean floor.</h1>
+						<h2>Avast, ye! This be a placeholder. Argh.</h2>
+						<p>The Woods Hole Oceanographic Institute’s HabCam imagery offers a rare glimpse at the diverse creatures of the sea. The WHOI HabCam team needs your help to classify all of those species, so begin today!</p>
+					</section>
+				</section>
+
+				<section data-page="about">About</section>
+
 				<section id="classifier" data-page="classify"></section>
 
 				<section data-page="profile">Profile</section>
 
-				<section data-page="guide">Guide</section>
+				<section data-page="talk">Talk</section>
 
-				<section data-page="home">Home</section>
+				<section data-page="blog">Blog</section>
 			</div>
 		</section>
 
