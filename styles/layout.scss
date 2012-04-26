@@ -17,21 +17,18 @@ html {
   > header {
     color: $white;
     overflow: hidden;
-    padding: 10px 0;
+    margin: 30px 0;
 
     > h1 {
       float: left;
-      font-weight: inherit;
-      margin: 25px 0 0;
+      margin: 0;
 
       > a {
-        color: inherit;
-        letter-spacing: 1px;
-        text: {
-          decoration: none;
-          transform: lowercase;
-        };
-        word-spacing: -0.25em;
+        display: block;
+
+        > img {
+          display: block;
+        }
       }
     }
 
@@ -41,6 +38,7 @@ html {
         size: 10px;
         weight: bold;
       };
+      line-height: 45px;
 
       > ul {
         margin: 0;
