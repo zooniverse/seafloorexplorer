@@ -3,9 +3,6 @@ $ = require 'jQuery'
 Pager = require 'lib/Pager'
 window.pagers = (new Pager el: parent for parent in $('[data-page]').parent())
 
-# Prevent scrolling the page on iPads.
-$(document).on 'touchmove', (e) -> e.preventDefault()
-
 GroundCover = require 'models/GroundCover'
 for description in ['Sand', 'Cobble', 'Boulder', 'Gravel', 'Shell hash', 'Can\'t tell']
 	GroundCover.create description: description
@@ -42,6 +39,14 @@ tutorialSteps = require 'tutorialSteps'
 window.tutorial = new Tutorial
 	el: $('section[data-page="classify"]')
 	steps: tutorialSteps
+
+Scoreboard = require 'controllers/scoreboard'
+homeScoreboard = new Scoreboard
+	el: $('[data-page="home"] .scoreboard')
+	user: null
+
+Profile = require 'controllers/Profile'
+profile = new Profile el: $('[data-page="profile"]')
 
 unless ~location.search.indexOf 'notut' then tutorial.start()
 

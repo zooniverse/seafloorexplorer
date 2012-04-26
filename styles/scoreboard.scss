@@ -2,13 +2,10 @@
 
 .scoreboard {
   @include contain-floats;
-  margin: 0;
-  padding: 0;
 
-  > li {
+  > .score {
     @include box-sizing(border-box);
     border-left: 1px solid $gray-light;
-    display: block;
     float: left;
     text-align: right;
     width: 20%;
@@ -30,7 +27,7 @@
     &.scallop    > .description {background: $scallop-color;}
     &.crustacean > .description {background: $crustacean-color;}
 
-    > .score {
+    > .count {
       font-size: 20px;
       line-height: 1;
       padding: $gutter-width;
