@@ -1,0 +1,67 @@
+@import "constants";
+
+[data-page="profile"] {
+  @include contain-floats;
+
+  > .summary {}
+
+  > .favorites,
+  > .groups {
+    > h3 {
+      padding: $gutter-width;
+    }
+
+    > .none {
+      border-top: 1px solid $gray-light;
+      margin: 0;
+      padding: $gutter-width;
+    }
+
+    > ul {
+      margin: 0;
+      padding: 0;
+
+      > li {
+        @include contain-floats;
+        border-top: 1px solid $gray-light;
+        display: block;
+        padding: $gutter-width;
+      }
+    }
+  }
+
+  > .favorites {
+    float: left;
+    width: $two-third-width;
+
+    > ul > li {
+      > .thumbnail {
+        @include box-sizing(border-box);
+        border: 4px solid $white;
+        box-shadow: 0 2px 3px transparentize($black, 0.5);
+        width: $sixth-width + $gutter-width;
+      }
+
+      > .description {
+        float: right;
+        width: $half-width - ($gutter-width * 3);
+
+        > .location {
+          font: {
+            size: 20px;
+            weight: 600;
+          }
+        }
+
+        > .visited {}
+      }
+    }
+  }
+
+  > .groups {
+    float: right;
+    width: $third-width;
+
+    > ul > li {}
+  }
+}

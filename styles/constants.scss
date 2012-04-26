@@ -22,9 +22,10 @@ $cool-color: #001e29;
 
 $twelfth-width: 65px;
 $gutter-width: 20px;
+$sixth-width: ($twelfth-width * 2) + $gutter-width;
 $quarter-width: ($twelfth-width * 3) + ($gutter-width * 2);
-$half-width: ($twelfth-width * 6) + ($gutter-width * 5);
 $third-width: ($twelfth-width * 4) + ($gutter-width * 3);
+$half-width: ($twelfth-width * 6) + ($gutter-width * 5);
 $two-third-width: ($third-width * 2) + $gutter-width;
 $three-quarter-width: ($quarter-width * 3) + ($gutter-width * 2);
 $full-width: ($twelfth-width * 12) + ($gutter-width * 11);

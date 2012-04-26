@@ -86,13 +86,14 @@ html {
         border-top: 5px solid $blue-darker;
         border-radius: 3px;
         box-shadow: 0 3px 3px -3px transparentize($black, 0.33);
-        margin: ($gutter-width / 2) 0;
+        margin-bottom: $gutter-width;
 
-        &.content {
+        &.content,
+        > .content {
           padding: $gutter-width;
         }
 
-        h1 {
+        h2 {
           font: {
             size: 35px;
             weight: 800;
@@ -100,13 +101,15 @@ html {
           margin: 0;
         }
 
-        h2 {
+        h3 {
           font: {
             size: 15px;
             weight: 600;
           };
           margin: 0;
         }
+
+        p {}
       }
     }
   }
