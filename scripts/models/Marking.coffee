@@ -3,10 +3,12 @@ Spine = require 'Spine'
 Point = require 'models/Point'
 
 class Marking extends Spine.Model
-	@configure 'Marking', 'species'
-	@hasMany 'points', Point
+  @configure 'Marking', 'species'
+  @hasMany 'points', Point
 
-	@extend Spine.Model.Local
+  toJSON: =>
+    species: @species
+    points: (point.toJSON() for point in @points().all())
 
 Point.belongsTo 'marking', Marking
 

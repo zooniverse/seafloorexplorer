@@ -5,7 +5,9 @@ Spine = require 'Spine'
 # This is possibly a bad idea.
 
 class ClassificationGroundCover extends Spine.Model
-	@configure 'ClassificationGroundCover'
-	@extend Spine.Model.Local
+  @configure 'ClassificationGroundCover'
+
+  toJSON: =>
+    @groundCover().description
 
 exports = ClassificationGroundCover
