@@ -11,7 +11,7 @@ class Classification extends Spine.Model
 
   toJSON: =>
     classification:
-      subject_ids: 'TODO' # [Subject.current.id]
+      subject_ids: [Subject.current.id]
       ground_covers: (groundCover.toJSON() for groundCover in @groundCovers().all())
       annotations: (marking.toJSON() for marking in @markings().all())
 

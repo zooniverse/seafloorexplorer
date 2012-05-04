@@ -45,6 +45,9 @@ class Classifier extends Spine.Controller
   constructor: ->
     super
 
+    User.bind 'sign-in', @newClassification
+    Subject.bind 'change-current', @changeSubject
+
     @html @template
 
     @indicator = new MarkerIndicator
@@ -65,23 +68,27 @@ class Classifier extends Spine.Controller
         </li>
       """
 
-    @changeSubject @subject
+  newClassification: =>
+    @classification?.destroy()
+    @classification = User.current?.classifications().create subject: @subject
+    @classification ||= new Classification subject: @subject
+
+    @picker.changeClassification @classification
+
+    @classification.bind 'change', @render
+    @classification.trigger 'change'
 
   changeSubject: (@subject) =>
+    @newClassification()
+
     @el.toggleClass 'show-map', false
 
     @changeSpecies null
-
-    @classification = User.current?.classifications().create {}
-    @classification ||= new Classification subject: @subject
 
     @thumbnail.attr 'src', @subject.image
     @picker.map.attr 'src', "http://maps.googleapis.com/maps/api/staticmap?center=#{@subject.latitude},#{@subject.longitude}&zoom=10&size=745x570&maptype=satellite&sensor=false"
     @picker.image.attr 'src', @subject.image
     @picker.changeClassification @classification
-
-    @classification.bind 'change', @render
-    @classification.trigger 'change'
 
     @steps.removeClass 'finished'
     if ~location.hash.indexOf '/classify'
@@ -177,6 +184,8 @@ class Classifier extends Spine.Controller
     @picker.setDisabled true
     @steps.addClass 'finished'
 
+    @fetching = Subject.fetch()
+
   toggleMap: (show) =>
     unless typeof show is 'boolean' then show = (do -> arguments[0])
     @el.toggleClass 'show-map', show
@@ -185,16 +194,9 @@ class Classifier extends Spine.Controller
     alert 'TODO: Go to talk'
 
   nextSubject: =>
-    @classification.save()
+    @classification.persist()
 
-    nextSubject = Subject.next()
-
-    if nextSubject
-      @changeSubject nextSubject
-    else
-      @noMoreSubjects()
-
-  noMoreSubjects: =>
-    alert 'No more subjects to classify!'
+    @fetching.then (subject) =>
+      Subject.setCurrent subject
 
 exports = Classifier
