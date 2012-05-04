@@ -1,6 +1,11 @@
 @import "constants";
 
 [data-page="home"] {
+  .map {
+    height: 250px;
+    width: 100%;
+  }
+
   .dive-in {
     @include linear-gradient(lighten($orange, 25%), $orange);
     border: 1px solid $orange {radius: 5px;};

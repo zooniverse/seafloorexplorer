@@ -15,6 +15,12 @@
 		{"pager/Pager.js": "scripts/lib/Pager.js"}
 	]},
 
+	{"https://github.com/CloudMade/Leaflet/zipball/v0.3.1": [
+		{"dist/leaflet-src.js": "scripts/lib/leaflet.js"},
+		{"dist/*.css": "styles/lib/leaflet"},
+		{"dist/images": "styles/lib/leaflet/images"}
+	]},
+
 	{"git://github.com/brian-c/route.git": {"Route.js": "scripts/lib/Route.js"}},
 
 	{"https://raw.github.com/aFarkas/html5shiv/6d46e08c69/src/html5shiv.js": "scripts/lib/html5shiv.js"},

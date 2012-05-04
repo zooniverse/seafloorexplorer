@@ -6,6 +6,12 @@ $.ajaxSetup beforeSend: (xhr) ->
     auth = btoa "#{ User.current.username }:#{ User.current.apiKey }" # TODO: IE
     xhr.setRequestHeader 'Authorization', "Basic #{ auth }"
 
+Map = require 'controllers/Map'
+Map::apiKey = '21a5504123984624a5e1a856fc00e238' # TODO: This is Brian's. Does Zooniverse have one?
+Map::tilesId = 61165
+
+window.homeMap = new Map el: $('[data-page="home"] .map')
+
 Pager = require 'lib/Pager'
 window.pagers = (new Pager el: parent for parent in $('[data-page]').parent())
 
