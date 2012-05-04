@@ -1,5 +1,11 @@
 $ = require 'jQuery'
 
+User = require 'models/User'
+$.ajaxSetup beforeSend: (xhr) ->
+  if User.current?
+    auth = btoa "#{ User.current.username }:#{ User.current.apiKey }" # TODO: IE
+    xhr.setRequestHeader 'Authorization', "Basic #{ auth }"
+
 Pager = require 'lib/Pager'
 window.pagers = (new Pager el: parent for parent in $('[data-page]').parent())
 
@@ -49,5 +55,12 @@ Profile = require 'controllers/Profile'
 profile = new Profile el: $('[data-page="profile"]')
 
 unless ~location.search.indexOf 'notut' then tutorial.start()
+
+window.Authentication = require 'Authentication'
+window.User = require 'models/User'
+window.Subject = require 'models/Subject'
+window.Classification = require 'models/Classification'
+window.Recent = require 'models/Recent'
+window.Favorite = require 'models/Favorite'
 
 exports = window.classifier

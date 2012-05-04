@@ -1,19 +1,16 @@
 Spine = require 'Spine'
 
-Classification = require 'models/Classification'
-
 class Subject extends Spine.Model
-	@configure 'Subject', 'image', 'latitude', 'longitude', 'depth'
-	@hasMany 'classifications', Classification
+  @configure 'Subject', 'image', 'latitude', 'longitude', 'depth'
 
-	@extend Spine.Model.Local
+  @server: 'http://localhost:3000'
+  @projectId: '4fa4088d54558f3d6a000001'
+  @workflowId: '4fa4088d54558f3d6a000001'
 
-	@next: ->
-		noClassifications = @select (subject) ->
-			subject.classifications().all().length is 0
+  @next: ->
+    noClassifications = @select (subject) ->
+      subject.classifications().all().length is 0
 
-		noClassifications[0]
-
-Classification.belongsTo 'subject', Subject
+    noClassifications[0]
 
 exports = Subject
