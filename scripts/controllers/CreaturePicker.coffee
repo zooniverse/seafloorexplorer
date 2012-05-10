@@ -10,236 +10,236 @@ TEMPLATE = require 'lib/text!views/CreaturePicker.html'
 style = require 'style'
 
 class CreaturePicker extends Spine.Controller
-	classification: null
+  classification: null
 
-	className: 'creature-picker'
-	template: TEMPLATE
+  className: 'creature-picker'
+  template: TEMPLATE
 
-	paper: null
-	indicator: null
+  paper: null
+  indicator: null
 
-	strayCircles: null
-	strayAxes: null
+  strayCircles: null
+  strayAxes: null
 
-	markers: null
+  markers: null
 
-	selectedSpecies: ''
-	selectedMarkerType: ''
+  selectedSpecies: ''
+  selectedMarkerType: ''
 
-	disabled: false
+  disabled: false
 
-	elements:
-		'.map img': 'map'
-		'.selection-area': 'selectionArea'
-		'.selection-area img': 'image'
+  elements:
+    '.map img': 'map'
+    '.selection-area': 'selectionArea'
+    '.selection-area img': 'image'
 
-	events:
-		'mousedown': 'onMouseDown'
+  events:
+    'mousedown': 'onMouseDown'
 
-	constructor: ->
-		super
+  constructor: ->
+    super
 
-		@html @template
-		@refreshElements()
+    @html @template
 
-		@paper = Raphael @selectionArea[0], '100%', '100%'
-		@image.insertBefore @paper.canvas
+    @paper = Raphael @selectionArea[0], '100%', '100%'
+    @image.insertBefore @paper.canvas
 
-	ESC = 27
-	delegateEvents: =>
-		super
+  ESC = 27
+  delegateEvents: =>
+    super
 
-		# $(window).on 'resize', @resize
+    $(document).on 'mousemove', @onMouseMove
+    $(document).on 'mouseup', @onMouseUp
 
-		$(document).on 'mousemove', @onMouseMove
-		$(document).on 'mouseup', @onMouseUp
+    $(document).on 'keydown', (e) =>
+      @resetStrays() if e.keyCode is ESC
 
-		$(document).on 'keydown', (e) =>
-			@resetStrays() if e.keyCode is ESC
+  getSize: =>
+    width: @image.width(), height: @image.height()
 
-	getSize: =>
-		width: @image.width(), height: @image.height()
+  resize: =>
+    imageProportion = @image[0].naturalWidth / @image[0].naturalHeight
+    elProportion = @el.width() / @el.height()
 
-	resize: =>
-		imageProportion = @image[0].naturalWidth / @image[0].naturalHeight
-		elProportion = @el.width() / @el.height()
+    if imageProportion < elProportion
+      @selectionArea.css width: '', height: '100%'
+      @image.css width: '', height: '100%'
+      @selectionArea.css width: @image.width()
+      @selectionArea.css left: (@el.width() - @selectionArea.width()) / 2, top: ''
+    else
+      @selectionArea.css width: '100%', height: ''
+      @image.css width: '100%', height: ''
+      @selectionArea.css height: @image.height()
+      @selectionArea.css left: '', top: (@el.height() - @selectionArea.height()) / 2
 
-		if imageProportion < elProportion
-			@selectionArea.css width: '', height: '100%'
-			@image.css width: '', height: '100%'
-			@selectionArea.css width: @image.width()
-			@selectionArea.css left: (@el.width() - @selectionArea.width()) / 2, top: ''
-		else
-			@selectionArea.css width: '100%', height: ''
-			@image.css width: '100%', height: ''
-			@selectionArea.css height: @image.height()
-			@selectionArea.css left: '', top: (@el.height() - @selectionArea.height()) / 2
+    @paper.setSize @selectionArea.width(), @selectionArea.height()
 
-		@paper.setSize @selectionArea.width(), @selectionArea.height()
+    marker.render() for marker in @markers or []
 
-		marker.render() for marker in @markers or []
+  createStrayCircle: (cx, cy) =>
+    circle = @paper.circle cx, cy
+    circle.attr style.circle
+    @strayCircles.push circle
 
-	mouseIsDown: false
-	onMouseDown: (e) =>
-		return if @disabled
-		return unless @image.add(@paper.canvas).is e.target
+    @el.trigger 'create-stray-circle'
 
-		@mouseIsDown = true
+    circle
 
-		m.deselect() for m in @markers when m.selected
+  createStrayAxis: =>
+    # It'll always be between the last two stray circles.
+    strayCircle1 = @strayCircles[@strayCircles.length - 2]
+    strayCircle2 = @strayCircles[@strayCircles.length - 1]
 
-		{left, top} = @selectionArea.offset()
-		@createStrayCircle e.pageX - left, e.pageY - top
+    line = @paper.path Marker::lineBetween strayCircle1, strayCircle2
+    line.toBack()
+    line.attr style.boundingBox
+    @strayAxes.push line
 
-		@checkStrays()
+    @el.trigger 'create-stray-axis'
 
-		e.preventDefault() # Disable text selection
+    line
 
-	createStrayCircle: (cx, cy) =>
-		circle = @paper.circle cx, cy
-		circle.attr style.circle
-		@strayCircles.push circle
+  createStrayBoundingCircle: =>
+    # It'll always be centered on the first stray circle.
+    cx = @strayCircles[0].attr 'cx'
+    cy = @strayCircles[0].attr 'cy'
 
-		@el.trigger 'create-stray-circle'
+    circle = @paper.circle cx, cy
+    circle.attr style.line
+    @strayAxes.push circle # Not an axis, but same idea.
 
-		circle
+    circle
 
-	createStrayAxis: =>
-		strayCircle1 = @strayCircles[@strayCircles.length - 2]
-		strayCircle2 = @strayCircles[@strayCircles.length - 1]
+  mouseIsDown: false
+  onMouseDown: (e) =>
+    return if @disabled
+    return unless @image.add(@paper.canvas).is e.target
 
-		line = @paper.path Marker::lineBetween strayCircle1, strayCircle2
-		line.toBack()
-		line.attr style.boundingBox
-		@strayAxes.push line
+    m.deselect() for m in @markers when m.selected
 
-		@el.trigger 'create-stray-axis'
+    @mouseIsDown = true
 
-		line
+    {left, top} = @selectionArea.offset()
 
-	createStrayBoundingCircle: (cx, cy) =>
-		circle = @paper.circle cx, cy
-		circle.attr style.line
+    @createStrayCircle e.pageX - left, e.pageY - top
 
-		circle
+    e.preventDefault() # Disable text selection.
 
-	dragThreshold: 10
-	mouseMoves: 0
-	movementCircle: null
-	movementAxis: null
-	movementBoundingCircle: null
-	onMouseMove: (e) =>
-		return unless @mouseIsDown and not @disabled
-		return if @strayCircles.length % 2 is 0 and not @movementCircle
+  dragThreshold: 10
+  mouseMoves: 0
+  movementCircle: null
+  movementAxis: null
+  movementBoundingCircle: null
+  onMouseMove: (e) =>
+    return unless @mouseIsDown and not @disabled
 
-		@mouseMoves += 1
-		return if @mouseMoves < @dragThreshold
+    @mouseMoves += 1
+    return if @mouseMoves < @dragThreshold
 
-		@movementCircle ||= @createStrayCircle()
-		@movementAxis ||= @createStrayAxis()
+    {left, top} = @selectionArea.offset()
 
-		if @selectedMarkerType is 'circle'
-			@movementBoundingCircle ||= @createStrayBoundingCircle @strayCircles[0].attr('cx'), @strayCircles[0].attr('cy')
+    @movementCircle ||= @createStrayCircle()
+    @movementCircle.attr
+      cx: e.pageX - left
+      cy: e.pageY - top
 
-		{left, top} = @selectionArea.offset()
+    @movementAxis ||= @createStrayAxis()
+    secondLastCircle = @strayCircles[@strayCircles.length - 2]
+    @movementAxis.attr
+      path: Marker::lineBetween secondLastCircle, @movementCircle
 
-		@movementCircle.attr
-			cx: e.pageX - left
-			cy: e.pageY - top
+    if @selectedMarkerType is 'circle'
+      @movementBoundingCircle ||= @createStrayBoundingCircle()
+      @movementBoundingCircle.attr
+        r: @movementAxis.getTotalLength()
 
-		secondLastCircle = @strayCircles[@strayCircles.length - 2]
-		@movementAxis.attr
-			path: Marker::lineBetween secondLastCircle, @movementCircle
+  onMouseUp: (e) =>
+    return unless @mouseIsDown and not @disabled
+    @mouseIsDown = false
+    @mouseMoves = 0
 
-		@movementBoundingCircle?.attr
-			r: @movementAxis.getTotalLength()
+    @checkStrays()
 
-	onMouseUp: (e) =>
-		return unless @mouseIsDown and not @disabled
-		@mouseIsDown = false
-		@mouseMoves = 0
+    @movementCircle = null
+    @movementAxis = null
+    @movementBoundingCircle = null
 
-		@checkStrays()
+  checkStrays: =>
+    if @strayCircles.length is 1
+      @resetStrays()
+    if @strayCircles.length is 2
+      if @selectedMarkerType is 'circle'
+        marker = @createCircleMarker()
+    else if @strayCircles.length is 3
+      @strayCircles.pop().remove()
+    else if @strayCircles.length is 4
+      marker = @createAxesMarker()
 
-		@movementCircle = null
-		@movementAxis = null
+    @indicator.setStep @strayCircles.length - 1
 
-		@movementBoundingCircle?.remove()
-		@movementBoundingCircle = null
+    if marker?
+      @markers.push marker
 
-	createCircleMarker: (x, y) =>
-		marking = @createMarking()
-		marker = new CircleMarker
-			marking: marking
-			paper: @paper
+      setTimeout marker.deselect, 250
 
-	createAxesMarker: =>
-		marking = @createMarking()
-		marker = new AxesMarker
-			marking: marking
-			paper: @paper
+      marker.bind 'select', (marker) =>
+        m.deselect() for m in @markers when m isnt marker
+        @trigger 'change-selection'
 
-	createMarking: =>
-		marking = @classification.markings().create
-			species: @selectedSpecies
+      marker.bind 'deselect', =>
+        @trigger 'change-selection'
 
-		marking.bind 'destroy', => @classification.trigger 'change'
+      marker.bind 'release', =>
+        @markers.splice(i, 1) for m, i in @markers when m is marker
 
-		{width: w, height: h} = @getSize()
+      @resetStrays()
 
-		for circle in @strayCircles
-			point = marking.points().create {}
-			point.updateAttributes
-				x: circle.attr('cx') / w
-				y: circle.attr('cy') / h
+  createCircleMarker: (x, y) =>
+    marking = @createMarking()
+    marker = new CircleMarker
+      marking: marking
+      paper: @paper
 
-		@classification.trigger 'change'
+  createAxesMarker: =>
+    marking = @createMarking()
+    marker = new AxesMarker
+      marking: marking
+      paper: @paper
 
-		@el.trigger 'create-marking'
+  createMarking: =>
+    marking = @classification.markings().create
+      species: @selectedSpecies
 
-		marking
+    marking.bind 'destroy', => @classification.trigger 'change'
 
-	checkStrays: =>
-		@indicator.setStep @strayCircles.length
+    {width: w, height: h} = @getSize()
 
-		if @strayCircles.length is 2
-			if @selectedMarkerType is 'circle'
-				marker = @createCircleMarker()
-			else if @strayAxes.length is 0
-				@createStrayAxis()
-		else if @strayCircles.length is 4
-			marker = @createAxesMarker()
+    for circle in @strayCircles
+      point = marking.points().create {}
+      point.updateAttributes
+        x: circle.attr('cx') / w
+        y: circle.attr('cy') / h
 
-		if marker?
-			@markers.push marker
-			marker.deselect()
+    @classification.trigger 'change'
 
-			marker.bind 'select', (marker) =>
-				m.deselect() for m in @markers when m isnt marker
-				@trigger 'change-selection'
+    @el.trigger 'create-marking'
 
-			marker.bind 'deselect', =>
-				@trigger 'change-selection'
+    marking
 
-			marker.bind 'release', =>
-				@markers.splice(i, 1) for m, i in @markers when m is marker
+  setDisabled: (@disabled) =>
+    if @disabled then marker.deselect() for marker in @markers or [] when marker.selected
+    if @disabled then @selectionArea.addClass 'disabled' else @selectionArea.removeClass 'disabled'
 
-			@resetStrays()
+  changeClassification: (@classification) =>
+    if @markers then @markers[0].release() until @markers.length is 0
+    @markers = []
+    @resetStrays()
 
-	setDisabled: (@disabled) =>
-		if @disabled then marker.deselect() for marker in @markers or [] when marker.selected
-		if @disabled then @selectionArea.addClass 'disabled' else @selectionArea.removeClass 'disabled'
+  resetStrays: =>
+    @strayCircles?.remove()
+    @strayCircles = @paper.set()
 
-	changeClassification: (@classification) =>
-		if @markers then @markers[0].release() until @markers.length is 0
-		@markers = []
-		@resetStrays()
-
-	resetStrays: =>
-		@strayCircles?.remove()
-		@strayCircles = @paper.set()
-
-		@strayAxes?.remove()
-		@strayAxes = @paper.set()
+    @strayAxes?.remove()
+    @strayAxes = @paper.set()
 
 exports = CreaturePicker
