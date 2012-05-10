@@ -30,9 +30,6 @@ class MarkerIndicator extends Spine.Controller
     crustacean:
       image: 'images/indicator/crustacean.png'
       points: [{x: 70, y: 15}, {x: 70, y: 55}, {x: 5, y: 35}, {x: 130, y: 35}]
-    cool:
-      image: 'images/indicator/crustacean.png'
-      points: [{x: 70, y: 40}, {x: 130, y: 10}]
 
   elements:
     'img': 'image'
