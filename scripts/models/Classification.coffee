@@ -5,13 +5,14 @@ Marking = require 'models/Marking'
 ClassificationGroundCover = require 'models/ClassificationGroundCover'
 
 class Classification extends Spine.Model
-  @configure 'Classification'
+  @configure 'Classification', 'other'
   @hasMany 'markings', Marking
   @hasMany 'groundCovers', ClassificationGroundCover
 
   toJSON: =>
     classification:
       subject_ids: [Subject.current.id]
+      other_creatures: !!@other
       ground_covers: (groundCover.toJSON() for groundCover in @groundCovers().all())
       annotations: (marking.toJSON() for marking in @markings().all())
 

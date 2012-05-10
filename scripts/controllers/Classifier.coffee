@@ -26,6 +26,8 @@ class Classifier extends Spine.Controller
     '.ground-cover .toggles': 'groundCoverList'
     '.ground-cover .finished': 'groundCoverFinishedButton'
     '.species .toggles button': 'speciesButtons'
+    '.species .other-creatures [value="yes"]': 'otherYes'
+    '.species .other-creatures [value="no"]': 'otherNo'
     '.species .finished': 'speciesFinishedButton'
     '.summary .thumbnail img': 'thumbnail'
     '.summary table.ground-cover tbody': 'summaryGroundCoverTable'
@@ -36,6 +38,7 @@ class Classifier extends Spine.Controller
     'click .ground-cover .toggles button': 'toggleGroundCover'
     'click .ground-cover .finished': 'finishGroundCover'
     'click .species .toggles button': 'changeSpecies'
+    'click .species .other-creatures button': 'changeOther'
     'click .species .finished': 'finishSpecies'
     'click .thumbnail img': 'toggleMap'
     'click .toggle-map': 'toggleMap'
@@ -121,6 +124,9 @@ class Classifier extends Spine.Controller
       countElement = button.find '.count'
       countElement.html parseInt(countElement.html(), 10) + 1
 
+    @otherYes.toggleClass 'active', @classification.other is true
+    @otherNo.toggleClass 'active', @classification.other is false
+
     @renderSummary()
 
   renderSummary: =>
@@ -179,6 +185,11 @@ class Classifier extends Spine.Controller
 
     @speciesButtons.removeClass 'active'
     target.addClass 'active'
+
+  changeOther: (e) =>
+    target = $(e.target)
+    value = target.val() is 'yes'
+    @classification.updateAttribute 'other', value
 
   finishSpecies: =>
     @picker.setDisabled true
