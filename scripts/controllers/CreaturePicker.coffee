@@ -125,6 +125,8 @@ class CreaturePicker extends Spine.Controller
 
     @createStrayCircle e.pageX - left, e.pageY - top
 
+    @indicator.setStep @strayCircles.length
+
     e.preventDefault() # Disable text selection.
 
   dragThreshold: 10
@@ -166,6 +168,7 @@ class CreaturePicker extends Spine.Controller
     @mouseIsDown = false
     @mouseMoves = 0
 
+    @indicator.setStep @strayCircles.length
     @checkStrays()
 
     @movementCircle = null
@@ -182,8 +185,6 @@ class CreaturePicker extends Spine.Controller
       @strayCircles.pop().remove()
     else if @strayCircles.length is 4
       marker = @createAxesMarker()
-
-    @indicator.setStep @strayCircles.length - 1
 
     if marker?
       @markers.push marker
