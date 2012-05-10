@@ -65,8 +65,8 @@ class CircleMarker extends Marker
 		{width: w, height: h} = @paperSize()
 
 		@marking.points().last().updateAttributes
-			x: ((@startPoints[1].x * w) + dx) / w
-			y: ((@startPoints[1].y * h) + dy) / h
+			setX: ((@startPoints[1].x * w) + dx) / w
+			setY: ((@startPoints[1].y * h) + dy) / h
 
 		@marking.trigger 'change'
 

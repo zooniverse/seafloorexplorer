@@ -5,6 +5,8 @@ Marker = require 'controllers/Marker'
 CircleMarker = require 'controllers/CircleMarker'
 AxesMarker = require 'controllers/AxesMarker'
 
+Point = require 'models/Point'
+
 TEMPLATE = require 'lib/text!views/CreaturePicker.html'
 
 style = require 'style'
@@ -136,12 +138,18 @@ class CreaturePicker extends Spine.Controller
     @mouseMoves += 1
     return if @mouseMoves < @dragThreshold
 
+    {width, height} = @getSize()
     {left, top} = @selectionArea.offset()
 
     @movementCircle ||= @createStrayCircle()
+
+    fauxPoint = {}
+    Point::setX.call fauxPoint, (e.pageX - left) / width
+    Point::setY.call fauxPoint, (e.pageY - top) / height
+
     @movementCircle.attr
-      cx: e.pageX - left
-      cy: e.pageY - top
+      cx: fauxPoint.x * width
+      cy: fauxPoint.y * height
 
     @movementAxis ||= @createStrayAxis()
     secondLastCircle = @strayCircles[@strayCircles.length - 2]

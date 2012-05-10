@@ -131,8 +131,8 @@ class AxesMarker extends Marker
 
 		i = indexOf @circles, @overCircle
 		points[i].updateAttributes
-			x: ((@startPoints[i].x * w) + dx) / w
-			y: ((@startPoints[i].y * h) + dy) / h
+			setX: ((@startPoints[i].x * w) + dx) / w
+			setY: ((@startPoints[i].y * h) + dy) / h
 
 		@marking.trigger 'change'
 
