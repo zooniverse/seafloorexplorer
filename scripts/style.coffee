@@ -6,6 +6,7 @@ exports =
 			'text-anchor': 'start'
 
 		deleteButton:
+			stroke: 'none'
 			'stroke-width': 0
 
 			text:
@@ -14,11 +15,13 @@ exports =
 				'text-anchor': 'start'
 
 		rect:
+			stroke: 'none'
 			'stroke-width': 0
 
 	circle:
 		fill: '#fff'
 		r: 5
+		stroke: 'none'
 		'stroke-width': 0
 
 		hover:
@@ -59,6 +62,7 @@ exports =
 	helperCircle:
 		opacity: 0.5
 		r: 3
+		stroke: 'none'
 		'stroke-width': 0
 
 		active:
