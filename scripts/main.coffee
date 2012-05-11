@@ -8,7 +8,7 @@ $.ajaxSetup beforeSend: (xhr) ->
 
 Map = require 'controllers/Map'
 Map::apiKey = '21a5504123984624a5e1a856fc00e238' # TODO: This is Brian's. Does Zooniverse have one?
-Map::tilesId = 61165
+# Map::tilesId = 61165
 
 window.homeMap = new Map el: $('[data-page="home"] .map')
 
