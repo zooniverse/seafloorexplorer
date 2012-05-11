@@ -40,7 +40,9 @@
 		> .selection-area {
 			@include transition(#{
 				opacity 0.25s ease-in-out,
-				-moz-transform 0.25s ease-in-out
+				-moz-transform 0.25s ease-in-out,
+				-webkit-transform 0.25s ease-in-out,
+				transform 0.25s ease-in-out
 			});
 			height: 100%;
 			left: 0;
@@ -78,7 +80,8 @@
 			@include box-sizing(border-box);
 			@include transition(#{
 				opacity 0.25s ease-in-out,
-				right 0.25s ease-in-out
+				right 0.25s ease-in-out,
+				-moz-transform 0.25s ease-in-out
 			});
 			background: $white;
 			border: {
@@ -98,6 +101,7 @@
 			&.finished {
 				opacity: 0.5;
 				right: 100%;
+				@include transform(scale(0.9));
 			}
 
 			[data-page] {
@@ -223,71 +227,51 @@
 				size: 14px;
 				weight: bold;
 			};
-			left: 0;
-			padding: $gutter-width $gutter-width $gutter-width $gutter-width * 1.5;
-			position: absolute;
-			top: 0;
+			padding: $gutter-width;
+			text-align: center;
+
+			.map-toggle {
+				margin-bottom: $gutter-width;
+
+				img {
+					@include box-sizing(border-box);
+					border: 3px solid $white;
+					box-shadow: 0 3px 3px -3px transparentize($black, 0.33);
+					display: block;
+					height: 130px;
+					width: 100%;
+				}
+
+				> .thumbnail > img {
+					display: none;
+				}
+			}
 
 			button {
+				@include box-sizing(border-box);
 				background: $blue;
-				border: 1px solid $black;
+				border: 0;
 				color: $white;
 				font: {
 					family: inherit;
 					size: inherit;
 					weight: inherit;
 				};
-				padding: 10px 0 7px;
+				padding: 5px 0;
 				text-align: center;
 				width: 100%;
 			}
 
-			> .heading {
-				font: {
-					size: 20px;
-					weight: normal;
-				};
-			}
-
-			> .thumbnail {
-				@include transition(#{
-					border-width 0.25s ease-in-out,
-					margin-bottom 0.25s ease-in-out,
-					max-height 0.25s ease-in-out
-				});
-				border: 0 solid $white;
-				margin-bottom: 0;
-				max-height: 0;
-				overflow: hidden;
-
-				> img {
-					display: block;
-					width: 100%;
-				}
-			}
-
-			> table {
-				border-collapse: collapse;
-				border-spacing: 0;
-				margin: $gutter-width 0;
-				width: 100%;
-
-				td {
-					border: 1px solid $black;
-					padding: 10px 10px 5px;
-
-					&.count {
-						text-align: center;
-						width: 1em;
-					}
-				}
-			}
-
 			> .talk {
-				margin-top: $gutter-width;
+				@include contain-floats;
 
 				button {
+					float: left;
 					width: 49%;
+
+					&:first-child {
+						margin-right: 1%;
+					}
 				}
 			}
 		}
@@ -299,10 +283,14 @@
 			opacity: 0;
 		}
 
-		> .options > .summary > .thumbnail {
-			border-width: 3px;
-			margin-bottom: $gutter-width;
-			max-height: 170px;
+		> .options > .summary > .map-toggle {
+			> .thumbnail > img {
+				display: block;
+			}
+
+			> .map > img {
+				display: none;
+			}
 		}
 	}
 }

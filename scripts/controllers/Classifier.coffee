@@ -29,9 +29,8 @@ class Classifier extends Spine.Controller
     '.species .other-creatures [value="yes"]': 'otherYes'
     '.species .other-creatures [value="no"]': 'otherNo'
     '.species .finished': 'speciesFinishedButton'
-    '.summary .thumbnail img': 'thumbnail'
-    '.summary table.ground-cover tbody': 'summaryGroundCoverTable'
-    '.summary table.species tbody': 'summarySpeciesTable'
+    '.summary .map-toggle .thumbnail img': 'imageThumbnail'
+    '.summary .map-toggle .map img': 'mapThumbnail'
 
   events:
     'click .steps nav a': (e) -> e.preventDefault()
@@ -40,10 +39,9 @@ class Classifier extends Spine.Controller
     'click .species .toggles button': 'changeSpecies'
     'click .species .other-creatures button': 'changeOther'
     'click .species .finished': 'finishSpecies'
-    'click .thumbnail img': 'toggleMap'
-    'click .toggle-map': 'toggleMap'
-    'click .talk .yes': 'goToTalk'
-    'click .talk .no': 'nextSubject'
+    'click .map-toggle img': 'toggleMap'
+    'click .talk [value="yes"]': 'goToTalk'
+    'click .talk [value="no"]': 'nextSubject'
 
   constructor: ->
     super
@@ -88,9 +86,12 @@ class Classifier extends Spine.Controller
 
     @changeSpecies null
 
-    @thumbnail.attr 'src', @subject.image
-    @picker.map.attr 'src', "http://maps.googleapis.com/maps/api/staticmap?center=#{@subject.latitude},#{@subject.longitude}&zoom=10&size=745x570&maptype=satellite&sensor=false"
+    @imageThumbnail.attr 'src', @subject.image
     @picker.image.attr 'src', @subject.image
+
+    @mapThumbnail.attr 'src', "http://maps.googleapis.com/maps/api/staticmap?center=#{@subject.latitude},#{@subject.longitude}&zoom=10&size=745x570&maptype=satellite&sensor=false"
+    @picker.map.attr 'src', "http://maps.googleapis.com/maps/api/staticmap?center=#{@subject.latitude},#{@subject.longitude}&zoom=10&size=745x570&maptype=satellite&sensor=false"
+
     @picker.changeClassification @classification
 
     @steps.removeClass 'finished'
@@ -127,33 +128,6 @@ class Classifier extends Spine.Controller
     @otherNo.toggleClass 'active', @classification.other is false
 
     @speciesFinishedButton.attr 'disabled', not @classification.other?
-
-    @renderSummary()
-
-  renderSummary: =>
-    groundCovers = []
-    for {ground_cover_id} in @classification.groundCovers().all()
-      groundCovers.push GroundCover.find(ground_cover_id).description;
-
-    @summaryGroundCoverTable.empty()
-    for groundCover in groundCovers
-      @summaryGroundCoverTable.append """
-        <tr><td>#{groundCover}</td></tr>
-      """
-
-    speciesCounts = {}
-    for {species} in @classification.markings().all()
-      speciesCounts[species] ||= 0
-      speciesCounts[species] += 1
-
-    @summarySpeciesTable.empty()
-    for species, count of speciesCounts
-      @summarySpeciesTable.append """
-        <tr>
-          <td>#{species}</td>
-          <td class="count">#{count}</td>
-        </tr>
-      """
 
   toggleGroundCover: (e) =>
     target = $(e.target)
