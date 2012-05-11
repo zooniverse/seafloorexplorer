@@ -1,6 +1,6 @@
 @import "constants";
 
-#classifier {
+#wrapper > #main > section > #classifier {
 	$blue: rgb(0, 66, 80);
 	$blue-dark: #001e29;
 	$gray-light: rgb(236, 236, 236);
@@ -13,6 +13,8 @@
 
 	$classification-height: 570px;
 
+	border: 5px solid $white;
+	border-radius: 3px 0 0 3px;
 	width: $three-quarter-width;
 
 	> .image {
@@ -70,11 +72,11 @@
 	}
 
 	> .options {
-		height: $classification-height;
+		height: $classification-height + 10;
 		position: absolute;
 		right: 0;
 		top: 0;
-		width: $quarter-width;
+		width: $quarter-width + $gutter-width;
 
 		> .steps {
 			@include box-sizing(border-box);
@@ -84,10 +86,7 @@
 				-moz-transform 0.25s ease-in-out
 			});
 			background: $white;
-			border: {
-				radius: 3px;
-				top: 5px solid $blue-dark;
-			};
+			border-radius: 0 3px 3px 0;
 			box-shadow: 0 3px 3px -3px transparentize($black, 0.33);
 			height: 100%;
 			opacity: 1;
@@ -210,7 +209,7 @@
 				cursor: pointer;
 				font: {
 					family: inherit;
-					size: 16px;
+					size: 12px;
 					weight: bold;
 				};
 				padding: 10px 0;
@@ -227,7 +226,7 @@
 				size: 14px;
 				weight: bold;
 			};
-			padding: $gutter-width;
+			margin: $gutter-width;
 			text-align: center;
 
 			.map-toggle {
