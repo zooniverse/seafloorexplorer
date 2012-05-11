@@ -2,12 +2,9 @@
 
 <div class="options">
 	<div class="steps">
-		<nav>
-			<a href="#/classify/ground-cover" class="ground-cover breadcrumb">Ground cover</a>
-			<a href="#/classify/species" class="species breadcrumb">Species</a>
-		</nav>
-
 		<div data-page="ground-cover" class="ground-cover active">
+			<h4>Ground covers in this image</h4>
+
 			<ul class="toggles">
 				<!--<li><button value="id">description</button></li>-->
 			</ul>
@@ -16,6 +13,8 @@
 		</div>
 
 		<div data-page="species" class="species">
+			<h4>Species in this image</h4>
+
 			<ul class="toggles">
 				<li><button value="seastar" data-marker="circle">Seastar <span class="count">0</button></li>
 				<li><button value="fish" data-marker="axes">Fish <span class="count">0</button></li>
@@ -26,16 +25,12 @@
 			<div class="indicator"><!--Marker indicator--></div>
 
 			<div class="other-creatures">
-				<p>Are there other creatures in this image?</p>
+				<h4>Are there any other species<br />present in this image?</h4>
 				<button value="yes">Yes</button>
 				<button value="no">No</button>
 			</div>
 
 			<button disabled="disabled" class="finished">Done identifying species</button>
-		</div>
-
-		<div class="followup">
-			<button class="favorite">Add to my favorites</button>
 		</div>
 	</div>
 
@@ -51,6 +46,8 @@
 		<table class="species"><tbody></tbody></table>
 
 		<button class="toggle-map">View location on a map</button>
+
+		<button class="favorite">Add to my favorites</button>
 
 		<p>Would you like to discuss this image in Talk?</p>
 

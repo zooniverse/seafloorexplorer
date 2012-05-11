@@ -112,7 +112,6 @@ class Classifier extends Spine.Controller
 
     groundCoverPicked = @classification.groundCovers().all().length isnt 0
     @groundCoverFinishedButton.attr 'disabled', not groundCoverPicked
-    @speciesFinishedButton.attr 'disabled', not groundCoverPicked
 
     selectedMarker = (m for m in @picker.markers when m.selected)[0]
     if selectedMarker
@@ -126,6 +125,8 @@ class Classifier extends Spine.Controller
 
     @otherYes.toggleClass 'active', @classification.other is true
     @otherNo.toggleClass 'active', @classification.other is false
+
+    @speciesFinishedButton.attr 'disabled', not @classification.other?
 
     @renderSummary()
 

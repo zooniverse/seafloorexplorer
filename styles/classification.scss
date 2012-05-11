@@ -13,20 +13,24 @@
 
 	$classification-height: 570px;
 
+	width: $three-quarter-width;
+
 	> .image {
 		@include box-sizing(border-box);
 		background: $white;
-		border: 5px solid $white;
 		height: $classification-height;
 		position: relative;
-		width: $three-quarter-width;
+		width: 100%;
 		z-index: 2;
 
 		> .map {
 			height: 100%;
+			left: 0;
 			position: absolute;
+			top: 0;
 			width: 100%;
 
+			// TODO: Reaplce thi with a Leaflet map.
 			> img {
 				height: 100%;
 				width: 100%;
@@ -39,7 +43,9 @@
 				-moz-transform 0.25s ease-in-out
 			});
 			height: 100%;
+			left: 0;
 			position: relative;
+			top: 0;
 			width: 100%;
 
 			&.disabled {
@@ -48,7 +54,9 @@
 
 			> img {
 				height: 100%;
+				left: 0;
 				position: absolute;
+				top: 0;
 				width: 100%;
 			}
 
@@ -64,62 +72,32 @@
 		position: absolute;
 		right: 0;
 		top: 0;
-		width: $quarter-width + $gutter-width;
+		width: $quarter-width;
 
 		> .steps {
 			@include box-sizing(border-box);
-			@include transition(right 0.25s ease-in-out);
-			background: $white; // TODO: Torn edge
+			@include transition(#{
+				opacity 0.25s ease-in-out,
+				right 0.25s ease-in-out
+			});
+			background: $white;
+			border: {
+				radius: 3px;
+				top: 5px solid $blue-dark;
+			};
+			box-shadow: 0 3px 3px -3px transparentize($black, 0.33);
 			height: 100%;
-			padding: $gutter-width * 1.5;
+			opacity: 1;
+			padding: $gutter-width;
 			position: absolute;
 			right: 0;
 			top: 0;
 			width: 100%;
 			z-index: 1;
 
-			&:after {
-				background: url("torn-edge.png") right 4px;
-				content: " ";
-				height: 100%;
-				left: 100%;
-				position: absolute;
-				top: 0;
-				width: 3px;
-			}
-
 			&.finished {
+				opacity: 0.5;
 				right: 100%;
-			}
-
-			> nav {
-				border: 1px solid $gray-darker;
-				margin-bottom: $gutter-width;
-				overflow: hidden;
-
-				> a {
-					@include linear-gradient($gray-light, $gray-dark);
-					color: $blue;
-					cursor: default;
-					display: block;
-					float: left;
-					font: {
-						size: 10px;
-						weight: bold;
-					};
-					padding: 5px 0 3px;
-					text: {
-						align: center;
-						decoration: none;
-						transform: uppercase;
-					};
-					width: 50%;
-
-					&.active {
-						@include linear-gradient($blue);
-						color: $white;
-					}
-				}
 			}
 
 			[data-page] {
@@ -128,6 +106,11 @@
 				&.active {
 					display: block;
 				}
+			}
+
+			h4 {
+				margin: 0;
+				text-align: center;
 			}
 
 			.toggles {
@@ -141,12 +124,13 @@
 						@include linear-gradient($gray-light, $gray-dark);
 						border: 1px solid $gray-darker;
 						color: $blue-dark;
+						cursor: pointer;
 						display: block;
 						font: {
 							family: inherit;
 							size: 20px;
 						};
-						padding: 15px 15px 10px;
+						padding: ($gutter-width / 2) $gutter-width;
 						margin-top: -1px;
 						text: {
 							align: left;
@@ -168,7 +152,9 @@
 			}
 
 			.indicator {
-				height: 100px;
+				border-bottom: 1px solid $gray-dark;
+				height: 90px;
+				margin-bottom: $gutter-width;
 				position: relative;
 				text-align: center;
 
@@ -183,40 +169,51 @@
 				}
 			}
 
+			.other-creatures {
+				@include contain-floats;
+				margin: $gutter-width 0;
+
+				> h4 {
+					margin-bottom: $gutter-width / 2;
+				}
+
+				> button {
+					background: transparent;
+					border: 1px solid transparentize($blue, 0.5);
+					color: $blue;
+					display: block;
+					float: left;
+					font: {
+						family: inherit;
+						size: inherit;
+						weight: bold;
+					};
+					padding: 0;
+					width: 50%;
+
+					&.active {
+						background: $blue;
+						color: $white;
+					}
+				}
+			}
+
 			.finished {
 				@include box-shadow(0 1px $orange-lighter inset);
 				@include linear-gradient($orange-light, $orange-dark);
 				border: 1px solid $orange-darker;
 				color: $white;
+				cursor: pointer;
 				font: {
 					family: inherit;
-					size: 12px;
+					size: 16px;
 					weight: bold;
 				};
-				padding: 10px 0 7px;
+				padding: 10px 0;
 				width: 100%;
 
 				&:disabled {
-					opacity: 0.5;
-				}
-			}
-
-			> .followup {
-				margin-top: $gutter-width;
-
-				> button {
-					@include box-shadow(0 1px $orange-lighter inset);
-					@include linear-gradient($orange-light, $orange-dark);
-					border: 1px solid $orange-darker;
-					color: $white;
-					font: {
-						family: inherit;
-						size: 12px;
-						weight: bold;
-					};
-					margin-top: -1px;
-					padding: 10px 0 7px;
-					width: 100%;
+					opacity: 0.67;
 				}
 			}
 		}

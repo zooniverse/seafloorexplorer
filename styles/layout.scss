@@ -68,13 +68,29 @@ html {
   }
 
   > #main {
+    position: relative;
+
     // Main pages
     > section {
-      display: none;
-      position: relative;
+      @include transition(#{
+        opacity 0.25s ease-in-out,
+        top 0.25s ease-in-out
+      });
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+
+      &.before,
+      &.after {
+        opacity: 0;
+        top: $gutter-width;
+      }
 
       &.active {
-        display: block;
+        opacity: 1;
+        top: 0;
+        z-index: 1;
       }
 
       // Module on a main page

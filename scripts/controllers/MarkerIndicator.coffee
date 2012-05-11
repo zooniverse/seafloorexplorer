@@ -1,9 +1,6 @@
 Spine = require 'Spine'
 Raphael = require 'Raphael'
 
-Marker = require 'controllers/Marker'
-{delay} = require 'util'
-
 template = require 'lib/text!views/MarkerIndicator.html'
 
 style = require 'style'
@@ -39,6 +36,7 @@ class MarkerIndicator extends Spine.Controller
     super
     @html @template
     @paper = Raphael @points[0], '100%', '100%'
+    @setSpecies @species || 'fish'
 
   setSpecies: (species) =>
     return unless species
