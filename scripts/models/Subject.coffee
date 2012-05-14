@@ -20,17 +20,24 @@ class Subject extends Spine.Model
 
   @fetch: ->
     url = "#{@server}/projects/#{@projectId}/workflows/#{@workflowId}/subjects"
-    def = new $.Deferred
 
     @trigger 'fetching'
 
-    $.getJSON url, (response) =>
+    def = new $.Deferred
+    get = $.getJSON url
+
+    get.done (response) =>
+      console.info 'Subject fetched'
       def.resolve @fromJSON response[0]
 
-    def.then (subject) =>
+    get.fail (args...) =>
+      console.error 'Subject fetch failed'
+      def.reject args...
+
+    def.done (subject) =>
       @trigger 'fetch', subject
 
-    def
+    def.promise()
 
   @setCurrent: (newCurrent) ->
     return if newCurrent is @current
@@ -42,5 +49,10 @@ class Subject extends Spine.Model
       subject.classifications().all().length is 0
 
     noClassifications[0]
+
+Subject.tutorialSubject = Subject.create
+  image: 'sample-images/UNQ.20060928.010920609.jpg'
+  latitude: 0
+  longitue: 0
 
 exports = Subject

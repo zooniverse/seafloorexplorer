@@ -10,6 +10,9 @@ Subject = require 'models/Subject'
 Classification = require 'models/Classification'
 GroundCover = require 'models/GroundCover'
 
+Tutorial = require 'controllers/Tutorial'
+tutorialSteps = require 'tutorialSteps'
+
 TEMPLATE = require 'lib/text!views/Classifier.html'
 
 class Classifier extends Spine.Controller
@@ -18,6 +21,8 @@ class Classifier extends Spine.Controller
 
   picker: null
   indicator: null
+
+  tutorial: null
 
   template: TEMPLATE
 
@@ -33,7 +38,6 @@ class Classifier extends Spine.Controller
     '.summary .map-toggle .map img': 'mapThumbnail'
 
   events:
-    'click .steps nav a': (e) -> e.preventDefault()
     'click .ground-cover .toggles button': 'toggleGroundCover'
     'click .ground-cover .finished': 'finishGroundCover'
     'click .species .toggles button': 'changeSpecies'
@@ -45,9 +49,6 @@ class Classifier extends Spine.Controller
 
   constructor: ->
     super
-
-    User.bind 'sign-in', @newClassification
-    Subject.bind 'change-current', @changeSubject
 
     @html @template
 
@@ -68,6 +69,19 @@ class Classifier extends Spine.Controller
           <button value="#{groundCover.id}">#{groundCover.description}</button>
         </li>
       """
+
+    User.bind 'sign-in', @newClassification
+    Subject.bind 'change-current', @changeSubject
+
+    if User.finishedTutorial
+      @fetchNext()
+      @nextSubject()
+    else
+      Subject.setCurrent Subject.tutorialSubject
+      @tutorial = new Tutorial
+        el: @el.parent()
+        steps: tutorialSteps
+      @tutorial.start()
 
   newClassification: =>
     @classification?.destroy()
@@ -169,8 +183,7 @@ class Classifier extends Spine.Controller
   finishSpecies: =>
     @picker.setDisabled true
     @steps.addClass 'finished'
-
-    @fetching = Subject.fetch()
+    @fetchNext()
 
   toggleMap: (show) =>
     unless typeof show is 'boolean' then show = (do -> arguments[0])
@@ -179,10 +192,16 @@ class Classifier extends Spine.Controller
   goToTalk: =>
     alert 'TODO: Go to talk'
 
-  nextSubject: =>
-    @classification.persist()
+  fetchNext: =>
+    @fetching = Subject.fetch()
 
-    @fetching.then (subject) =>
+  nextSubject: =>
+    @classification?.persist()
+
+    @fetching.done (subject) =>
       Subject.setCurrent subject
+
+    @fetching.fail =>
+      alert 'Subject unavailable'
 
 exports = Classifier
