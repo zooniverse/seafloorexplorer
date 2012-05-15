@@ -10,7 +10,7 @@ Install
 Run
 ---
 
-    jekyll --auto --server
+    jekyll
 
 Minify JavaScript
 -----------------
@@ -22,4 +22,4 @@ Minify JavaScript
 Notes
 -----
 
-CoffeeScript files in **scripts** are compiled to CommonJS-style AMD modules, so you can use `require` and `exports`.
+CoffeeScript files in **./scripts** are compiled to CommonJS-style AMD modules, so you can use `require` and `exports`.
