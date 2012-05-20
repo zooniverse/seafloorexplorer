@@ -10,6 +10,7 @@ define (require, exports, module) ->
     toJSON: =>
       species: @species
       points: (point.toJSON() for point in @points().all())
+      halfIn: @halfIn
 
   Point.belongsTo 'marking', Marking
 

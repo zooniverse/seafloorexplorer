@@ -47,6 +47,8 @@ define (require, exports, module) ->
       @paper = Raphael @selectionArea[0], '100%', '100%'
       @image.insertBefore @paper.canvas
 
+      @changeClassification null
+
     ESC = 27
     delegateEvents: =>
       super
@@ -55,7 +57,9 @@ define (require, exports, module) ->
       $(document).on 'mouseup', @onMouseUp
 
       $(document).on 'keydown', (e) =>
-        @resetStrays() if e.keyCode is ESC
+        if e.keyCode is ESC
+          @resetStrays()
+          @indicator.setStep 0
 
     getSize: =>
       width: @image.width(), height: @image.height()
@@ -222,13 +226,13 @@ define (require, exports, module) ->
 
       marking.bind 'destroy', => @classification.trigger 'change'
 
-      {width: w, height: h} = @getSize()
+      {width, height} = @getSize()
 
       for circle in @strayCircles
         point = marking.points().create {}
         point.updateAttributes
-          x: circle.attr('cx') / w
-          y: circle.attr('cy') / h
+          x: circle.attr('cx') / width
+          y: circle.attr('cy') / height
 
       @classification.trigger 'change'
 

@@ -36,7 +36,7 @@ define (require, exports, module) ->
     constructor: ->
       super
       @html @template
-      @paper = Raphael @points[0], '100%', '100%'
+      @paper = Raphael @el.get(0), '100%', '100%'
       @setSpecies @species || 'fish'
 
     setSpecies: (species) =>

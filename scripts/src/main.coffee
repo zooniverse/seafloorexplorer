@@ -1,10 +1,7 @@
 define (require, exports, module) ->
   App = require 'zooniverse/controllers/App'
   Classifier = require 'controllers/Classifier'
-
-  GroundCover = require 'models/GroundCover'
-  for description in ['Sand', 'Cobble', 'Boulder', 'Gravel', 'Shell hash', 'Can\'t tell']
-    GroundCover.create description: description
+  Profile = require 'zooniverse/controllers/Profile'
 
   module.exports = new App
     el: '#main'
@@ -15,10 +12,11 @@ define (require, exports, module) ->
             controller: Classifier
             attributes:
               el: '#classifier'
-
-# GroundCover = require 'models/GroundCover'
-# for description in ['Sand', 'Cobble', 'Boulder', 'Gravel', 'Shell hash', 'Can\'t tell']
-#   GroundCover.create description: description
+    widgets:
+      profile:
+        controller: Profile
+        attributes:
+          el: '#profile'
 
 # Map = require 'controllers/Map'
 # Map::apiKey = '21a5504123984624a5e1a856fc00e238' # TODO: This is Brian's. Does Zooniverse have one?
