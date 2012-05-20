@@ -1,8 +1,6 @@
-.sass-cache
-
-_site
-
-_plugins
-
+*.js
 scripts/lib
+scripts/src/lib/zooniverse
+
+*.css
 styles/lib

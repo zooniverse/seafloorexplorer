@@ -6,11 +6,12 @@ Install
 
     bundle install
     grabass assets.json
+    hub clone -p zooniverse/Front-End-Assets -b framework scripts/src/lib/zooniverse
 
 Run
 ---
 
-    jekyll
+    cake dev
 
 Minify JavaScript
 -----------------
@@ -18,8 +19,3 @@ Minify JavaScript
 	npm install -g requirejs
     cd _site/scripts
     r.js -o baseUrl=. name=main out=main.build.js
-
-Notes
------
-
-CoffeeScript files in **./scripts** are compiled to CommonJS-style AMD modules, so you can use `require` and `exports`.
