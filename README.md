@@ -4,18 +4,21 @@ Seafloor Zoo
 Install
 -------
 
-    bundle install
-    grabass assets.json
-    hub clone -p zooniverse/Front-End-Assets -b framework scripts/src/lib/zooniverse
+```bash
+# Install coffee, sass, and grabass
+bundle install
+
+# Download jQuery, Spine, Raphael, etc.
+grabass assets.json
+
+# Clone the framework repo
+git clone git@github.com:zooniverse/Front-End-Assets.git -b framework scripts/src/lib/zooniverse
+```
 
 Run
 ---
 
-    cake dev
-
-Minify JavaScript
------------------
-
-	npm install -g requirejs
-    cd _site/scripts
-    r.js -o baseUrl=. name=main out=main.build.js
+```bash
+# Run coffee and sass compilers, serve at localhost:8000
+cake dev
+```
