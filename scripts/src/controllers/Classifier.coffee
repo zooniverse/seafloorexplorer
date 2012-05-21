@@ -109,10 +109,10 @@ define (require, exports, module) ->
         countElement = button.find '.count'
         countElement.html parseInt(countElement.html(), 10) + 1
 
-      @otherYes.toggleClass 'active', @classification.other is true
-      @otherNo.toggleClass 'active', @classification.other is false
+      @otherYes.toggleClass 'active', @classification.otherSpecies is true
+      @otherNo.toggleClass 'active', @classification.otherSpecies is false
 
-      @speciesFinishedButton.attr 'disabled', not @classification.other?
+      @speciesFinishedButton.attr 'disabled', not @classification.otherSpecies?
 
     toggleGroundCover: (e) =>
       value = $(e.target).val()
@@ -151,7 +151,6 @@ define (require, exports, module) ->
     finishSpecies: =>
       @picker.setDisabled true
       @steps.addClass 'finished'
-      @fetchNext()
 
     toggleMap: (show) =>
       unless typeof show is 'boolean' then show = (do -> arguments[0])

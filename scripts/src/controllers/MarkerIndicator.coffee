@@ -36,8 +36,7 @@ define (require, exports, module) ->
     constructor: ->
       super
       @html @template
-      @paper = Raphael @el.get(0), '100%', '100%'
-      @setSpecies @species || 'fish'
+      @paper = Raphael @points.get(0), '100%', '100%'
 
     setSpecies: (species) =>
       return unless species

@@ -11,7 +11,6 @@ define (require, exports, module) ->
     constructor: ->
       super
       @groundCovers ?= []
-      @otherSpecies ?= false
 
     toJSON: =>
       classification:

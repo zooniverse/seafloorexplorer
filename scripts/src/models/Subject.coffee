@@ -25,6 +25,7 @@ define (require, exports, module) ->
 
     @forTutorial = ->
       @create
+        zooniverseId: 'TUTORIAL_SUBJECT'
         image: 'sample-images/UNQ.20060928.010920609.jpg'
         latitude: 0
         longitue: 0
