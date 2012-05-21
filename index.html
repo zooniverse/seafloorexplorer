@@ -157,32 +157,6 @@
         }
       });
 
-      define('jQuery', [
-        'lib/jquery'
-      ], function() {
-        return jQuery;
-      });
-
-      define('Spine', [
-        'jQuery',
-        'order!lib/spine/spine',
-        'order!lib/spine/relation'
-      ], function() {
-        return Spine;
-      });
-
-      define('Raphael', [
-        // Include in a script tag before RequireJS.
-      ], function() {
-        return Raphael;
-      });
-
-      define('Leaflet', [
-        'lib/leaflet'
-      ], function() {
-        return L;
-      });
-
       require(['main']);
     </script>
   </body>

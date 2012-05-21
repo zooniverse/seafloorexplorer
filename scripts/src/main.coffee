@@ -1,7 +1,13 @@
 define (require, exports, module) ->
+  require 'amdShims'
+
   App = require 'zooniverse/controllers/App'
   Classifier = require 'controllers/Classifier'
+  Map = require 'zooniverse/controllers/Map'
   Profile = require 'zooniverse/controllers/Profile'
+
+  Map::apiKey = '21a5504123984624a5e1a856fc00e238' # TODO: This is Brian's.
+  # TODO: Map::tilesId = 61165
 
   module.exports = new App
     el: '#main'
@@ -13,14 +19,15 @@ define (require, exports, module) ->
             attributes:
               el: '#classifier'
     widgets:
+      homeMap:
+        controller: Map
+        attributes:
+          el: '[data-page="home"] .map'
       profile:
         controller: Profile
         attributes:
           el: '#profile'
 
-# Map = require 'controllers/Map'
-# Map::apiKey = '21a5504123984624a5e1a856fc00e238' # TODO: This is Brian's. Does Zooniverse have one?
-# # Map::tilesId = 61165
 
 # window.homeMap = new Map el: $('[data-page="home"] .map')
 
