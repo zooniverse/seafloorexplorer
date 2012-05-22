@@ -76,19 +76,17 @@ html {
         opacity 0.25s ease-in-out,
         top 0.25s ease-in-out
       });
+      height: 100%;
       left: 0;
+      opacity: 0;
+      overflow: hidden;
       position: absolute;
-      top: 0;
+      top: $gutter-width * 2;
       width: 100%;
-
-      &.before,
-      &.after {
-        opacity: 0;
-        top: $gutter-width;
-      }
 
       &.active {
         opacity: 1;
+        position: relative;
         top: 0;
         z-index: 1;
       }
