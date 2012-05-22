@@ -1,8 +1,6 @@
 @import "constants";
 
 #wrapper > #main .details {
-  $example-image-width: 400px;
-
   font-size: 12px;
 
   [data-page] {
@@ -142,31 +140,6 @@
 
     > section {
       @include contain-floats;
-
-      > .example {
-        float: left;
-        margin-right: $gutter-width;
-
-        &.two-fifths {
-          width: 400px;
-
-          + .content {
-            width: $full-width - 400px - ($gutter-width * 2);
-          }
-        }
-
-        &.half {
-          width: 500px;
-
-          + .content {
-            width: $full-width - 500px - ($gutter-width * 2);
-          }
-        }
-      }
-
-      > .content {
-        float: left;
-      }
     }
   }
 }
