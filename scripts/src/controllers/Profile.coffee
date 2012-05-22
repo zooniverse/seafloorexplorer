@@ -1,31 +1,41 @@
 define (require, exports, module) ->
   Spine = require 'Spine'
+  $ = require 'jQuery'
 
+  User = require 'zooniverse/models/User'
+  ZooniverseProfile = require 'zooniverse/controllers/Profile'
+
+  Map = require 'zooniverse/controllers/Map'
   Scoreboard = require 'controllers/Scoreboard'
 
-  PROFILE_TEMPLATE = require 'views/Profile'
+  TEMPLATE = require 'views/Profile'
 
-  class Profile extends Spine.Controller
-    user: null
-
-    template: PROFILE_TEMPLATE
+  class Profile extends ZooniverseProfile
+    template: TEMPLATE
 
     map: null
     scoreboard: null
 
-    elements:
+    elements: $.extend
+      '.summary .username': 'usernameContainer'
       '.summary .map': 'mapContainer'
       '.summary .scoreboard': 'scoreboardContainer'
+      ZooniverseProfile::elements
 
     constructor: ->
       super
-      @html @template
+
+      @map = new Map
+        el: @mapContainer
 
       @scoreboard = new Scoreboard
         el: @scoreboardContainer
         user: null
 
-    render: =>
-      # TODO
+    userChanged: =>
+      super
+
+      if User.current?
+        @usernameContainer.html User.current.name
 
   module.exports = Profile
