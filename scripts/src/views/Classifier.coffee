@@ -18,9 +18,9 @@ define (require, exports, module) ->
 					<h4>Species in this image</h4>
 
 					<ul class="toggles">
-						<li><button value="seastar" data-marker="circle">Seastar <span class="count">0</button></li>
-						<li><button value="fish" data-marker="axes">Fish <span class="count">0</button></li>
 						<li><button value="scallop" data-marker="axes">Scallop <span class="count">0</button></li>
+						<li><button value="fish" data-marker="axes">Fish <span class="count">0</button></li>
+						<li><button value="seastar" data-marker="circle">Seastar <span class="count">0</button></li>
 						<li><button value="crustacean" data-marker="axes">Crustacean <span class="count">0</button></li>
 					</ul>
 

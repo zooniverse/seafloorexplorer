@@ -93,6 +93,15 @@
           }
 
           &:nth-child(1n) > a {
+            border-top-color: $scallop-color;
+
+            &:hover,
+            &.active {
+              color: $scallop-color;
+            }
+          }
+
+          &:nth-child(2n) > a {
             border-top-color: $fish-color;
 
             &:hover,
@@ -101,21 +110,12 @@
             }
           }
 
-          &:nth-child(2n) > a {
+          &:nth-child(3n) > a {
             border-top-color: $seastar-color;
 
             &:hover,
             &.active {
               color: $seastar-color;
-            }
-          }
-
-          &:nth-child(3n) > a {
-            border-top-color: $scallop-color;
-
-            &:hover,
-            &.active {
-              color: $scallop-color;
             }
           }
 

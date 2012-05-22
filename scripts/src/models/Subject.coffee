@@ -6,10 +6,10 @@ define (require, exports, module) ->
 
     @groundCovers:
       sand: 'Sand'
-      cobble: 'Cobble'
-      boulder: 'Boulder'
       gravel: 'Gravel'
       shellHash: 'Shell hash'
+      cobble: 'Cobble'
+      boulder: 'Boulder'
       cantTell: 'Can\'t tell'
 
     @fromJSON: (raw) ->
