@@ -1,0 +1,32 @@
+@import "constants";
+
+[data-page="about"] > [data-page="data"] {
+  > section > section {
+    border-top: 1px solid $gray-light;
+
+    > .example {
+      float: left;
+      margin-right: $gutter-width;
+    }
+  }
+
+  > [data-page="ground-covers"] > section > .example {
+    width: $full-width * (2 / 5);
+  }
+
+  > [data-page="species"] > section > .example {
+    width: $full-width / 2;
+  }
+}
+
+[data-page="about"] > [data-page="people"] > section > section {
+  @include contain-floats;
+  border-top: 1px solid $gray-light;
+
+  > .headshot {
+    display: block;
+    float: left;
+    margin-right: $gutter-width;
+    width: $full-width / 4;
+  }
+}
