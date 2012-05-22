@@ -3,6 +3,7 @@ define (require, exports, module) ->
 
   App = require 'zooniverse/controllers/App'
   Classifier = require 'controllers/Classifier'
+  Scoreboard = require 'controllers/Scoreboard'
   Map = require 'zooniverse/controllers/Map'
   Profile = require 'controllers/Profile'
 
@@ -23,6 +24,10 @@ define (require, exports, module) ->
         controller: Map
         attributes:
           el: '[data-page="home"] .map'
+      homeScoreboard:
+        controller: Scoreboard
+        attributes:
+          el: '[data-page="home"] .scoreboard'
       profile:
         controller: Profile
         attributes:
