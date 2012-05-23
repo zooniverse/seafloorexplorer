@@ -1,6 +1,4 @@
 define (require, exports, module) ->
-  require 'amdShims'
-
   App = require 'zooniverse/controllers/App'
   Classifier = require 'controllers/Classifier'
   Scoreboard = require 'controllers/Scoreboard'
@@ -19,32 +17,23 @@ define (require, exports, module) ->
             controller: Classifier
             attributes:
               el: '#classifier'
+
     widgets:
       homeMap:
         controller: Map
         attributes:
           el: '[data-page="home"] .map'
+
       homeScoreboard:
         controller: Scoreboard
         attributes:
           el: '[data-page="home"] .scoreboard'
+
       profile:
         controller: Profile
         attributes:
           el: '[data-page="profile"]'
 
+  window.Subject = require 'models/Subject'
+
   module.exports = window.app
-
-# window.homeMap = new Map el: $('[data-page="home"] .map')
-
-# Scoreboard = require 'controllers/scoreboard'
-# window.homeScoreboard = new Scoreboard
-#   el: $('[data-page="home"] .scoreboard')
-#   user: null
-
-# Classifier = require 'controllers/Classifier'
-# window.classifier = new Classifier
-# 	el: $('#classifier')
-
-# Profile = require 'controllers/Profile'
-# window.profile = new Profile el: $('[data-page="profile"]')

@@ -26,7 +26,11 @@
   > .headshot {
     display: block;
     float: left;
-    margin-right: $gutter-width;
-    width: $full-width / 4;
+    margin: $gutter-width;
+    width: ($full-width / 5) - ($gutter-width * 2);
+  }
+
+  > .content {
+    margin: $gutter-width;
   }
 }

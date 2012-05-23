@@ -82,7 +82,7 @@ define (require, exports, module) ->
 
       @steps.removeClass 'finished'
 
-      location.hash = '#/classify/ground-cover' if ~location.hash.indexOf '/classify'
+      location.hash = '#!/classify/ground-cover' if ~location.hash.indexOf '/classify'
       @el.toggleClass 'show-map', false
 
     render: =>
@@ -125,7 +125,7 @@ define (require, exports, module) ->
       @classification.trigger 'change'
 
     finishGroundCover: =>
-      location.hash = '#/classify/species'
+      location.hash = '#!/classify/species'
 
     changeSpecies: (e) =>
       e ?= target: $('<input />') # Dummy for when we deselect a button
