@@ -8,6 +8,7 @@ define (require, exports, module) ->
   Pager = require 'zooniverse/controllers/Pager'
 
   Subject = require 'models/Subject'
+  Favorite = require 'zooniverse/models/Favorite'
   Classification = require 'models/Classification'
 
   Tutorial = require 'controllers/Tutorial'
@@ -32,6 +33,7 @@ define (require, exports, module) ->
       'click .species .toggles button': 'changeSpecies'
       'click .species .other-creatures button': 'changeOther'
       'click .species .finished': 'finishSpecies'
+      'click .summary .favorite': 'addFavorite'
       'click .map-toggle img': 'toggleMap'
       'click .talk [value="yes"]': 'goToTalk'
       'click .talk [value="no"]': 'nextSubject'
@@ -151,6 +153,11 @@ define (require, exports, module) ->
     finishSpecies: =>
       @picker.setDisabled true
       @steps.addClass 'finished'
+      @saveClassification()
+
+    addFavorite: =>
+      favorite = Favorite.create subjectIds: [Subject.current.id]
+      favorite.persist()
 
     toggleMap: (show) =>
       unless typeof show is 'boolean' then show = (do -> arguments[0])
