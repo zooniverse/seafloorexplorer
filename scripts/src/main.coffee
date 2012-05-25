@@ -10,8 +10,16 @@ define (require, exports, module) ->
 
   window.app = new App
     el: '#main'
+
+    languages: ['en']
+
     projects:
       '4fa4088d54558f3d6a000001':
+        attributes:
+          name: 'Seafloor Explorer'
+          slug: 'seafloor-explorer'
+          description: 'Help explore the ocean floor!'
+
         workflows:
           '4fa408de54558f3d6a000002':
             controller: Classifier

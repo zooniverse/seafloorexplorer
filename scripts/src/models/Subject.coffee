@@ -28,6 +28,6 @@ define (require, exports, module) ->
         zooniverseId: 'TUTORIAL_SUBJECT'
         image: 'sample-images/UNQ.20060928.010920609.jpg'
         latitude: 0
-        longitue: 0
+        longitude: 0
 
   module.exports = Subject

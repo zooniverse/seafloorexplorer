@@ -89,16 +89,6 @@
         }
       }
     }
-
-    &.has-items {
-      > .none {
-        display: none;
-      }
-
-      > ul {
-        display: block;
-      }
-    }
   }
 
   &.signed-in {
@@ -108,6 +98,18 @@
 
     > .summary,
     > .favorites {
+      display: block;
+    }
+  }
+
+  &.has-favorites > .favorites,
+  &.has-recents > .recents,
+  &.has-groups > .groups {
+    > .none {
+      display: none;
+    }
+
+    > ul {
       display: block;
     }
   }

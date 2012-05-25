@@ -8,8 +8,9 @@ define (require, exports, module) ->
   Pager = require 'zooniverse/controllers/Pager'
 
   Subject = require 'models/Subject'
-  Favorite = require 'zooniverse/models/Favorite'
+  User = require 'zooniverse/models/User'
   Classification = require 'models/Classification'
+  Favorite = require 'zooniverse/models/Favorite'
 
   Tutorial = require 'controllers/Tutorial'
   tutorialSteps = require 'tutorialSteps'
@@ -156,7 +157,8 @@ define (require, exports, module) ->
       @saveClassification()
 
     addFavorite: =>
-      favorite = Favorite.create subjectIds: [Subject.current.id]
+      return unless User.current?
+      favorite = Favorite.create subjects: [Subject.current]
       favorite.persist()
 
     toggleMap: (show) =>
