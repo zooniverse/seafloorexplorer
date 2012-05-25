@@ -1,14 +1,13 @@
 define (require, exports, module) ->
-  Workflow = require 'zooniverse/controllers/Workflow'
-
   $ = require 'jQuery'
+
+  Workflow = require 'zooniverse/controllers/Workflow'
 
   CreaturePicker = require 'controllers/CreaturePicker'
   MarkerIndicator = require 'controllers/MarkerIndicator'
   Pager = require 'zooniverse/controllers/Pager'
 
   Subject = require 'models/Subject'
-  User = require 'zooniverse/models/User'
   Classification = require 'models/Classification'
   Favorite = require 'zooniverse/models/Favorite'
 
@@ -18,9 +17,6 @@ define (require, exports, module) ->
   TEMPLATE = require 'views/Classifier'
 
   class Classifier extends Workflow
-    @subject: Subject
-    @classification: Classification
-
     @template: TEMPLATE
 
     picker: null
@@ -157,7 +153,6 @@ define (require, exports, module) ->
       @saveClassification()
 
     addFavorite: =>
-      return unless User.current?
       favorite = Favorite.create subjects: [Subject.current]
       favorite.persist()
 

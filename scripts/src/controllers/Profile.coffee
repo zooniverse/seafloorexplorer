@@ -9,6 +9,7 @@ define (require, exports, module) ->
   Scoreboard = require 'controllers/Scoreboard'
 
   TEMPLATE = require 'views/Profile'
+  favoriteTemplate = require 'views/ProfileFavorite'
 
   class Profile extends ZooniverseProfile
     template: TEMPLATE
@@ -37,5 +38,7 @@ define (require, exports, module) ->
 
       if User.current?
         @usernameContainer.html User.current.name
+
+    favoriteTemplate: favoriteTemplate
 
   module.exports = Profile

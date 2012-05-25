@@ -1,6 +1,10 @@
 define (require, exports, module) ->
   App = require 'zooniverse/controllers/App'
+
+  Subject = require 'models/Subject'
+  Classification = require 'models/Classification'
   Classifier = require 'controllers/Classifier'
+
   Scoreboard = require 'controllers/Scoreboard'
   Map = require 'zooniverse/controllers/Map'
   Profile = require 'controllers/Profile'
@@ -22,6 +26,8 @@ define (require, exports, module) ->
 
         workflows:
           '4fa408de54558f3d6a000002':
+            subject: Subject
+            classification: Classification
             controller: Classifier
             attributes:
               el: '#classifier'
