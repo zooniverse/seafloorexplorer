@@ -7,6 +7,11 @@
     label {
       display: block;
       margin: 0 0 ($gutter-width / 2);
+
+      > span {
+        display: inline-block;
+        width: 8em;
+      }
     }
 
     > .errors {
@@ -20,6 +25,10 @@
     }
 
     &.waiting {
+      > .sign-in {
+        display: none;
+      }
+
       > .waiting {
         display: block;
       }
