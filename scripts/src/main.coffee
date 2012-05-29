@@ -8,6 +8,7 @@ define (require, exports, module) ->
   Scoreboard = require 'controllers/Scoreboard'
   Map = require 'zooniverse/controllers/Map'
   Profile = require 'controllers/Profile'
+  Review = require 'controllers/Review'
 
   Map::apiKey = '21a5504123984624a5e1a856fc00e238' # TODO: This is Brian's.
   # TODO: Map::tilesId = 61165
@@ -48,6 +49,9 @@ define (require, exports, module) ->
         attributes:
           el: '[data-page="profile"]'
 
-  window.Subject = require 'models/Subject'
+      review:
+        controller: Review
+        attributes:
+          el: '[data-page="review"]'
 
   module.exports = window.app

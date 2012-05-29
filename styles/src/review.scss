@@ -1,0 +1,38 @@
+@import "constants";
+
+#wrapper > #main > [data-page="review"] {
+  @include contain-floats;
+
+  > .images {
+    float: left;
+    margin-right: $gutter-width;
+    width: $two-third-width;
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+  }
+
+  > .metadata {
+    float: left;
+    width: $third-width;
+
+    > section {
+      border-top: 1px solid $gray-light;
+      padding: ($gutter-width / 2) $gutter-width;
+
+      > .measurement {
+        color: $blue-dark;
+        font-weight: bold;
+      }
+
+      > .value {
+        font: {
+          size: 18px;
+          weight: bold;
+        }
+      }
+    }
+  }
+}
