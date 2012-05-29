@@ -13,5 +13,5 @@ task 'bootstrap', 'Download dependencies', ->
 task 'dev', 'Development server', ->
   run 'coffee', ['--compile', '--output', './scripts', '--watch', './scripts/src']
   run 'coffee', ['--compile', '--watch', './login-frame']
-  run 'sass', ['--watch', 'styles/src:styles', '--no-cache']
+  run 'sass', ['--watch', 'styles/src:styles', '--no-cache', '--debug-info']
   run 'python', ['-m', 'SimpleHTTPServer', 8000]
