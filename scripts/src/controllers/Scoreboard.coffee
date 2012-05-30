@@ -4,6 +4,7 @@ define (require, exports, module) ->
 
   User = require 'zooniverse/models/User'
   Project = require 'zooniverse/models/Project'
+  Classification = require 'models/Classification'
 
   SCOREBOARD_TEMPLATE = require 'views/Scoreboard'
 
@@ -23,6 +24,8 @@ define (require, exports, module) ->
       super
       @html @template
       @update()
+
+      Classification.bind 'persist', @update
 
     update: =>
       return if @forUser and not User.current?
