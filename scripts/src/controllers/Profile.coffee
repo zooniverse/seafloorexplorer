@@ -3,6 +3,8 @@ define (require, exports, module) ->
   $ = require 'jQuery'
 
   User = require 'zooniverse/models/User'
+  Project = require 'zooniverse/models/Project'
+
   ZooniverseProfile = require 'zooniverse/controllers/Profile'
 
   Map = require 'zooniverse/controllers/Map'
@@ -15,6 +17,7 @@ define (require, exports, module) ->
     template: TEMPLATE
 
     map: null
+    userLayer: null
     scoreboard: null
 
     elements: $.extend
@@ -36,9 +39,15 @@ define (require, exports, module) ->
     userChanged: =>
       super
 
+      @map.removeLayer @userLayer if @userLayer?
+
       if User.current?
         @usernameContainer.html User.current.name
         @scoreboard.update()
+
+        query = "SELECT * FROM #{Project.current.cartoTable} WHERE user_id='#{User.current.id}'"
+        url = "http://#{Project.current.cartoUser}.cartodb.com/tiles/#{Project.current.cartoTable}/{z}/{x}/{y}.png?sql=#{query}"
+        @userLayer = @map.addLayer url
 
     favoriteTemplate: favoriteTemplate
 
