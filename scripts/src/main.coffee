@@ -24,6 +24,9 @@ define (require, exports, module) ->
           name: 'Seafloor Explorer'
           slug: 'seafloor-explorer'
           description: 'Help explore the ocean floor!'
+          cartoUser: 'brian-c'
+          cartoApiKey: 'CARTO_API_KEY'
+          cartoTable: 'seafloor_explorer_beta'
 
         workflows:
           '4fa408de54558f3d6a000002':
@@ -38,6 +41,7 @@ define (require, exports, module) ->
         controller: Map
         attributes:
           el: '[data-page="home"] .map'
+          layers: ["http://brian-c.cartodb.com/tiles/seafloor_explorer_beta/{z}/{x}/{y}.png"]
 
       homeScoreboard:
         controller: Scoreboard
