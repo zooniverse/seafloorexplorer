@@ -21,11 +21,11 @@
       padding: ($gutter-width * 2) $gutter-width $gutter-width;
     }
 
-    &.cool       > .description {background: $cool-color;}
-    &.seastar    > .description {background: $seastar-color;}
-    &.fish       > .description {background: $fish-color;}
-    &.scallop    > .description {background: $scallop-color;}
-    &.crustacean > .description {background: $crustacean-color;}
+    &.seastar         > .description {background: $seastar-color;}
+    &.fish            > .description {background: $fish-color;}
+    &.scallop         > .description {background: $scallop-color;}
+    &.crustacean      > .description {background: $crustacean-color;}
+    &.classifications > .description {background: $cool-color;}
 
     > .count {
       font-size: 20px;

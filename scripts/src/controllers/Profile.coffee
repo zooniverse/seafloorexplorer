@@ -31,13 +31,14 @@ define (require, exports, module) ->
 
       @scoreboard = new Scoreboard
         el: @scoreboardContainer
-        user: null
+        forUser: true
 
     userChanged: =>
       super
 
       if User.current?
         @usernameContainer.html User.current.name
+        @scoreboard.update()
 
     favoriteTemplate: favoriteTemplate
 
