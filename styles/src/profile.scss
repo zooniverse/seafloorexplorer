@@ -74,12 +74,14 @@
         display: block;
         padding: $gutter-width;
 
-        > .thumbnail {
-          @include box-sizing(border-box);
-          border: 4px solid $white;
-          box-shadow: 0 2px 3px transparentize($black, 0.5);
-          float: left;
-          width: $sixth-width + $gutter-width;
+        > a {
+          > .thumbnail {
+            @include box-sizing(border-box);
+            border: 4px solid $white;
+            box-shadow: 0 2px 3px transparentize($black, 0.5);
+            float: left;
+            width: $sixth-width + $gutter-width;
+          }
         }
 
         > .description {

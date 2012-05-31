@@ -8,7 +8,6 @@ define (require, exports, module) ->
   Scoreboard = require 'controllers/Scoreboard'
   Map = require 'zooniverse/controllers/Map'
   Profile = require 'controllers/Profile'
-  Review = require 'controllers/Review'
 
   Map::apiKey = '21a5504123984624a5e1a856fc00e238' # TODO: This is Brian's.
   # TODO: Map::tilesId = 61165
@@ -24,6 +23,7 @@ define (require, exports, module) ->
           name: 'Seafloor Explorer'
           slug: 'seafloor-explorer'
           description: 'Help explore the ocean floor!'
+          talkHost: 'http://talk.seafloorexplorer.org'
           cartoUser: 'brian-c'
           cartoApiKey: 'CARTO_API_KEY'
           cartoTable: 'seafloor_explorer_beta'
@@ -52,10 +52,5 @@ define (require, exports, module) ->
         controller: Profile
         attributes:
           el: '[data-page="profile"]'
-
-      review:
-        controller: Review
-        attributes:
-          el: '[data-page="review"]'
 
   module.exports = window.app

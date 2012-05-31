@@ -2,7 +2,7 @@ define (require, exports, module) ->
   module.exports = (favorite) ->
     """
       <li>
-        <img src="#{favorite.subjects[0].location}" class="thumbnail" />
+        <a href="#{favorite.talkHref()}"> <img src="#{favorite.subjects[0].location}" class="thumbnail" /></a>
 
         <div class="description">
           <div class="location">#{favorite.subjects[0].coords[0]}, #{favorite.subjects[0].coords[1]}</div>
