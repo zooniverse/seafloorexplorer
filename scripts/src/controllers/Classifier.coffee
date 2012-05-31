@@ -11,7 +11,7 @@ define (require, exports, module) ->
   Classification = require 'models/Classification'
   Favorite = require 'zooniverse/models/Favorite'
 
-  Tutorial = require 'controllers/Tutorial'
+  Tutorial = require 'zooniverse/controllers/Tutorial'
   tutorialSteps = require 'tutorialSteps'
 
   TEMPLATE = require 'views/Classifier'
@@ -22,7 +22,7 @@ define (require, exports, module) ->
     picker: null
     indicator: null
 
-    tutorial: null
+    tutorialSteps: tutorialSteps
 
     events:
       'click .ground-cover .toggles button': 'toggleGroundCover'

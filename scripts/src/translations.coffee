@@ -10,7 +10,7 @@ define (require, exports, module) ->
 			]
 		tutorialGroundCover1:
 			en: [
-				'First, choose the ground covers from the list that best describes what you can see in the image.'
+				'First, we\'ll choose the ground covers from the list that best describes what you can see in the image.'
 				'This one looks like mostly sand...'
 			]
 		tutorialGroundCover2:

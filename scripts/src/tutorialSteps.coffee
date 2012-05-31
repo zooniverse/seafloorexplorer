@@ -1,97 +1,109 @@
 define (require, exports, module) ->
-	{Step} = require 'controllers/Tutorial'
-	{translate} = require 'util'
+  {Step} = require 'zooniverse/controllers/Tutorial'
 
-	module.exports = [
-		new Step
-			style: left: 170, top: 200, width: 400, height: 'auto'
-			content: translate 'tutorialWelcome'
-			modal: true
+  module.exports = [
+    new Step
+      content: [
+        'Welcome to Seafloor Zoo!'
+        'This tutorial will step you through the Seafloor Zoo classification process.'
+        'NOTE: This won\'t entirely make sense until I find the right image. Pretend the scallop is a sea star.'
+      ]
+      attach: x: 'center', y: 'middle', to: '.creature-picker', at: x: 'center', y: 'middle'
+      style: width: 400
+      block: '[data-page="classify"]'
 
-		new Step
-			style: left: 380, top: 100, width: 340, height: 'auto'
-			className: 'top right'
-			content: translate 'tutorialGroundCover1'
-			nextOn: click: '.ground-cover .toggles button:contains("Sand")'
+    new Step
+      content: [
+        'First, we\'ll choose the ground covers from the list that best describes what you can see in the image.'
+        'This one looks like mostly sand...'
+      ]
+      attach: x: 'right', to: '[value="sand"]', at: x: 'left'
+      nextOn: click: '.ground-cover .toggles button:contains("Sand")'
+      arrowClass: 'right-middle'
+      block: '.ground-cover .toggles button:not(:contains("Sand")), .ground-cover .finished'
 
-		new Step
-			style: left: 380, top: 260, width: 340, height: 'auto'
-			className: 'top right'
-			content: translate 'tutorialGroundCover2'
-			nextOn: click: '.ground-cover .toggles button:contains("Gravel")'
+    new Step
+      content: [
+        '...and there\'s gravel as well.'
+      ]
+      attach: x: 'right', to: '[value="gravel"]', at: x: 'left'
+      nextOn: click: '.ground-cover .toggles button:contains("Gravel")'
+      arrowClass: 'right-middle'
+      block: '.ground-cover .toggles button:not(:contains("Gravel")), .ground-cover .finished'
 
-		new Step
-			style: left: 380, top: 375, width: 340, height: 'auto'
-			className: 'bottom right'
-			content: translate 'tutorialGroundCoverFinished'
-			nextOn: click: '.ground-cover .finished'
+    new Step
+      content: [
+        'Click "Done" once you\'re finished choosing.'
+      ]
+      attach: x: 'right', to: '.ground-cover .finished', at: x: 'left'
+      nextOn: click: '.ground-cover .finished'
+      arrowClass: 'right-middle'
 
-		new Step
-			style: left: 300, top: 150, width: 420, height: 'auto'
-			className: 'top right'
-			content: translate 'tutorialFish'
-			nextOn: click: '.species .toggles button:contains("Fish")'
+    new Step
+      content: [
+        'Now we need to classify the creatures in the image.'
+        'Let\'s do the fish first. Choose "Fish" from the list of species.'
+      ]
+      attach: x: 'right', to: '[value="fish"]', at: x: 'left'
+      nextOn: click: '.species .toggles button:contains("Fish")'
+      arrowClass: 'right-middle'
+      block: '.species .toggles button:not(:contains("Fish")), .species .finished'
 
-		new Step
-			style: left: 240, top: 270, width: 330, height: 'auto'
-			className: 'bottom left'
-			content: translate 'tutorialFishHead'
-			nextOn: 'create-stray-circle': '#classifier'
+    new Step
+      content: [
+        'We\'ll mark the fish by drawing a line across its longest and shortest dimensions.'
+        'Start by dragging your mouse from the fish\'s head to its tail'
+      ]
+      attach: y: 'top', to: '.creature-picker', at: y: 'top'
+      nextOn: 'create-stray-axis': '#classifier'
+      arrowClass: 'down-center'
 
-		new Step
-			style: left: 350, top: 250, width: 310, height: 'auto'
-			className: 'top right'
-			content: translate 'tutorialFishTail'
-			nextOn: 'create-stray-axis': '#classifier'
+    new Step
+      content: [
+        'Then drag from the left side of the fish to the right at the widest point along the fish\'s body.'
+      ]
+      attach: y: 'top', to: '.creature-picker', at: y: 'top'
+      nextOn: 'create-marking': '#classifier'
+      arrowClass: 'down-center'
 
-		new Step
-			style: left: 130, top: 20, width: 220, height: 'auto'
-			className: 'top right'
-			content: translate 'tutorialFishLeft'
-			nextOn: 'create-stray-circle': '#classifier'
+    new Step
+      content: [
+        'Next we\'ll mark a seastar. Choose it from the species list.'
+      ]
+      attach: x: 'right', to: '[value="seastar"]', at: x: 'left'
+      nextOn: click: '.species .toggles button:contains("Seastar")'
+      arrowClass: 'right-middle'
 
-		new Step
-			style: left: 220, top: 490, width: 270, height: 'auto'
-			className: 'bottom right'
-			content: translate 'tutorialFishRight'
-			nextOn: 'create-marking': '#classifier'
+    new Step
+      content: [
+        'We can mark a seastar by simply dragging from its center to the tip of its longest leg.'
+        'Give it a try!'
+      ]
+      attach: y: 'bottom', to: '.creature-picker', at: x: 0.25, y: 0.25
+      nextOn: 'create-marking': '#classifier'
+      arrowClass: 'down-center'
 
-		new Step
-			style: left: 400, top: 100, width: 320, height: 'auto'
-			className: 'top right'
-			content: translate 'tutorialSeastar'
-			nextOn: click: '.species .toggles button:contains("Seastar")'
+    new Step
+      content: [
+        'If there are species in the image other than the ones in the list, we\'d like to know.'
+        'Click "No" here since there are no extra creatures in this image.'
+      ]
+      attach: x: 'right', to: '.other-creatures [value="yes"]', at: x: 'left'
+      nextOn: click: '.other-creatures [value="no"]'
+      arrowClass: 'right-middle'
 
-		new Step
-			style: left: 190, top: 130, width: 390, height: 'auto'
-			content: translate 'tutorialSeastarExplanation'
-			modal: true
+    new Step
+      content: [
+        'Once we\'ve finished marking all the species in an image, click "Done".'
+      ]
+      attach: x: 'right', to: '.species .finished', at: x: 'left'
+      nextOn: click: '.species .finished'
+      arrowClass: 'right-middle'
 
-		new Step
-			style: left: 190, top: 180, width: 210, height: 'auto'
-			className: 'bottom left'
-			content: translate 'tutorialSeastarCenter'
-			nextOn: 'create-stray-circle': '#classifier'
-
-		new Step
-			style: left: 250, top: 180, width: 210, height: 'auto'
-			className: 'bottom left'
-			content: translate 'tutorialSeastarTip'
-			nextOn: 'create-marking': '#classifier'
-
-		new Step
-			style: left: 300, top: 20, width: '370px', height: 'auto'
-			content: translate 'adjustMarkers'
-			modal: true
-
-		new Step
-			style: left: 240, top: 370, width: 480, height: 'auto'
-			className: 'top right'
-			content: translate 'tutorialSpeciesFinished'
-			nextOn: click: '.species .finished'
-
-		new Step
-			style: left: 240, top: 200, width: 390, height: 'auto'
-			content: translate 'tutorialComplete'
-			modal: true
-	]
+    new Step
+      content: [
+        'Great job!'
+        'Now you\'re ready to try some classifications on your own.'
+      ]
+      attach: to: '.creature-picker'
+  ]
