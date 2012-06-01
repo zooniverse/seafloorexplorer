@@ -149,6 +149,11 @@
 							@include linear-gradient($blue);
 							border-color: transparent;
 							color: $white;
+
+							&[value="scallop"]    {@include linear-gradient($scallop-color);}
+							&[value="fish"]       {@include linear-gradient($fish-color);}
+							&[value="seastar"]    {@include linear-gradient($seastar-color);}
+							&[value="crustacean"] {@include linear-gradient($crustacean-color);}
 						}
 					}
 				}
