@@ -34,6 +34,7 @@ define (require, exports, module) ->
       'click .map-toggle img': 'toggleMap'
       'click .talk [value="yes"]': 'goToTalk'
       'click .talk [value="no"]': 'nextSubject'
+      'click .tutorial-again': 'startTutorial'
 
     elements:
       '.steps': 'steps'

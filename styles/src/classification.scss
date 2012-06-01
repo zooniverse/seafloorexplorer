@@ -225,6 +225,30 @@
 					opacity: 0.67;
 				}
 			}
+
+			> .help {
+				bottom: 0;
+				left: 0;
+				padding: ($gutter-width / 2) 0;
+				position: absolute;
+				text-align: center;
+				width: 100%;
+
+				> a {
+					background: transparentize($black, 0.9);
+					border: {
+						bottom: 1px solid transparentize($black, 0.9);
+						radius: 3px
+					};
+					color: inherit;
+					display: inline-block;
+					padding: 0 5px;
+					text: {
+						decoration: none;
+						shadow: 0 1px 0 white;
+					}
+				}
+			}
 		}
 
 		> .summary {
