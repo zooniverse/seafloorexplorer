@@ -73,6 +73,7 @@ define (require, exports, module) ->
       attach: x: 'right', to: '[value="seastar"]', at: x: 'left'
       nextOn: click: '.species .toggles button:contains("Seastar")'
       arrowClass: 'right-middle'
+      block: '.creature-picker, .species .toggles button:not(:contains("Seastar")), .species .finished'
 
     new Step
       content: [
@@ -106,4 +107,5 @@ define (require, exports, module) ->
         'Now you\'re ready to try some classifications on your own.'
       ]
       attach: to: '.creature-picker'
+      continueText: 'Ready!'
   ]

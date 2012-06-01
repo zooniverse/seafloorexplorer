@@ -13,7 +13,7 @@
 	position: absolute;
 	z-index: 2;
 
-	.tutorial-controls {
+	.controls {
 		opacity: 0;
 		position: absolute;
 		right: 0;
@@ -44,44 +44,54 @@
 		}
 	}
 
+	.message {
+		margin: 20px;
+	}
+
+	.continue {
+		text-align: center;
+
+		button {
+			background: transparentize($black, 0.75);
+			border: 0;
+			color: inherit;
+			cursor: pointer;
+			font: {
+				family: inherit;
+				size: inherit;
+				weight: bold;
+			}
+			margin: 0;
+			padding: 5px 20px;
+		}
+	}
+
+	.arrow {
+	  border: 10px solid transparent;
+	  position: absolute;
+
+	  &.down-center {
+	    border-top-color: $blue-dark;
+	    border-bottom-width: 0;
+	    left: 50%;
+	    margin-left: -10px;
+	    top: 100%;
+	  }
+
+	  &.right-middle {
+	    border-left-color: $blue-dark;
+	    border-right-width: 0;
+	    left: 100%;
+	    margin-top: -10px;
+	    top: 50%;
+	  }
+	}
+
 	&:hover {
-		.tutorial-controls {
+		.controls {
 			opacity: 1;
 		}
 	}
-}
-
-.tutorial-message {
-	margin: 20px;
-}
-
-.tutorial-continue {
-	text-align: center;
-
-	button {
-
-	}
-}
-
-.tutorial-arrow {
-  border: 10px solid transparent;
-  position: absolute;
-
-  &.down-center {
-    border-top-color: $blue-dark;
-    border-bottom-width: 0;
-    left: 50%;
-    margin-left: -10px;
-    top: 100%;
-  }
-
-  &.right-middle {
-    border-left-color: $blue-dark;
-    border-right-width: 0;
-    left: 100%;
-    margin-top: -10px;
-    top: 50%;
-  }
 }
 
 .tutorial-blocker {
