@@ -39,25 +39,26 @@ define (require, exports, module) ->
       @paper = Raphael @points.get(0), '100%', '100%'
 
     setSpecies: (species) =>
-      return unless species
       return if species is @species
       @species = species
 
-      @image.attr 'src', @helpers[@species].image
-      @image.one 'load', =>
-        @paper.setSize @image.width(), @image.height()
-
       @circles?.remove()
-      @circles = @paper.set()
-
-      for coords in @helpers[@species].points
-        circle = @paper.circle()
-        circle.attr style.helperCircle
-        circle.attr cx: coords.x, cy: coords.y, fill: style[@species]
-        @circles.push circle
-
       @step = -1
-      @setStep 0
+
+      if @species?
+        @image.attr 'src', @helpers[@species].image
+        @image.one 'load', =>
+          @paper.setSize @image.width(), @image.height()
+
+        @circles = @paper.set()
+
+        for coords in @helpers[@species].points
+          circle = @paper.circle()
+          circle.attr style.helperCircle
+          circle.attr cx: coords.x, cy: coords.y, fill: style[@species]
+          @circles.push circle
+
+        @setStep 0
 
     setStep: (step) =>
       step %= @helpers[@species].points.length
