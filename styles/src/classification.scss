@@ -147,7 +147,7 @@
 
 						&.active {
 							@include linear-gradient($blue);
-							border-color: ($blue + $gray-darker) / 2;
+							border-color: transparent;
 							color: $white;
 						}
 					}
@@ -181,21 +181,27 @@
 				}
 
 				> button {
-					background: transparent;
-					border: 1px solid transparentize($blue, 0.5);
-					color: $blue;
+					@include box-sizing(border-box);
+					@include linear-gradient($gray-light, $gray-dark);
+					border: 1px solid $gray-darker;
+					color: $blue-dark;
 					display: block;
 					float: left;
 					font: {
 						family: inherit;
 						size: inherit;
-						weight: bold;
+						weight: inherit;
 					};
 					padding: 0;
 					width: 50%;
 
+					&:first-of-type {
+						border-right-width: 0;
+					}
+
 					&.active {
 						background: $blue;
+						border-color: transparent;
 						color: $white;
 					}
 				}

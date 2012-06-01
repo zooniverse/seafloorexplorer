@@ -73,7 +73,7 @@ define (require, exports, module) ->
       attach: x: 'right', to: '[value="seastar"]', at: x: 'left'
       nextOn: click: '.species .toggles button:contains("Seastar")'
       arrowClass: 'right-middle'
-      block: '.creature-picker, .species .toggles button:not(:contains("Seastar")), .species .finished'
+      block: '.species .toggles button:not(:contains("Seastar")), .species .finished'
 
     new Step
       content: [
@@ -89,7 +89,7 @@ define (require, exports, module) ->
         'If there are species in the image other than the ones in the list, we\'d like to know.'
         'Click "No" here since there are no extra creatures in this image.'
       ]
-      attach: x: 'right', to: '.other-creatures [value="yes"]', at: x: 'left'
+      attach: x: 'right', to: '.other-creatures h4', at: x: 'left'
       nextOn: click: '.other-creatures [value="no"]'
       arrowClass: 'right-middle'
 

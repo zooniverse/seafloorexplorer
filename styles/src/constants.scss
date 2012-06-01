@@ -77,6 +77,12 @@ $full-width: ($twelfth-width * 12) + ($gutter-width * 11);
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$start}', endColorstr='#{$end}')";
 }
 
+@mixin radial-gradient($args) {
+  background: -moz-radial-gradient($args);
+  background: -webkit-radial-gradient($args);
+  background: radial-gradient($args);
+}
+
 // Misc. styles:
 
 @mixin action-button($icon: false, $position: 0 0) {

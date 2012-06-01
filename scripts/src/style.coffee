@@ -3,7 +3,7 @@ define (require, exports, module) ->
 		label:
 			text:
 				fill: '#fff'
-				font: '11px Titillium, sans-serif'
+				font: '11px "Open Sans", sans-serif'
 				'text-anchor': 'start'
 
 			deleteButton:
@@ -12,7 +12,7 @@ define (require, exports, module) ->
 
 				text:
 					fill: '#fff'
-					font: '11px Titillium, sans-serif'
+					font: '11px "Open Sans", sans-serif'
 					'text-anchor': 'start'
 
 			rect:
