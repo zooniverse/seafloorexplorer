@@ -38,6 +38,8 @@ define (require, exports, module) ->
       @html @template
       @paper = Raphael @points.get(0), '100%', '100%'
 
+    reset: =>
+
     setSpecies: (species) =>
       return if species is @species
       @species = species
@@ -45,7 +47,7 @@ define (require, exports, module) ->
       @circles?.remove()
       @step = -1
 
-      if @species?
+      if @species of @helpers
         @image.attr 'src', @helpers[@species].image
         @image.one 'load', =>
           @paper.setSize @image.width(), @image.height()

@@ -2,8 +2,8 @@ define (require, exports, module) ->
   Spine = require 'Spine'
   $ = require 'jQuery'
 
+  App = require 'zooniverse/models/App'
   User = require 'zooniverse/models/User'
-  Project = require 'zooniverse/models/Project'
 
   ZooniverseProfile = require 'zooniverse/controllers/Profile'
 
@@ -45,8 +45,8 @@ define (require, exports, module) ->
         @usernameContainer.html User.current.name
         @scoreboard.update()
 
-        query = "SELECT * FROM #{Project.current.cartoTable} WHERE user_id='#{User.current.id}'"
-        url = "http://#{Project.current.cartoUser}.cartodb.com/tiles/#{Project.current.cartoTable}/{z}/{x}/{y}.png?sql=#{query}"
+        query = "SELECT * FROM #{App.first().cartoTable} WHERE user_id='#{User.current.id}'"
+        url = "http://#{App.first().cartoUser}.cartodb.com/tiles/#{App.first().cartoTable}/{z}/{x}/{y}.png?sql=#{query}"
         @userLayer = @map.addLayer url
 
     favoriteTemplate: favoriteTemplate

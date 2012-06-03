@@ -6,20 +6,17 @@ define (require, exports, module) ->
   CircleMarker = require 'controllers/CircleMarker'
   AxesMarker = require 'controllers/AxesMarker'
 
-  Point = require 'models/Point'
+  Annotation = require 'zooniverse/models/Annotation'
 
   TEMPLATE = require 'views/CreaturePicker'
 
   style = require 'style'
 
   class CreaturePicker extends Spine.Controller
-    classification: null
-
     className: 'creature-picker'
     template: TEMPLATE
 
     paper: null
-    indicator: null
 
     strayCircles: null
     strayAxes: null
@@ -59,7 +56,12 @@ define (require, exports, module) ->
       $(document).on 'keydown', (e) =>
         if e.keyCode is ESC
           @resetStrays()
-          @indicator.setStep 0
+          @classifier.indicator.setStep 0
+
+    reset: =>
+      @image.attr 'src', @classifier.workflow.selection[0].location
+      subject = @classifier.workflow.selection[0]
+      @map.attr 'src', "http://maps.googleapis.com/maps/api/staticmap?center=#{subject.coords[0]},#{subject.coords[1]}&zoom=10&size=745x570&maptype=satellite&sensor=false"
 
     getSize: =>
       width: @image.width(), height: @image.height()
@@ -130,7 +132,7 @@ define (require, exports, module) ->
 
       @createStrayCircle e.pageX - left, e.pageY - top
 
-      @indicator.setStep @strayCircles.length
+      @classifier.indicator.setStep @strayCircles.length
 
       e.preventDefault() # Disable text selection.
 
@@ -150,9 +152,9 @@ define (require, exports, module) ->
 
       @movementCircle ||= @createStrayCircle()
 
-      fauxPoint = {}
-      Point::setX.call fauxPoint, (e.pageX - left) / width
-      Point::setY.call fauxPoint, (e.pageY - top) / height
+      fauxPoint =
+        x: Marker::limit (e.pageX - left) / width, 0.02
+        y: Marker::limit (e.pageY - top) / height, 0.04
 
       @movementCircle.attr
         cx: fauxPoint.x * width
@@ -173,7 +175,7 @@ define (require, exports, module) ->
       @mouseIsDown = false
       @mouseMoves = 0
 
-      @indicator.setStep @strayCircles.length
+      @classifier.indicator.setStep @strayCircles.length
       @checkStrays()
 
       @movementCircle = null
@@ -211,34 +213,34 @@ define (require, exports, module) ->
     createCircleMarker: (x, y) =>
       marking = @createMarking()
       marker = new CircleMarker
-        marking: marking
+        annotation: marking
         paper: @paper
 
     createAxesMarker: =>
       marking = @createMarking()
       marker = new AxesMarker
-        marking: marking
+        annotation: marking
         paper: @paper
 
     createMarking: =>
-      marking = @classification.markings().create
-        species: @selectedSpecies
-
-      marking.bind 'destroy', => @classification.trigger 'change'
-
       {width, height} = @getSize()
 
+      points = []
       for circle in @strayCircles
-        point = marking.points().create {}
-        point.updateAttributes
+        point =
           x: circle.attr('cx') / width
           y: circle.attr('cy') / height
+        points.push point
 
-      @classification.trigger 'change'
+      annotation = Annotation.create
+        classification: @classifier.classification
+        value:
+          species: @selectedSpecies
+          points: points
 
       @el.trigger 'create-marking'
 
-      marking
+      annotation
 
     setDisabled: (@disabled) =>
       if @disabled then marker.deselect() for marker in @markers or [] when marker.selected

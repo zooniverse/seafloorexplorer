@@ -27,16 +27,16 @@ define (require, exports, module) ->
 			@boundingCircle.toBack()
 			@boundingCircle.attr style.line
 
-			@marking.trigger 'change'
+			@annotation.trigger 'change'
 
 		render: =>
 			super
 
 			{width: w, height: h} = @paperSize()
 
-			centerPoint = @marking.points().first()
+			centerPoint = @annotation.value.points[0]
 			@centerCircle.attr
-				stroke: style[@marking.species]
+				stroke: style[@annotation.value.species]
 				cx: centerPoint.x * w
 				cy: centerPoint.y * h
 
@@ -44,7 +44,7 @@ define (require, exports, module) ->
 				x: Math.round centerPoint.x * w
 				y: Math.round centerPoint.y * h
 
-			radiusPoint = @marking.points().last()
+			radiusPoint = @annotation.value.points[@annotation.value.points.length - 1]
 			@radiusHandle.attr
 				cx: radiusPoint.x * w
 				cy: radiusPoint.y * h
@@ -65,18 +65,18 @@ define (require, exports, module) ->
 
 			{width: w, height: h} = @paperSize()
 
-			@marking.points().last().updateAttributes
-				setX: ((@startPoints[1].x * w) + dx) / w
-				setY: ((@startPoints[1].y * h) + dy) / h
+			radiusPoint = @annotation.value.points[@annotation.value.points.length - 1]
+			radiusPoint.x = @limit ((@startPoints[1].x * w) + dx) / w, 0.02
+			radiusPoint.y = @limit ((@startPoints[1].y * h) + dy) / h, 0.04
 
-			@marking.trigger 'change'
+			@annotation.trigger 'change'
 
 		select: =>
 			super
 
 			{width: w, height: h} = @paperSize()
 
-			radiusPoint = @marking.points().last()
+			radiusPoint = @annotation.value.points[@annotation.value.points.length - 1]
 			@radiusHandle.animate
 				cx: radiusPoint.x * w
 				cy: radiusPoint.y * h
@@ -95,7 +95,7 @@ define (require, exports, module) ->
 
 			{width: w, height: h} = @paperSize()
 
-			centerPoint = @marking.points().first()
+			centerPoint = @annotation.value.points[0]
 			@radiusHandle.animate
 				cx: centerPoint.x * w
 				cy: centerPoint.y * h

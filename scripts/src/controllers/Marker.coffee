@@ -7,8 +7,9 @@ define (require, exports, module) ->
   {delay} = require 'util'
 
   class Marker extends Spine.Controller
-    marking: null
+    annotation: null
     paper: null
+
     label: null
     labelText: null
     deleteButton: null
@@ -30,8 +31,8 @@ define (require, exports, module) ->
       @centerCircle.click @stopPropagation
       @centerCircle.drag @centerCircleDrag, @dragStart, @dragEnd
 
-      @marking.bind 'change', @render
-      @marking.bind 'destroy', @release
+      @annotation.bind 'change', @render
+      @annotation.bind 'destroy', @release
 
       @release @destroy
 
@@ -39,15 +40,15 @@ define (require, exports, module) ->
 
     checkForHalf: =>
       # Should we ask if the creature is more than half-in?
-      for point in @marking.points().all()
+      for point in @annotation.value.points
         snappedToEdge = true if point.x <= 0 or point.x >= 1
         snappedToEdge = true if point.y <= 0 or point.y >= 1
 
       @askIfHalfVisible() if snappedToEdge
 
     askIfHalfVisible: =>
-      @marking.updateAttributes
-        halfIn: confirm "Is at least half of that #{@marking.species} visible in the image?"
+      # TODO: Make this pretty.
+      @annotation.value.halfIn = confirm "Is at least half of that #{@annotation.value.species} visible in the image?"
 
     drawLabel: (text) =>
       @labelText = @paper.text()
@@ -84,16 +85,16 @@ define (require, exports, module) ->
         unless @dontHide then @label.animate opacity: 0, 100, => @label.hide()
 
     onClickDelete: =>
-      @marking.destroy()
+      @annotation.destroy()
 
     render: =>
-      @labelText.attr text: @marking.species.toUpperCase()
+      @labelText.attr text: @annotation.value.species.toUpperCase()
       textBox = @labelText.getBBox()
       @labelRect.attr width: 20 + Math.round(textBox.width) + 10
       @deleteButton.transform "T#{@labelRect.attr('width') - 1},#{-style.crossCircle.r - (style.crossCircle['stroke-width'] / 2)}"
       @deleteText.transform "T#{@labelRect.attr('width') + 3},-1}"
-      @labelRect.attr fill: style[@marking.species]
-      @deleteButton.attr fill: style[@marking.species]
+      @labelRect.attr fill: style[@annotation.value.species]
+      @deleteButton.attr fill: style[@annotation.value.species]
 
     select: =>
       @selected = true
@@ -106,7 +107,7 @@ define (require, exports, module) ->
     dragStart: =>
       return unless $(@centerCircle.node).closest(':disabled, .disabled').length is 0
 
-      @startPoints = ({x: point.x, y: point.y} for point in @marking.points().all())
+      @startPoints = ({x: point.x, y: point.y} for point in @annotation.value.points)
       @wasSelected = @selected
       @select() unless @wasSelected
 
@@ -116,12 +117,11 @@ define (require, exports, module) ->
 
       {width: w, height: h} = @paperSize()
 
-      for point, i in @marking.points().all()
-        point.updateAttributes
-          setX: ((@startPoints[i].x * w) + dx) / w
-          setY: ((@startPoints[i].y * h) + dy) / h
+      for point, i in @annotation.value.points
+        point.x = ((@startPoints[i].x * w) + dx) / w
+        point.y = ((@startPoints[i].y * h) + dy) / h
 
-      @marking.trigger 'change'
+      @annotation.trigger 'change'
 
     dragEnd: =>
       @deselect() if @wasSelected and not @moved # Basically, a click
@@ -152,8 +152,13 @@ define (require, exports, module) ->
       width: parent.width(), height: parent.height()
 
     destroy: =>
-      @marking.unbind 'change'
+      @annotation.unbind 'change'
       @centerCircle.remove()
       @label.remove()
+
+    limit: (value, threshold) ->
+      if 0 - threshold < value < 0 + threshold then value = 0
+      if 1 - threshold < value < 1 + threshold then value = 1
+      value
 
   module.exports = Marker

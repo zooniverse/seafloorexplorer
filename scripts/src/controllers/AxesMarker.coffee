@@ -13,7 +13,7 @@ define (require, exports, module) ->
 		constructor: ->
 			super
 
-			points = @marking.points().all()
+			points = @annotation.value.points
 
 			@circles = @paper.set(@paper.circle() for p in points)
 			@circles.toBack()
@@ -26,7 +26,7 @@ define (require, exports, module) ->
 			@lines.toBack()
 			@lines.attr style.boundingBox
 
-			@marking.trigger 'change'
+			@annotation.trigger 'change'
 
 		setupCircleHover: =>
 			marker = @
@@ -51,13 +51,13 @@ define (require, exports, module) ->
 				cx: intersection.x * w
 				cy: intersection.y * h
 
-			@centerCircle.attr stroke: style[@marking.species]
+			@centerCircle.attr stroke: style[@annotation.value.species]
 
 			@label.attr
 				x: intersection.x * w
 				y: intersection.y * h
 
-			points = @marking.points().all()
+			points = @annotation.value.points
 			for circle, i in @circles
 				circle.attr
 					cx: points[i].x * w
@@ -67,7 +67,7 @@ define (require, exports, module) ->
 				line.attr path: @lineBetween @circles[i], @centerCircle
 
 		getIntersection: =>
-			points = @marking.points().all()
+			points = @annotation.value.points
 
 			grads = [
 				(points[0].y - points[1].y) / (points[0].x - points[1].x)
@@ -86,7 +86,7 @@ define (require, exports, module) ->
 		getBoundingPathString: =>
 			{width: w, height: h} = @paperSize()
 
-			points = @marking.points().all()
+			points = @annotation.value.points
 			path = []
 			path.push 'M', points[0].x * w, points[0].y * h
 
@@ -103,7 +103,7 @@ define (require, exports, module) ->
 
 			{width: w, height: h} = @paperSize()
 
-			points = @marking.points().all()
+			points = @annotation.value.points
 			for circle, i in @circles
 				circle.animate
 					cx: points[i].x * w
@@ -127,15 +127,14 @@ define (require, exports, module) ->
 		circleDrag: (dx, dy) =>
 			@moved = true
 
-			points = @marking.points().all()
+			points = @annotation.value.points
 			{width: w, height: h} = @paperSize()
 
 			i = indexOf @circles, @overCircle
-			points[i].updateAttributes
-				setX: ((@startPoints[i].x * w) + dx) / w
-				setY: ((@startPoints[i].y * h) + dy) / h
+			points[i].x = @limit ((@startPoints[i].x * w) + dx) / w, 0.02
+			points[i].y = @limit ((@startPoints[i].y * h) + dy) / h, 0.04
 
-			@marking.trigger 'change'
+			@annotation.trigger 'change'
 
 		destroy: =>
 			super

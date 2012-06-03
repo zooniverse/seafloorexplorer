@@ -1,28 +1,36 @@
 define (require, exports, module) ->
   $ = require 'jQuery'
 
-  Workflow = require 'zooniverse/controllers/Workflow'
+  ZooniverseClassifier = require 'zooniverse/controllers/Classifier'
 
   CreaturePicker = require 'controllers/CreaturePicker'
   MarkerIndicator = require 'controllers/MarkerIndicator'
   Pager = require 'zooniverse/controllers/Pager'
 
-  Subject = require 'models/Subject'
-  Classification = require 'models/Classification'
-  Favorite = require 'zooniverse/models/Favorite'
+  Subject = require 'zooniverse/models/Subject'
+  Classification = require 'zooniverse/models/Classification'
+  User = require 'zooniverse/models/User'
 
-  Tutorial = require 'zooniverse/controllers/Tutorial'
   tutorialSteps = require 'tutorialSteps'
 
   TEMPLATE = require 'views/Classifier'
 
-  class Classifier extends Workflow
-    @template: TEMPLATE
+  class Classifier extends ZooniverseClassifier
+    template: TEMPLATE
 
     picker: null
     indicator: null
 
     tutorialSteps: tutorialSteps
+
+    availableGroundCovers: {
+      sand: 'Sand'
+      gravel: 'Gravel'
+      shellHash: 'Shell hash'
+      cobble: 'Cobble'
+      boulder: 'Boulder'
+      cantTell: 'Can\'t tell'
+    }
 
     events:
       'click .ground-cover .toggles button': 'toggleGroundCover'
@@ -33,7 +41,7 @@ define (require, exports, module) ->
       'click .summary .favorite': 'addFavorite'
       'click .map-toggle img': 'toggleMap'
       'click .talk [value="yes"]': 'goToTalk'
-      'click .talk [value="no"]': 'nextSubject'
+      'click .talk [value="no"]': 'nextSubjects'
       'click .tutorial-again': 'startTutorial'
 
     elements:
@@ -52,31 +60,35 @@ define (require, exports, module) ->
 
       @indicator = new MarkerIndicator
         el: @el.find '.indicator'
+        classifier: @
 
       @picker = new CreaturePicker
         el: @el.find '.image'
-        indicator: @indicator
+        classifier: @
 
       @picker.bind 'change-selection', @renderSpeciesPage
 
       new Pager el: pager for pager in @el.find('[data-page]').parent()
 
-      for id, description of Subject.groundCovers
+      for id, description of @availableGroundCovers
         # TODO: Include this in the view.
         @groundCoverList.append """
           <li><button value="#{id}">#{description}</button></li>
         """
 
-    subjectChanged: =>
+    reset: =>
       super
+      @classification.metadata = groundCovers: []
 
-      @picker.changeClassification @classification
+      @picker.reset()
 
-      @picker.image.attr 'src', Subject.current.image
-      @picker.map.attr 'src', "http://maps.googleapis.com/maps/api/staticmap?center=#{Subject.current.latitude},#{Subject.current.longitude}&zoom=10&size=745x570&maptype=satellite&sensor=false"
+      @imageThumbnail.attr 'src', @workflow.selection[0].location
 
-      @imageThumbnail.attr 'src', Subject.current.image
-      @mapThumbnail.attr 'src', "http://maps.googleapis.com/maps/api/staticmap?center=#{Subject.current.latitude},#{Subject.current.longitude}&zoom=10&size=745x570&maptype=satellite&sensor=false"
+      @mapThumbnail.attr 'src', """
+        http://maps.googleapis.com/maps/api/staticmap
+        ?center=#{@workflow.selection[0].coords[0]},#{@workflow.selection[0].coords[1]}
+        &zoom=10&size=745x570&maptype=satellite&sensor=false
+      """.replace '\n', '', 'g'
 
       @changeSpecies null
 
@@ -92,35 +104,36 @@ define (require, exports, module) ->
     renderGroundCoverPage: =>
       for button in @groundCoverList.find 'button'
         button = $(button)
-        groundCoverActive = button.attr('value') in @classification.groundCovers
+        groundCoverActive = button.attr('value') in @classification.metadata.groundCovers
         button.toggleClass 'active', groundCoverActive
 
-      groundCoverPicked = @classification.groundCovers.length isnt 0
+      groundCoverPicked = @classification.metadata.groundCovers.length isnt 0
       @groundCoverFinishedButton.attr 'disabled', not groundCoverPicked
 
     renderSpeciesPage: =>
       selectedMarker = (m for m in @picker.markers when m.selected)[0]
       if selectedMarker
-        @speciesButtons.filter("[value='#{selectedMarker.marking.species}']").trigger 'click'
+        @speciesButtons.filter("[value='#{selectedMarker.annotation.value.species}']").trigger 'click'
 
       @speciesButtons.find('.count').html '0'
-      for marking in @classification.markings().all()
-        button = @speciesButtons.filter "[value='#{marking.species}']"
+      for annotation in @classification.annotations
+        button = @speciesButtons.filter "[value='#{annotation.value.species}']"
         countElement = button.find '.count'
         countElement.html parseInt(countElement.html(), 10) + 1
 
-      @otherYes.toggleClass 'active', @classification.otherSpecies is true
-      @otherNo.toggleClass 'active', @classification.otherSpecies is false
+      @otherYes.toggleClass 'active', @classification.metadata.otherSpecies is true
+      @otherNo.toggleClass 'active', @classification.metadata.otherSpecies is false
 
-      @speciesFinishedButton.attr 'disabled', not @classification.otherSpecies?
+      @speciesFinishedButton.attr 'disabled', not @classification.metadata.otherSpecies?
 
     toggleGroundCover: (e) =>
       value = $(e.target).val()
 
-      if value in @classification.groundCovers
-        @classification.groundCovers.splice i, 1 for gc, i in @classification.groundCovers when gc is value
+      if value in @classification.metadata.groundCovers
+        for gc, i in @classification.metadata.groundCovers when gc is value
+          @classification.metadata.groundCovers.splice i, 1
       else
-        @classification.groundCovers.push value
+        @classification.metadata.groundCovers.push value
 
       @classification.trigger 'change'
 
@@ -146,16 +159,35 @@ define (require, exports, module) ->
     changeOther: (e) =>
       target = $(e.target)
       value = target.val() is 'yes'
-      @classification.updateAttribute 'otherSpecies', value
+      @classification.metadata.otherSpecies = value
+      @classification.trigger 'change'
 
     finishSpecies: =>
       @picker.setDisabled true
       @steps.addClass 'finished'
       @saveClassification()
 
-    addFavorite: =>
-      favorite = Favorite.create subjects: [Subject.current]
-      favorite.persist()
+    saveClassification: =>
+      super
+
+      unless @workflow.selection[0] is @workflow.tutorialSubjects[0]
+        subject = @workflow.selection[0]
+        annotations = @classification.annotations
+
+        query = "INSERT INTO #{@workflow.project.app.cartoTable} (" +
+          'the_geom, user_id, scallops, fish, seastars, crustaceans) ' +
+          'VALUES (' +
+          "ST_SetSRID(ST_Point(#{subject.coords[0]}, #{subject.coords[1]}), 4326), " +
+          "'#{User.current?.id || ''}', " +
+          "#{(annotation for annotation in annotations when annotation.species is 'scallop').length}, " +
+          "#{(annotation for annotation in annotations when annotation.species is 'fish').length}, " +
+          "#{(annotation for annotation in annotations when annotation.species is 'seastar').length}, " +
+          "#{(annotation for annotation in annotations when annotation.species is 'crustacean').length}" +
+          ')'
+
+        $.post "http://#{@workflow.project.app.cartoUser}.cartodb.com/api/v2/sql",
+          q: query
+          api_key: @workflow.project.app.cartoApiKey
 
     toggleMap: (show) =>
       unless typeof show is 'boolean' then show = (do -> arguments[0])

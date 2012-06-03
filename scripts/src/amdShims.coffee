@@ -4,8 +4,7 @@ define 'jQuery', [
 
 define 'Spine', [
   'jQuery'
-  'order!lib/spine/spine'
-  'order!lib/spine/relation'
+  'lib/spine/spine'
 ], -> Spine
 
 define 'Raphael', [
