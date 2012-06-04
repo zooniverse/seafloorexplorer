@@ -36,6 +36,9 @@ define (require, exports, module) ->
               new Subject
                 location: './sample-images/UNQ.20060928.010920609.jpg'
                 coords: [0, 0]
+                metadata: {
+                  mm_pix: 1
+                }
                 workflow: {}
             ]
         ]
