@@ -214,13 +214,13 @@ define (require, exports, module) ->
       marking = @createMarking()
       marker = new CircleMarker
         annotation: marking
-        paper: @paper
+        picker: @
 
     createAxesMarker: =>
       marking = @createMarking()
       marker = new AxesMarker
         annotation: marking
-        paper: @paper
+        picker: @
 
     createMarking: =>
       {width, height} = @getSize()

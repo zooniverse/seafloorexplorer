@@ -13,17 +13,17 @@ define (require, exports, module) ->
 		constructor: ->
 			super
 
-			@radiusHandle = @paper.circle()
+			@radiusHandle = @picker.paper.circle()
 			@radiusHandle.toBack()
 			@radiusHandle.attr style.circle
 			@radiusHandle.click @stopPropagation
 			@radiusHandle.drag @radiusHandleDrag, @dragStart
 
-			@radiusLine = @paper.path()
+			@radiusLine = @picker.paper.path()
 			@radiusLine.toBack()
 			@radiusLine.attr style.boundingBox
 
-			@boundingCircle = @paper.circle()
+			@boundingCircle = @picker.paper.circle()
 			@boundingCircle.toBack()
 			@boundingCircle.attr style.line
 
@@ -32,7 +32,7 @@ define (require, exports, module) ->
 		render: =>
 			super
 
-			{width: w, height: h} = @paperSize()
+			{width: w, height: h} = @picker.getSize()
 
 			centerPoint = @annotation.value.points[0]
 			@centerCircle.attr
@@ -63,7 +63,7 @@ define (require, exports, module) ->
 		radiusHandleDrag: (dx, dy) =>
 			@moved = true
 
-			{width: w, height: h} = @paperSize()
+			{width: w, height: h} = @picker.getSize()
 
 			radiusPoint = @annotation.value.points[@annotation.value.points.length - 1]
 			radiusPoint.x = @limit ((@startPoints[1].x * w) + dx) / w, 0.02
@@ -74,7 +74,7 @@ define (require, exports, module) ->
 		select: =>
 			super
 
-			{width: w, height: h} = @paperSize()
+			{width: w, height: h} = @picker.getSize()
 
 			radiusPoint = @annotation.value.points[@annotation.value.points.length - 1]
 			@radiusHandle.animate
@@ -93,7 +93,7 @@ define (require, exports, module) ->
 		deselect: =>
 			super
 
-			{width: w, height: h} = @paperSize()
+			{width: w, height: h} = @picker.getSize()
 
 			centerPoint = @annotation.value.points[0]
 			@radiusHandle.animate

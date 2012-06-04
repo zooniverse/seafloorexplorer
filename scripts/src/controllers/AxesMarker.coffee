@@ -15,14 +15,14 @@ define (require, exports, module) ->
 
 			points = @annotation.value.points
 
-			@circles = @paper.set(@paper.circle() for p in points)
+			@circles = @picker.paper.set(@picker.paper.circle() for p in points)
 			@circles.toBack()
 			@circles.attr style.circle
 
 			@setupCircleHover()
 			@circles.drag @circleDrag, @dragStart
 
-			@lines = @paper.set(@paper.path() for p in points)
+			@lines = @picker.paper.set(@picker.paper.path() for p in points)
 			@lines.toBack()
 			@lines.attr style.boundingBox
 
@@ -44,7 +44,7 @@ define (require, exports, module) ->
 		render: =>
 			super
 
-			{width: w, height: h} = @paperSize()
+			{width: w, height: h} = @picker.getSize()
 
 			intersection = @getIntersection()
 			@centerCircle.attr
@@ -84,7 +84,7 @@ define (require, exports, module) ->
 			x: interX, y: interY
 
 		getBoundingPathString: =>
-			{width: w, height: h} = @paperSize()
+			{width: w, height: h} = @picker.getSize()
 
 			points = @annotation.value.points
 			path = []
@@ -101,7 +101,7 @@ define (require, exports, module) ->
 		select: =>
 			super
 
-			{width: w, height: h} = @paperSize()
+			{width: w, height: h} = @picker.getSize()
 
 			points = @annotation.value.points
 			for circle, i in @circles
@@ -128,7 +128,7 @@ define (require, exports, module) ->
 			@moved = true
 
 			points = @annotation.value.points
-			{width: w, height: h} = @paperSize()
+			{width: w, height: h} = @picker.getSize()
 
 			i = indexOf @circles, @overCircle
 			points[i].x = @limit ((@startPoints[i].x * w) + dx) / w, 0.02

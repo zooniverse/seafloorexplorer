@@ -328,3 +328,56 @@
 		}
 	}
 }
+
+.classifier.dialog {
+	@include transition(opacity 0.25s ease-in-out);
+	background: $white;
+	border: {
+		radius: 3px;
+		top: 5px solid $blue;
+	};
+	margin-left: -130px;
+	padding: ($gutter-width / 2) 0;
+	position: absolute;
+	opacity: 0;
+	z-index: 5;
+
+	.content {
+		padding: ($gutter-width / 2) $gutter-width;
+	}
+
+	.buttons {
+		border-top: 1px solid $gray-light;
+		padding: ($gutter-width / 2) $gutter-width;
+		text-align: center;
+
+		button {
+			@include box-sizing(border-box);
+			@include linear-gradient($gray-light, $gray-dark);
+			border: 1px solid $gray-darker;
+			color: $blue-dark;
+			font: {
+				family: inherit;
+				size: inherit;
+				weight: inherit;
+			};
+			margin: 0 0.25em;
+			padding: 0em 2em;
+		}
+	}
+
+	&.open {
+		opacity: 1;
+	}
+}
+
+.dialog-blocker {
+	@include transition(opacity 0.25s ease-in-out);
+	background: transparentize($white, 0.75);
+	position: absolute;
+	z-index: 4;
+
+	&.open {
+		opacity: 1;
+	}
+}

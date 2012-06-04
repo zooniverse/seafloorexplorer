@@ -3,12 +3,14 @@ define (require, exports, module) ->
   Raphael = require 'Raphael'
   $ = require 'jQuery'
 
+  Dialog = require 'zooniverse/controllers/Dialog'
+
   style = require 'style'
   {delay} = require 'util'
 
   class Marker extends Spine.Controller
     annotation: null
-    paper: null
+    picker: null
 
     label: null
     labelText: null
@@ -25,7 +27,7 @@ define (require, exports, module) ->
       @drawLabel()
       @hideLabel()
 
-      @centerCircle = @paper.circle()
+      @centerCircle = @picker.paper.circle()
       @centerCircle.attr style.crossCircle
       @centerCircle.hover @showLabel, @hideLabel
       @centerCircle.click @stopPropagation
@@ -47,30 +49,35 @@ define (require, exports, module) ->
       @askIfHalfVisible() if snappedToEdge
 
     askIfHalfVisible: =>
-      # TODO: Make this pretty.
-      @annotation.value.halfIn = confirm "Is at least half of that #{@annotation.value.species} visible in the image?"
+      dialog = new Dialog
+        content: "Is at least half of that #{@annotation.value.species} visible in the image?"
+        buttons: [{'No': false}, {'Yes': true}]
+        target: @picker.classifier.el.parent()
+        className: 'classifier'
+        done: (halfInValue) =>
+          @annotation.value.halfIn = halfInValue
 
     drawLabel: (text) =>
-      @labelText = @paper.text()
+      @labelText = @picker.paper.text()
       @labelText.attr style.label.text
       @labelText.transform 'T20,0'
 
       labelHeight = (style.crossCircle.r * 2) + style.crossCircle['stroke-width']
 
-      @deleteButton = @paper.rect 0, 0, labelHeight, labelHeight
+      @deleteButton = @picker.paper.rect 0, 0, labelHeight, labelHeight
       @deleteButton.attr style.label.deleteButton
       @deleteButton.click @onClickDelete
 
-      @deleteText = @paper.text 0, 0, '\u00D7' # Multiplication sign
+      @deleteText = @picker.paper.text 0, 0, '\u00D7' # Multiplication sign
       @deleteText.attr style.label.deleteButton.text
       @deleteText.click @onClickDelete
 
-      @labelRect = @paper.rect 0, 0, 0, labelHeight
+      @labelRect = @picker.paper.rect 0, 0, 0, labelHeight
       @labelRect.toBack()
       @labelRect.attr style.label.rect
       @labelRect.transform "T0,#{-labelHeight / 2}"
 
-      @label = @paper.set @labelText, @labelRect, @deleteButton, @deleteText
+      @label = @picker.paper.set @labelText, @labelRect, @deleteButton, @deleteText
 
       @label.hover @showLabel, @hideLabel
 
@@ -115,7 +122,7 @@ define (require, exports, module) ->
       return unless @startPoints?
       @moved = true
 
-      {width: w, height: h} = @paperSize()
+      {width: w, height: h} = @picker.getSize()
 
       for point, i in @annotation.value.points
         point.x = ((@startPoints[i].x * w) + dx) / w
@@ -146,10 +153,6 @@ define (require, exports, module) ->
           y: point2.attr 'cy'
 
       "M #{point1.x} #{point1.y} L #{point2.x} #{point2.y}"
-
-    paperSize: =>
-      parent = $(@paper.canvas.parentNode)
-      width: parent.width(), height: parent.height()
 
     destroy: =>
       @annotation.unbind 'change'
