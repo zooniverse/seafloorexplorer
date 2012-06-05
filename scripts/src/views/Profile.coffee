@@ -13,4 +13,10 @@ define (require, exports, module) ->
       <p class="none content">You haven't marked any favorites.</p>
       <ul></ul>
     </section>
+
+    <section class="recents">
+      <h4 class="content">Recents</h4>
+      <p class="none content">You haven't classified anything recently.</p>
+      <ul></ul>
+    </section>
   '''
