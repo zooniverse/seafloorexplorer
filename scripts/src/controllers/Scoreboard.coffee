@@ -48,10 +48,10 @@ define (require, exports, module) ->
         @render response.rows[0]
 
     render: ({scallops, fish, seastars, crustaceans, classifications}) =>
-      @scallopCount.html scallops
-      @fishCount.html fish
-      @seastarCount.html seastars
-      @crustaceanCount.html crustaceans
-      @classificationCount.html classifications
+      @scallopCount.html scallops || 0
+      @fishCount.html fish || 0
+      @seastarCount.html seastars || 0
+      @crustaceanCount.html crustaceans || 0
+      @classificationCount.html classifications || 0
 
   module.exports = Scoreboard

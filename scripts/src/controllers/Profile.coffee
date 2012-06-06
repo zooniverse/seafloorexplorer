@@ -20,6 +20,10 @@ define (require, exports, module) ->
     userLayer: null
     scoreboard: null
 
+    events: $.extend
+      'click .sign-out': 'signOut'
+      ZooniverseProfile::events
+
     elements: $.extend
       '.summary .username': 'usernameContainer'
       '.summary .map': 'mapContainer'
@@ -50,5 +54,9 @@ define (require, exports, module) ->
         @userLayer = @map.addLayer url
 
     favoriteTemplate: favoriteTemplate
+
+    signOut: (e) =>
+      e.preventDefault()
+      User.signOut()
 
   module.exports = Profile

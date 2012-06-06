@@ -3,7 +3,10 @@ define (require, exports, module) ->
     <section class="login-form content"></section>
 
     <section class="summary">
-      <h3 class="content">Ahoy, <span class="username">username</span>!</h3>
+      <h3 class="content">
+        Ahoy, <span class="username">username</span>!
+        <a href="#sign-out" class="sign-out"t>Not <span class="username">username</span>?</a>
+      </h3>
       <div class="map"></div>
       <div class="scoreboard"></div>
     </section>
