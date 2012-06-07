@@ -263,7 +263,7 @@
 					}
 
 					&.active {
-						background: $blue;
+						@include linear-gradient($blue);
 						border-color: transparent;
 						color: $white;
 					}
