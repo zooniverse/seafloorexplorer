@@ -7,6 +7,8 @@
 
 	{"http://spinejs.com/pages/download": {"lib": "scripts/lib/spine"}},
 
+	{"http://stringencoders.googlecode.com/svn/trunk/javascript/base64.js": "scripts/lib/base64.js"},
+
 	{"http://github.com/DmitryBaranovskiy/raphael/raw/master/raphael.js": "scripts/lib/raphael.js"},
 
 	{"https://github.com/CloudMade/Leaflet/zipball/v0.3.1": [

@@ -7,6 +7,10 @@ define 'Spine', [
   'lib/spine/spine'
 ], -> Spine
 
+define 'base64', [
+  'lib/base64'
+], -> base64
+
 define 'Raphael', [
   # Include Raphael in a script tag before RequireJS.
 ], -> Raphael
