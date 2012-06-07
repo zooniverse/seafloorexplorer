@@ -79,9 +79,8 @@
         @include box-sizing(border-box);
         display: block;
         margin: 0;
-        padding: 0 0 20px 20px;
+        padding: 0 0 $gutter-width $gutter-width;
         float: left;
-        width: 33%;
 
         > a {
           display: block;
@@ -92,7 +91,8 @@
             border: 5px solid white;
             box-shadow: 0 1px 3px -1px $black;
             display: block;
-            width: 100%;
+            width: ($two-third-width - ($gutter-width * 4)) / 3;
+            height: 155px;
           }
 
           .info {
