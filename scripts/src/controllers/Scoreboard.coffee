@@ -1,6 +1,7 @@
 define (require, exports, module) ->
   Spine = require 'Spine'
   $ = require 'jQuery'
+  {delay} = require 'zooniverse/util'
 
   App = require 'zooniverse/models/App'
   User = require 'zooniverse/models/User'
@@ -23,15 +24,15 @@ define (require, exports, module) ->
     constructor: ->
       super
       @html @template
-      @update()
 
+      User.bind 'sign-in', @update
       Classification.bind 'persist', @update
 
     update: =>
       return unless App.first()?
       return if @forUser and not User.current?
 
-      url = "http://#{App.first().cartoUser}.cartodb.com/api/v2/sql"
+      url = "http://#{App.first().cartoUser}.cartodb.com/api/v2/sql?callback=?"
 
       query = 'SELECT ' +
         'SUM(ALL(scallops)) AS scallops, ' +

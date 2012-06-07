@@ -47,7 +47,6 @@ define (require, exports, module) ->
 
       if User.current?
         @usernameContainer.html User.current.name
-        @scoreboard.update()
 
         query = "SELECT * FROM #{App.first().cartoTable} WHERE user_id='#{User.current.id}'"
         url = "http://#{App.first().cartoUser}.cartodb.com/tiles/#{App.first().cartoTable}/{z}/{x}/{y}.png?sql=#{query}"
