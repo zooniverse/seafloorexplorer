@@ -49,11 +49,11 @@ define (require, exports, module) ->
   window.profile = new Profile
     el: '[data-page="profile"]'
 
-  new Map
+  window.homeMap = new Map
     el: '[data-page="home"] .map'
     layers: ["http://brian-c.cartodb.com/tiles/seafloor_explorer_beta/{z}/{x}/{y}.png"]
 
-  new Scoreboard
+  window.homeScoreboard = new Scoreboard
     el: '[data-page="home"] .scoreboard'
 
   window.app = seafloorExplorer

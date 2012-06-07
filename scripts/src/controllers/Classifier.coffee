@@ -88,7 +88,7 @@ define (require, exports, module) ->
         http://maps.googleapis.com/maps/api/staticmap
         ?center=#{@workflow.selection[0].coords[0]},#{@workflow.selection[0].coords[1]}
         &zoom=10&size=745x570&maptype=satellite&sensor=false
-      """.replace '\n', '', 'g'
+      """.replace /\n/g, ''
 
       @changeSpecies null
 
@@ -170,6 +170,9 @@ define (require, exports, module) ->
     saveClassification: =>
       super
 
+      # NOTE:
+      # This doesn't work in IE.
+      # But eventually it wil be handled on the back end anyway.
       unless @workflow.selection[0] is @workflow.tutorialSubjects[0]
         subject = @workflow.selection[0]
         annotations = @classification.annotations
