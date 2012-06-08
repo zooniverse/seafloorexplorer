@@ -49,6 +49,33 @@ define (require, exports, module) ->
 					<div class="map"><img /></div>
 				</div>
 
+				<div class="information">
+					<div class="latitude">
+						<span class="label">Latitude</span>
+						<span class="value"></span>°</div>
+					<div class="longitude">
+						<span class="label">Longitude</span>
+						<span class="value"></span>°</div>
+					<div class="depth">
+						<span class="label">Depth</span>
+						<span class="value"></span> M</div>
+					<div class="altitude">
+						<span class="label">Altitude</span>
+						<span class="value"></span> M</div>
+					<div class="heading">
+						<span class="label">Heading</span>
+						<span class="value"></span>°</div>
+					<div class="salinity">
+						<span class="label">Salinity</span>
+						<span class="value"></span> PSU</div>
+					<div class="temperature">
+						<span class="label">Temperature</span>
+						<span class="value"></span>° C</div>
+					<div class="speed">
+						<span class="label">Speed</span>
+						<span class="value"></span> kts</div>
+				</div>
+
 				<button class="favorite">Add to my favorites</button>
 
 				<p>Would you like to discuss this image in Talk?</p>

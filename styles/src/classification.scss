@@ -339,6 +339,27 @@
 				}
 			}
 
+			.information {
+				font-size: 12px;
+				margin: 1em 0;
+				text-align: left;
+
+				> div {
+					.label {
+						display: inline-block;
+						width: 40%;
+						vertical-align: bottom;
+					}
+
+					.value {
+						display: inline-block;
+						max-width: 45%;
+						overflow: hidden;
+						vertical-align: bottom;
+					}
+				}
+			}
+
 			button {
 				@include box-sizing(border-box);
 				background: $blue;
