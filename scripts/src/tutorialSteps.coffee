@@ -10,7 +10,7 @@ define (require, exports, module) ->
       ]
       attach: x: 'center', y: 'middle', to: '.creature-picker', at: x: 'center', y: 'middle'
       style: width: 400
-      block: '[data-page="classify"]'
+      block: '.options'
 
     new Step
       content: [

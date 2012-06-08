@@ -1,36 +1,38 @@
+@import "http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,800";
+
+@import "translations";
 @import "constants";
 
 html {
   background: $blue;
   color: $blue-darker;
   font: 12px "Open Sans", sans-serif;
+}
 
-  > body {
-    margin: 0;
+body {
+  margin: 0;
 
-    &:before {
-      $barely-white: transparentize($white, 0.5);
-      $not-white: transparentize($white, 1);
+  &:before {
+    $barely-white: transparentize($white, 0.5);
+    $not-white: transparentize($white, 1);
+    $gradient-width: $full-width * 1.5;
+    $gradient-half-width: $gradient-width / 2;
 
-      $gradient-width: $full-width * 1.5;
-      $gradient-half-width: $gradient-width / 2;
-
-      @include radial-gradient(#{$barely-white, $not-white, $not-white});
-      content: " ";
-      height: $gradient-width;
-      left: 50%;
-      margin: {
-        left: -$gradient-half-width;
-        top: -$gradient-half-width;
-      };
-      position: fixed;
-      top: 50%;
-      width: $gradient-width;
-    }
+    @include radial-gradient(#{$barely-white, $not-white, $not-white});
+    content: " ";
+    height: $gradient-width;
+    left: 50%;
+    margin: {
+      left: -$gradient-half-width;
+      top: -$gradient-half-width;
+    };
+    position: fixed;
+    top: 50%;
+    width: $gradient-width;
   }
 }
 
-#wrapper {
+.app {
   margin: 0 auto;
   padding-top: $gutter-width;
   position: relative;
@@ -61,7 +63,8 @@ html {
         size: 10px;
         weight: bold;
       };
-      line-height: 45px;
+      line-height: 30px;
+      margin-top: 10px;
 
       > ul {
         margin: 0;
@@ -72,80 +75,106 @@ html {
           float: left;
 
           > a {
+            border-radius: 5px;
             color: inherit;
             display: inline-block;
+            margin-left: $gutter-width / 2;
             text: {
               align: center;
               decoration: none;
+              shadow: 0 1px 1px transparentize($black, 0.75);
             };
-            width: $twelfth-width + $gutter-width;
+            width: ($twelfth-width + $gutter-width) - ($gutter-width / 2);
 
             > img {
               display: block;
               margin: 0 auto;
+            }
+
+            &:hover {
+              box-shadow: 0 0 2px $white inset;
+            }
+
+            &.active {
+              box-shadow:
+                0 0 5px $white inset,
+                0 1px 1px transparentize($black, 0.75);
             }
           }
         }
       }
     }
   }
+}
 
-  > #main {
-    position: relative;
+.main {
+  position: relative;
 
-    // Main pages
+  // Main pages
+  > section {
+    @include transition(#{
+      opacity 0.25s ease-in-out,
+      top 0.25s ease-in-out
+    });
+    height: 100%;
+    left: 0;
+    opacity: 0; filter: alpha(opacity=0);
+    overflow: hidden;
+    position: absolute;
+    top: $gutter-width * 2;
+    width: 100%;
+
+    &.active {
+      opacity: 1; filter: alpha(opacity=100);
+      position: relative;
+      top: 0;
+      z-index: 1;
+    }
+
+    // Module on a main page
     > section {
-      @include transition(#{
-        opacity 0.25s ease-in-out,
-        top 0.25s ease-in-out
-      });
-      height: 100%;
-      left: 0;
-      opacity: 0; filter: alpha(opacity=0);
-      overflow: hidden;
-      position: absolute;
-      top: $gutter-width * 2;
-      width: 100%;
+      @include box-sizing(border-box);
+      background: $white;
+      border-top: 5px solid $blue-darker;
+      border-radius: 3px;
+      box-shadow: 0 3px 3px -3px transparentize($black, 0.33);
+      margin-bottom: $gutter-width;
 
-      &.active {
-        opacity: 1; filter: alpha(opacity=100);
-        position: relative;
-        top: 0;
-        z-index: 1;
+      // Provide padding either on the module or on its child(ren).
+      &.content {
+        padding: $gutter-width;
       }
 
-      // Module on a main page
-      > section {
-        @include box-sizing(border-box);
-        background: $white;
-        border-top: 5px solid $blue-darker;
-        border-radius: 3px;
-        box-shadow: 0 3px 3px -3px transparentize($black, 0.33);
-        margin-bottom: $gutter-width;
-
-        &.content,
-        > .content {
-          padding: $gutter-width;
-        }
-
-        h2 {
-          font: {
-            size: 35px;
-            weight: 800;
-          };
-          margin: 0;
-        }
-
-        h3 {
-          font: {
-            size: 15px;
-            weight: 600;
-          };
-          margin: 0;
-        }
-
-        p {}
+      > .content {
+        margin: $gutter-width;
       }
+
+      h2 {
+        font: {
+          size: 35px;
+          weight: 800;
+        };
+        margin: 0;
+      }
+
+      h3 {
+        font: {
+          size: 15px;
+          weight: 600;
+        };
+        margin: 0;
+      }
+
+      h4 {}
+
+      p {}
     }
   }
+
+  @import "details";
+  @import "scoreboard";
+  @import "home";
+  @import "about";
+  @import "classification";
+  @import "profile";
 }

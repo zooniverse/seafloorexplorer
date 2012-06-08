@@ -1,5 +1,3 @@
-@import "constants";
-
 .tutorial-step {
 	@include transition(#{
 		background 0.25s ease-in-out,

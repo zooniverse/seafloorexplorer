@@ -1,6 +1,4 @@
-@import "constants";
-
-#wrapper > #main > section > #classifier {
+#classifier {
 	$blue: rgb(0, 66, 80);
 	$blue-dark: #001e29;
 	$gray-light: rgb(236, 236, 236);
@@ -406,6 +404,8 @@
 			}
 		}
 	}
+
+	@import "tutorial";
 }
 
 .classifier.dialog {
