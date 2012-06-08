@@ -78,11 +78,9 @@ define (require, exports, module) ->
           <li><button value="#{id}">#{description}</button></li>
         """
 
-      User.bind 'sign-in', =>
-        if User.current?
-          @favoriteButton.css display: ''
-        else
-          @favoriteButton.css display: 'none'
+
+      User.bind 'sign-in', @updateFavoriteButton
+      @updateFavoriteButton()
 
     reset: =>
       super
@@ -143,6 +141,12 @@ define (require, exports, module) ->
       @otherNo.toggleClass 'active', @classification.metadata.otherSpecies is false
 
       @speciesFinishedButton.attr 'disabled', not @classification.metadata.otherSpecies?
+
+    updateFavoriteButton: =>
+      if User.current?
+        @favoriteButton.css display: ''
+      else
+        @favoriteButton.css display: 'none'
 
     toggleGroundCover: (e) =>
       value = $(e.target).val()
