@@ -52,6 +52,7 @@ define (require, exports, module) ->
       '.species .other-creatures [value="yes"]': 'otherYes'
       '.species .other-creatures [value="no"]': 'otherNo'
       '.species .finished': 'speciesFinishedButton'
+      '.summary .favorite': 'favoriteButton'
       '.summary .map-toggle .thumbnail img': 'imageThumbnail'
       '.summary .map-toggle .map img': 'mapThumbnail'
 
@@ -75,6 +76,12 @@ define (require, exports, module) ->
         @groundCoverList.append """
           <li><button value="#{id}">#{description}</button></li>
         """
+
+      User.bind 'sign-in', =>
+        if User.current?
+          @favoriteButton.css display: ''
+        else
+          @favoriteButton.css display: 'none'
 
     reset: =>
       super
