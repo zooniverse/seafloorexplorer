@@ -12,9 +12,12 @@ define (require, exports, module) ->
 
   TEMPLATE = require 'views/Profile'
   favoriteTemplate = require 'views/ProfileFavorite'
+  recentTemplate = require 'views/ProfileRecent'
 
   class Profile extends ZooniverseProfile
     template: TEMPLATE
+    favoriteTemplate: favoriteTemplate
+    recentTemplate: recentTemplate
 
     map: null
     userLayer: null
@@ -51,8 +54,6 @@ define (require, exports, module) ->
         query = "SELECT * FROM #{App.first().cartoTable} WHERE user_id='#{User.current.id}'"
         url = "http://#{App.first().cartoUser}.cartodb.com/tiles/#{App.first().cartoTable}/{z}/{x}/{y}.png?sql=#{query}"
         @userLayer = @map.addLayer url
-
-    favoriteTemplate: favoriteTemplate
 
     signOut: (e) =>
       e.preventDefault()

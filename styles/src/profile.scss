@@ -66,7 +66,6 @@
     width: $two-third-width;
 
     > h4 {
-      border-bottom: 1px solid $gray-light;
       margin: 0;
     }
 
@@ -125,8 +124,33 @@
     width: $third-width;
 
     > h4 {
-      border-bottom: 1px solid $gray-light;
       margin: 0;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+
+      li {
+        @include contain-floats;
+        border-top: 1px solid $gray-light;
+        display: block;
+        padding: 10px;
+      }
+    }
+
+    .thumbnail {
+      border-radius: 5px;
+      float: left;
+      width: 25%;
+    }
+
+    .description {
+      @include box-sizing(border-box);
+      float: left;
+      font-weight: bold;
+      padding-left: $gutter-width / 2;
+      width: 75%;
     }
   }
 
