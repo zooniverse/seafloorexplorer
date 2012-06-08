@@ -37,6 +37,12 @@ define (require, exports, module) ->
                 location: './sample-images/UNQ.20060928.010920609.jpg'
                 coords: [0, 0]
                 metadata: {
+                  depth: '0'
+                  altitude: '0'
+                  heading: '0'
+                  salinity: '0'
+                  temperature: '0'
+                  speed: '0'
                   mm_pix: 1
                 }
                 workflow: {}

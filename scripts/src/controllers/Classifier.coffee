@@ -1,5 +1,6 @@
 define (require, exports, module) ->
   $ = require 'jQuery'
+  {delay} = require 'zooniverse/util'
 
   ZooniverseClassifier = require 'zooniverse/controllers/Classifier'
 
@@ -89,29 +90,30 @@ define (require, exports, module) ->
 
       @picker.reset()
 
-      @imageThumbnail.attr 'src', @workflow.selection[0].location
-
-      @mapThumbnail.attr 'src', """
-        http://maps.googleapis.com/maps/api/staticmap
-        ?center=#{@workflow.selection[0].coords[0]},#{@workflow.selection[0].coords[1]}
-        &zoom=10&size=745x570&maptype=satellite&sensor=false
-      """.replace /\n/g, ''
-
+      location.hash = '#!/classify/ground-cover' if ~location.hash.indexOf '/classify'
       @changeSpecies null
 
       @steps.removeClass 'finished'
 
-      location.hash = '#!/classify/ground-cover' if ~location.hash.indexOf '/classify'
-      @el.toggleClass 'show-map', false
+      delay 500, =>
+        @imageThumbnail.attr 'src', @workflow.selection[0].location
 
-      @el.find('.summary .latitude .value').html @classification.subjects[0].coords[0]
-      @el.find('.summary .longitude .value').html @classification.subjects[0].coords[1]
-      @el.find('.summary .depth .value').html @classification.subjects[0].metadata.depth
-      @el.find('.summary .altitude .value').html @classification.subjects[0].metadata.altitude
-      @el.find('.summary .heading .value').html @classification.subjects[0].metadata.heading
-      @el.find('.summary .salinity .value').html @classification.subjects[0].metadata.salinity
-      @el.find('.summary .temperature .value').html @classification.subjects[0].metadata.temperature
-      @el.find('.summary .speed .value').html @classification.subjects[0].metadata.speed
+        @mapThumbnail.attr 'src', """
+          http://maps.googleapis.com/maps/api/staticmap
+          ?center=#{@workflow.selection[0].coords[0]},#{@workflow.selection[0].coords[1]}
+          &zoom=10&size=745x570&maptype=satellite&sensor=false
+        """.replace /\n/g, ''
+
+        @el.toggleClass 'show-map', false
+
+        @el.find('.summary .latitude .value').html @classification.subjects[0].coords[0]
+        @el.find('.summary .longitude .value').html @classification.subjects[0].coords[1]
+        @el.find('.summary .depth .value').html @classification.subjects[0].metadata.depth
+        @el.find('.summary .altitude .value').html @classification.subjects[0].metadata.altitude
+        @el.find('.summary .heading .value').html @classification.subjects[0].metadata.heading
+        @el.find('.summary .salinity .value').html @classification.subjects[0].metadata.salinity
+        @el.find('.summary .temperature .value').html @classification.subjects[0].metadata.temperature
+        @el.find('.summary .speed .value').html @classification.subjects[0].metadata.speed
 
     render: =>
       @renderGroundCoverPage()
