@@ -4,7 +4,7 @@ require
 
   paths:
     base64: 'lib/base64'
-    jQuery: 'lib/jQuery'
+    jquery: 'lib/jquery'
     Spine: 'lib/spine'
     Leaflet: 'lib/leaflet'
     Raphael: 'lib/blank'
@@ -14,15 +14,12 @@ require
     base64:
       exports: 'base64'
 
-    jQuery:
-      exports: 'jQuery'
-
     Spine:
-      deps: ['jQuery']
+      deps: ['jquery']
       exports: 'Spine'
 
     Leaflet:
-      deps: ['jQuery']
+      deps: ['jquery']
       exports: ($) ->
         styleTags = '''
           <link rel="stylesheet" href="styles/lib/leaflet/leaflet.css" />

@@ -1,7 +1,7 @@
 define (require, exports, module) ->
   Spine = require 'Spine'
   Raphael = require 'Raphael'
-  $ = require 'jQuery'
+  $ = require 'jquery'
 
   Dialog = require 'zooniverse/controllers/Dialog'
 
