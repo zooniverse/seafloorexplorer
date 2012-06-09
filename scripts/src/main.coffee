@@ -7,7 +7,7 @@ require
     jquery: 'lib/jquery'
     spine: 'lib/spine'
     leaflet: 'lib/leaflet'
-    Raphael: 'lib/blank'
+    raphael: 'lib/blank'
     zooniverse: 'lib/zooniverse'
 
   shim:
@@ -33,7 +33,7 @@ require
 
         L # Leaflet goes by "L".
 
-    Raphael:
+    raphael:
       exports: 'Raphael'
 
   deps: ['seafloorExplorer']
