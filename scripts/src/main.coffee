@@ -6,7 +6,7 @@ require
     base64: 'lib/base64'
     jquery: 'lib/jquery'
     spine: 'lib/spine'
-    Leaflet: 'lib/leaflet'
+    leaflet: 'lib/leaflet'
     Raphael: 'lib/blank'
     zooniverse: 'lib/zooniverse'
 
@@ -18,7 +18,7 @@ require
       deps: ['jquery']
       exports: 'Spine'
 
-    Leaflet:
+    leaflet:
       deps: ['jquery']
       exports: ($) ->
         styleTags = '''
