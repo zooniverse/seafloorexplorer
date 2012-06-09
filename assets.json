@@ -1,11 +1,10 @@
 [
-	{"http://requirejs.org/docs/release/1.0.7/comments/require.js": "scripts/lib/require.js"},
-	{"http://requirejs.org/docs/release/1.0.5/comments/order.js": "scripts/lib/require/order.js"},
-	{"http://requirejs.org/docs/release/1.0.7/comments/text.js": "scripts/lib/require/text.js"},
+	{"http://requirejs.org/docs/release/2.0.1/comments/require.js": "scripts/lib/require.js"},
+	{"https://raw.github.com/jrburke/almond/latest/almond.js": "scripts/lib/almond.js"},
 
 	{"http://code.jquery.com/jquery-1.7.2.js": "scripts/lib/jquery.js"},
 
-	{"http://spinejs.com/pages/download": {"lib": "scripts/lib/spine"}},
+	{"https://github.com/maccman/spine/raw/master/lib/spine.js": "scripts/lib/spine.js"},
 
 	{"http://stringencoders.googlecode.com/svn/trunk/javascript/base64.js": "scripts/lib/base64.js"},
 
