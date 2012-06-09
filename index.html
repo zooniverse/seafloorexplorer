@@ -162,19 +162,6 @@
     </section>
 
     <script src="scripts/lib/raphael.js"></script>
-    <script src="scripts/lib/require.js"></script>
-    <script>
-      require.config({
-        baseUrl: './scripts',
-        paths: {
-          order: 'lib/require/order',
-          text: 'lib/require/text',
-          zooniverse: 'lib/zooniverse'
-        }
-      });
-
-      require(['amdShims']);
-      require(['main']);
-    </script>
+    <script src="scripts/lib/require.js" data-main="scripts/main"></script>
   </body>
 </html>

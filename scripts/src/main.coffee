@@ -1,66 +1,42 @@
-define (require, exports, module) ->
-  App = require 'zooniverse/models/App'
-  Project = require 'zooniverse/models/Project'
-  Workflow = require 'zooniverse/models/Workflow'
-  Subject = require 'zooniverse/models/Subject'
+require
+  # There is some profoundly dumb stuff going on in this config.
+  # I do plan on doing something about it.
 
-  Classifier = require 'controllers/Classifier'
-  Map = require 'zooniverse/controllers/Map'
-  Map::apiKey = '21a5504123984624a5e1a856fc00e238' # TODO: This is Brian's.
-  Scoreboard = require 'controllers/Scoreboard'
-  Profile = require 'controllers/Profile'
+  paths:
+    base64: 'lib/base64'
+    jQuery: 'lib/jQuery'
+    Spine: 'lib/spine'
+    Leaflet: 'lib/leaflet'
+    Raphael: 'lib/blank'
+    zooniverse: 'lib/zooniverse'
 
-  seafloorExplorer = new App
-    talkHost: 'http://talk.seafloorexplorer.org'
-    cartoUser: 'brian-c'
-    cartoApiKey: 'CARTO_API_KEY'
-    cartoTable: 'seafloor_explorer_beta'
-    facebookId: ''
+  shim:
+    base64:
+      exports: 'base64'
 
-    languages: ['en']
-    el: '#main'
+    jQuery:
+      exports: 'jQuery'
 
-    projects: [
-      new Project
-        id: '4fa4088d54558f3d6a000001'
-        name: 'Seafloor Explorer'
-        slug: 'seafloor-explorer'
-        description: 'Help explore the ocean floor!'
+    Spine:
+      deps: ['jQuery']
+      exports: 'Spine'
 
-        workflows: [
-          new Workflow
-            id: '4fa408de54558f3d6a000002'
-            controller: new Classifier
-              el: '#classifier'
-            tutorialSubjects: [
-              new Subject
-                location: './sample-images/UNQ.20060928.010920609.jpg'
-                coords: [0, 0]
-                metadata: {
-                  depth: '0'
-                  altitude: '0'
-                  heading: '0'
-                  salinity: '0'
-                  temperature: '0'
-                  speed: '0'
-                  mm_pix: 1
-                }
-                workflow: {}
-            ]
-        ]
-    ]
+    Leaflet:
+      deps: ['jQuery']
+      exports: ($) ->
+        styleTags = '''
+          <link rel="stylesheet" href="styles/lib/leaflet/leaflet.css" />
+          <!--[if lte IE 8]>
+              <link rel="stylesheet" href="styles/lib/leaflet/leaflet.ie.css" />
+          <![endif]-->
+        '''
 
-  seafloorExplorer.save()
+        head = $('head')
+        head.append styleTags unless ~head.html().indexOf 'leaflet.css'
 
-  window.profile = new Profile
-    el: '[data-page="profile"]'
+        L # Leaflet goes by "L".
 
-  window.homeMap = new Map
-    el: '[data-page="home"] .map'
-    layers: ["http://brian-c.cartodb.com/tiles/seafloor_explorer_beta/{z}/{x}/{y}.png"]
+    Raphael:
+      exports: 'Raphael'
 
-  window.homeScoreboard = new Scoreboard
-    el: '[data-page="home"] .scoreboard'
-
-  window.app = seafloorExplorer
-  module.exports = seafloorExplorer
+  deps: ['seafloorExplorer']
