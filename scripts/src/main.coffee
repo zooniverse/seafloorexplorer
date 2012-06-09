@@ -5,7 +5,7 @@ require
   paths:
     base64: 'lib/base64'
     jquery: 'lib/jquery'
-    Spine: 'lib/spine'
+    spine: 'lib/spine'
     Leaflet: 'lib/leaflet'
     Raphael: 'lib/blank'
     zooniverse: 'lib/zooniverse'
@@ -14,7 +14,7 @@ require
     base64:
       exports: 'base64'
 
-    Spine:
+    spine:
       deps: ['jquery']
       exports: 'Spine'
 
