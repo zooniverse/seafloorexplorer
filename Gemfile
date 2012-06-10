@@ -1,5 +1,3 @@
 source 'http://rubygems.org'
 
-gem 'grabass'
-gem 'coffee-script'
-gem 'sass'
+gem 'zoo', git: 'git@github.com:zooniverse/Front-End-Assets.git', branch: 'app'
