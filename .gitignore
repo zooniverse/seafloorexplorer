@@ -1,6 +1,6 @@
 *.js
 scripts/lib
-scripts/src/lib/zooniverse
+src/scripts/lib/zooniverse
 
 *.css
 styles/lib
