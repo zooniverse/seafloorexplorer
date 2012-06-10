@@ -1,6 +1,6 @@
 define (require, exports, module) ->
-  Spine = require 'spine'
-  Raphael = require 'raphael'
+  Spine = require 'Spine'
+  Raphael = require 'Raphael'
 
   template = require 'views/MarkerIndicator'
 

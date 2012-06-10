@@ -1,7 +1,7 @@
 define (require, exports, module) ->
-  Spine = require 'spine'
-  $ = require 'jquery'
-  Raphael = require 'raphael'
+  Spine = require 'Spine'
+  $ = require 'jQuery'
+  Raphael = require 'Raphael'
 
   Marker = require 'controllers/Marker'
   CircleMarker = require 'controllers/CircleMarker'

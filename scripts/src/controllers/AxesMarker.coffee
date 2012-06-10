@@ -1,6 +1,6 @@
 define (require, exports, module) ->
-	Spine = require 'spine'
-	Raphael = require 'raphael'
+	Spine = require 'Spine'
+	Raphael = require 'Raphael'
 
 	Marker = require 'controllers/Marker'
 	{indexOf} = require 'util'

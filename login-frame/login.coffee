@@ -1,4 +1,4 @@
-$ = parent.require 'jquery'
+$ = parent.require 'jQuery'
 
 host = 'https://login.zooniverse.org'
 host = "//#{location.hostname}:3000" unless +location.port is 80

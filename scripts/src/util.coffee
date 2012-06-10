@@ -1,5 +1,5 @@
 define (require, exports, module) ->
-	$ = require 'jquery'
+	$ = require 'jQuery'
 	translations = require 'translations'
 
 	module.exports =
