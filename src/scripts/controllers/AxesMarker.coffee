@@ -138,7 +138,6 @@ define (require, exports, module) ->
 
 		destroy: =>
 			super
-			@centerCircle.remove()
 			@circles.remove()
 			@lines.remove()
 

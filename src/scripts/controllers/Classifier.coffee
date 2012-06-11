@@ -83,10 +83,10 @@ define (require, exports, module) ->
       @updateFavoriteButton()
 
     reset: =>
+      @picker.reset()
+
       super
       @classification.metadata = groundCovers: []
-
-      @picker.reset()
 
       location.hash = '#!/classify/ground-cover' if ~location.hash.indexOf '/classify'
       @changeSpecies null

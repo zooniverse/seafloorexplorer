@@ -111,7 +111,6 @@ define (require, exports, module) ->
 
 		destroy: =>
 			super
-			@centerCircle.remove()
 			@radiusHandle.remove()
 			@radiusLine.remove()
 			@boundingCircle.remove()

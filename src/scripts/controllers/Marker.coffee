@@ -34,9 +34,7 @@ define (require, exports, module) ->
       @centerCircle.drag @centerCircleDrag, @dragStart, @dragEnd
 
       @annotation.bind 'change', @render
-      @annotation.bind 'destroy', @release
-
-      @release @destroy
+      @annotation.bind 'destroy', @destroy
 
       delay @checkForHalf
 
@@ -95,6 +93,7 @@ define (require, exports, module) ->
       @annotation.destroy()
 
     render: =>
+      return if @annotation.destroyed or @centerCircle.removed
       @labelText.attr text: @annotation.value.species.toUpperCase()
       textBox = @labelText.getBBox()
       @labelRect.attr width: 20 + Math.round(textBox.width) + 10
@@ -155,7 +154,6 @@ define (require, exports, module) ->
       "M #{point1.x} #{point1.y} L #{point2.x} #{point2.y}"
 
     destroy: =>
-      @annotation.unbind 'change'
       @centerCircle.remove()
       @label.remove()
 
