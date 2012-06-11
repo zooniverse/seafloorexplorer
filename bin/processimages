@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+
+OutputDir = 'images'
+
+StandardWidth = 735
+ThumbnailWidth = 200
+
+class String
+  def quoted
+    '"' + self + '"'
+  end
+
+  def add_extension(ext)
+    split('.').insert(-2, ext).join('.')
+  end
+end
+
+FileUtils.mkdir_p OutputDir
+
+ARGV.each_with_index do |file, i|
+  input = file.quoted
+
+  standard_output = File.join(OutputDir, file).quoted
+  high_res_output = File.join(OutputDir, file.add_extension('2x')).quoted
+  thumbnail_output = File.join(OutputDir, file.add_extension('thumb')).quoted
+
+  puts "Converting #{file} (#{i + 1} / #{ARGV.length})"
+
+  # Correct for color and contrast.
+  # This will also be the high-res version.
+  system "convert #{input} -auto-level -brightness-contrast 10,20 #{high_res_output}"
+
+  # Create the standard-sized version.
+  system "convert #{high_res_output} -resize #{StandardWidth}x#{StandardWidth} #{standard_output}"
+
+  # Create the thumbnail.
+  system "convert #{high_res_output} -resize #{ThumbnailWidth}x#{ThumbnailWidth} #{thumbnail_output}"
+end

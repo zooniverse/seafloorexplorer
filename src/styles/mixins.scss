@@ -1,0 +1,102 @@
+@import "common";
+
+// Cross-broswer:
+
+@mixin border-radius($value: 0px) {
+  -moz-border-radius: $value;
+  -webkit-border-radius: $value;
+  border-radius: $value;
+}
+
+@mixin box-shadow($value: 0 0 transparent) {
+  -webkit-box-shadow: $value;
+  box-shadow: $value;
+}
+
+@mixin box-sizing($value) {
+  -moz-box-sizing: $value;
+  -webkit-box-sizing: $value;
+  box-sizing: $value;
+}
+
+@mixin transform($value) {
+  -moz-transform: $value;
+  -webkit-transform: $value;
+  -ms-transform: $value;
+  transform: $value;
+}
+
+@mixin transition($value) {
+  -moz-transition: $value;
+  -ms-transition: $value;
+  -webkit-transition: $value;
+  transition: $value;
+}
+
+@mixin linear-gradient($start: transparent, $end: false) {
+  // Use a same-to-same gradient to override a regular one.
+  @if not $end {$end: $start;};
+
+  background-image: -moz-linear-gradient(top, $start, $end);
+  background-image: -ms-linear-gradient(top, $start, $end);
+  background-image: -webkit-linear-gradient(top, $start, $end);
+  background-image: linear-gradient(top, $start, $end);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$start}', endColorstr='#{$end}')";
+}
+
+@mixin radial-gradient($args) {
+  background: -moz-radial-gradient($args);
+  background: -webkit-radial-gradient($args);
+  background: radial-gradient($args);
+}
+
+// Misc. styles:
+
+@mixin action-button($icon: false, $position: 0 0) {
+  // @include box-shadow(1px 1px $orange-lightest inset);
+  @include box-sizing(border-box);
+  // @include linear-gradient($orange-lightest, $orange-dark);
+  // border: 1px solid $orange-darkest;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font: {
+    family: inherit;
+    size: inherit;
+    weight: inherit;
+  };
+  margin: 0;
+  padding: 10px 10px 5px;
+  position: relative;
+  text: {
+    align: center;
+    decoration: none;
+  };
+
+  @if $icon {
+    padding-right: 25px;
+
+    &:after {
+      // @include box-shadow(1px 1px $orange-lightest inset);
+      @include box-sizing(border-box);
+      background: url($icon) $position no-repeat;
+      // border-left: 1px solid $orange-darkest;
+      content: " ";
+      display: block;
+      height: 100%;
+      padding: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 30px;
+    }
+  }
+}
+
+@mixin contain-floats {
+  &:after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+}

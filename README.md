@@ -4,22 +4,21 @@ Seafloor Zoo
 Install
 -------
 
-    bundle install
-    grabass assets.json
+```bash
+# Install coffee, sass, and grabass
+bundle install
+
+# Download jQuery, Spine, Raphael, etc.
+grabass assets.json
+
+# Clone the framework repo
+git clone git@github.com:zooniverse/Front-End-Assets.git -b framework scripts/src/lib/zooniverse
+```
 
 Run
 ---
 
-    jekyll
-
-Minify JavaScript
------------------
-
-	npm install -g requirejs
-    cd _site/scripts
-    r.js -o baseUrl=. name=main out=main.build.js
-
-Notes
------
-
-CoffeeScript files in **./scripts** are compiled to CommonJS-style AMD modules, so you can use `require` and `exports`.
+```bash
+# Run coffee and sass compilers, serve at localhost:8000
+cake dev
+```

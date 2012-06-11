@@ -1,0 +1,145 @@
+@import "common";
+
+.details {
+  font-size: 12px;
+
+  [data-page] {
+    display: none;
+
+    &.active {
+      display: block;
+    }
+  }
+
+  h3 {
+    font: {
+      size: 35px;
+      weight: normal;
+    };
+    margin: 0.5em 0;
+  }
+
+  h4 {
+    font: {
+      size: 14px;
+      weight: bold;
+    };
+    margin: 1.5em 0 0;
+  }
+
+  p {
+    margin: 0 0 1em;
+  }
+
+  > nav {
+    > ul {
+      margin: 0;
+      padding: 0 ($gutter-width / 2);
+
+      > li {
+        display: inline;
+
+        a {
+          color: inherit;
+          display: inline-block;
+          font-size: 15px;
+          padding: ($gutter-width / 2);
+          text-decoration: none;
+
+          &.active {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+
+  > section {
+    > nav {
+      > ul {
+        display: table;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+
+        > li {
+          border-left: 1px solid $gray-light;
+          display: table-cell;
+          width: 10%;
+
+          &:first-child {
+            border-left: 0;
+          }
+
+          > a {
+            @include box-sizing(border-box);
+            border-top: 4px solid $blue;
+            color: inherit;
+            display: block;
+            font-weight: bold;
+            padding: ($gutter-width / 2) 0;
+            text: {
+              align: center;
+              decoration: none;
+              transform: uppercase;
+            };
+
+            &.active {
+              background: transparentize($black, 0.9);
+              box-shadow: 0 2px 3px transparentize($black, 0.75) inset;
+            }
+          }
+
+          &:nth-child(1n) > a {
+            border-top-color: $scallop-color;
+
+            &:hover,
+            &.active {
+              color: $scallop-color;
+            }
+          }
+
+          &:nth-child(2n) > a {
+            border-top-color: $fish-color;
+
+            &:hover,
+            &.active {
+              color: $fish-color;
+            }
+          }
+
+          &:nth-child(3n) > a {
+            border-top-color: $seastar-color;
+
+            &:hover,
+            &.active {
+              color: $seastar-color;
+            }
+          }
+
+          &:nth-child(4n) > a {
+            border-top-color: $crustacean-color;
+
+            &:hover,
+            &.active {
+              color: $crustacean-color;
+            }
+          }
+
+          &:nth-child(5n) > a {
+            border-top-color: $cool-color;
+
+            &:hover,
+            &.active {
+              color: $cool-color;
+            }
+          }
+        }
+      }
+    }
+
+    > section {
+      @include contain-floats;
+    }
+  }
+}

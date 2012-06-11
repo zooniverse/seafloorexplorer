@@ -1,0 +1,172 @@
+@import "common";
+
+[data-page="profile"] {
+  > .login-form {
+    text-align: center;
+
+    label {
+      display: block;
+      margin: 0 0 ($gutter-width / 2);
+
+      > span {
+        display: inline-block;
+        width: 8em;
+      }
+    }
+
+    > .errors {
+      font-weight: bold;
+      margin: 0 0 ($gutter-width / 2);
+    }
+
+    > .waiting,
+    > .sign-out {
+      display: none;
+    }
+
+    &.waiting {
+      > .sign-in {
+        display: none;
+      }
+
+      > .waiting {
+        display: block;
+      }
+    }
+  }
+
+  > .summary {
+    display: none;
+
+    > h3 {
+      margin: $gutter-width;
+
+      > .sign-out {
+        color: inherit;
+        float: right;
+        font-size: 10px;
+        margin-top: 5px;
+        opacity: 0.5;
+        text-decoration: none;
+      }
+    }
+
+    > .map {
+      border-top: 1px solid $gray-light;
+      height: 250px;
+    }
+
+    > .scoreboard {}
+  }
+
+  > .favorites {
+    display: none;
+    float: left;
+    margin-right: $gutter-width;
+    width: $two-third-width;
+
+    > ul {
+      @include contain-floats;
+      margin: 0;
+      padding: 0;
+
+      > li {
+        @include box-sizing(border-box);
+        display: block;
+        margin: 0;
+        padding: 0 0 $gutter-width $gutter-width;
+        float: left;
+
+        > a {
+          display: block;
+          position: relative;
+
+          .thumbnail {
+            @include box-sizing(border-box);
+            border: 5px solid white;
+            box-shadow: 0 1px 3px -1px $black;
+            display: block;
+            width: ($two-third-width - ($gutter-width * 4)) / 3;
+            height: 155px;
+          }
+
+          .info {
+            @include transition(opacity 0.25s ease-in-out);
+            bottom: 10px;
+            color: $white;
+            font-weight: bold;
+            opacity: 0;
+            position: absolute;
+            right: 15px;
+            text: {
+              align: right;
+              shadow: 0 1px 2px transparentize($black, 0.5);
+            }
+          }
+
+          &:hover {
+            .info {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  > .recents {
+    display: none;
+    float: left;
+    width: $third-width;
+
+    ul {
+      margin: 0;
+      padding: 0;
+
+      li {
+        @include contain-floats;
+        border-top: 1px solid $gray-light;
+        display: block;
+        padding: 10px;
+      }
+    }
+
+    .thumbnail {
+      border-radius: 5px;
+      float: left;
+      width: 25%;
+    }
+
+    .description {
+      @include box-sizing(border-box);
+      float: left;
+      font-weight: bold;
+      padding-left: $gutter-width / 2;
+      width: 75%;
+    }
+  }
+
+  &.signed-in {
+    > .login-form {
+      display: none;
+    }
+
+    > .summary,
+    > .favorites,
+    > .recents {
+      display: block;
+    }
+  }
+
+  &.has-favorites > .favorites,
+  &.has-recents > .recents,
+  &.has-groups > .groups {
+    > .none {
+      display: none;
+    }
+
+    > ul {
+      display: block;
+    }
+  }
+}

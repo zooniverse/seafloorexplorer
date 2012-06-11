@@ -1,0 +1,464 @@
+@import "common";
+
+#classifier {
+	$blue: rgb(0, 66, 80);
+	$blue-dark: #001e29;
+	$gray-light: rgb(236, 236, 236);
+	$gray-dark: rgb(227, 227, 227);
+	$gray-darker: rgb(190, 190, 190);
+	$orange-lighter: rgb(240, 172, 86);
+	$orange-light: rgb(232, 135, 13);
+	$orange-dark: rgb(224, 90, 18);
+	$orange-darker: rgb(159, 61, 11);
+
+	$classification-height: 570px;
+
+	border: 5px solid $white;
+	border-radius: 3px 0 0 3px;
+	width: $three-quarter-width;
+
+	> .image {
+		@include box-sizing(border-box);
+		background: $white;
+		height: $classification-height;
+		position: relative;
+		width: 100%;
+		z-index: 2;
+
+		> .map {
+			height: 100%;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+
+			// TODO: Replace this with a Leaflet map.
+			> img {
+				height: 100%;
+				width: 100%;
+			}
+		}
+
+		> .selection-area {
+			@include transition(#{
+				opacity 0.25s ease-in-out,
+				-moz-transform 0.25s ease-in-out,
+				-webkit-transform 0.25s ease-in-out,
+				transform 0.25s ease-in-out
+			});
+			height: 100%;
+			left: 0;
+			position: relative;
+			top: 0;
+			width: 100%;
+
+			&.disabled {
+				cursor: not-allowed;
+			}
+
+			> img {
+				height: 100%;
+				left: 0;
+				position: absolute;
+				top: 0;
+				width: 100%;
+			}
+
+			> .scale {
+				@include transition(width 0.5s ease-in-out);
+				bottom: 10px;
+				height: 15px;
+				left: 10px;
+				opacity: 0.5;
+				pointer-events: none;
+				position: absolute;
+				width: 100px; // This will change depending on the image
+
+				&:after {
+					background: black;
+					content: " ";
+					height: 2px;
+					left: 0;
+					margin-top: -1px;
+					position: absolute;
+					top: 50%;
+					width: 100%;
+				}
+
+				> .mark {
+					float: left;
+					height: 100%;
+					margin-left: 33.3%;
+					position: relative;
+					width: 0;
+
+					&:after {
+						background: black;
+						content: " ";
+						height: 100%;
+						left: 0;
+						position: absolute;
+						top: 0;
+						width: 2px;
+					}
+
+					&:first-child {
+						margin-left: 0;
+					}
+				}
+
+				> .label {
+					color: black;
+					font: {
+						size: 12px;
+						weight: bold;
+					};
+					left: 100%;
+					line-height: 1;
+					margin-left: 1em;
+					position: absolute;
+					top: 0;
+					white-space: nowrap;
+				}
+			}
+
+			// Raphael's canvas
+			// Styled inline by Raphael.
+			> svg,
+			> div {}
+		}
+	}
+
+	> .options {
+		height: $classification-height + 10;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: $quarter-width + $gutter-width;
+
+		> .steps {
+			@include box-sizing(border-box);
+			@include transition(#{
+				opacity 0.25s ease-in-out,
+				right 0.25s ease-in-out,
+				-moz-transform 0.25s ease-in-out
+			});
+			background: $white;
+			border-radius: 0 3px 3px 0;
+			box-shadow: 0 3px 3px -3px transparentize($black, 0.33);
+			height: 100%;
+			opacity: 1;
+			padding: $gutter-width;
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 100%;
+			z-index: 1;
+
+			&.finished {
+				opacity: 0.5;
+				right: 100%;
+				@include transform(scale(0.9));
+			}
+
+			[data-page] {
+				display: none;
+
+				&.active {
+					display: block;
+				}
+			}
+
+			h4 {
+				margin: 0;
+				text-align: center;
+			}
+
+			.toggles {
+				margin: $gutter-width 0;
+				padding: 0;
+
+				> li {
+					display: block;
+
+					> button {
+						@include linear-gradient($gray-light, $gray-dark);
+						border: 1px solid $gray-darker;
+						color: $blue-dark;
+						cursor: pointer;
+						display: block;
+						font: {
+							family: inherit;
+							size: 20px;
+						};
+						padding: ($gutter-width / 2) $gutter-width;
+						margin: -1px 0 0;
+						text: {
+							align: left;
+							transform: lowercase;
+						};
+						width: 100%;
+
+						> .count {
+							float: right;
+						}
+
+						&.active {
+							@include linear-gradient($blue);
+							border-color: transparent;
+							color: $white;
+
+							&[value="scallop"]    {@include linear-gradient($scallop-color);}
+							&[value="fish"]       {@include linear-gradient($fish-color);}
+							&[value="seastar"]    {@include linear-gradient($seastar-color);}
+							&[value="crustacean"] {@include linear-gradient($crustacean-color);}
+						}
+					}
+				}
+			}
+
+			.indicator {
+				border-bottom: 1px solid $gray-dark;
+				height: 90px;
+				margin-bottom: $gutter-width;
+				position: relative;
+				text-align: center;
+
+				> img {}
+
+				> .points {
+					height: 100%;
+					left: 0;
+					position: absolute;
+					top: 0;
+					width: 100%;
+				}
+			}
+
+			.other-creatures {
+				@include contain-floats;
+				margin: $gutter-width 0;
+
+				> h4 {
+					margin-bottom: $gutter-width / 2;
+				}
+
+				> button {
+					@include box-sizing(border-box);
+					@include linear-gradient($gray-light, $gray-dark);
+					border: 1px solid $gray-darker;
+					color: $blue-dark;
+					display: block;
+					float: left;
+					font: {
+						family: inherit;
+						size: inherit;
+						weight: inherit;
+					};
+					padding: 0;
+					width: 50%;
+
+					&:first-of-type {
+						border-right-width: 0;
+					}
+
+					&.active {
+						@include linear-gradient($blue);
+						border-color: transparent;
+						color: $white;
+					}
+				}
+			}
+
+			.finished {
+				@include box-shadow(0 1px $orange-lighter inset);
+				@include linear-gradient($orange-light, $orange-dark);
+				border: 1px solid $orange-darker;
+				color: $white;
+				cursor: pointer;
+				font: {
+					family: inherit;
+					size: 12px;
+					weight: bold;
+				};
+				padding: 10px 0;
+				width: 100%;
+
+				&:disabled {
+					opacity: 0.67;
+				}
+			}
+
+			> .help {
+				bottom: 0;
+				left: 0;
+				padding: ($gutter-width / 2) 0;
+				position: absolute;
+				text-align: center;
+				width: 100%;
+
+				> a {
+					background: transparentize($black, 0.9);
+					border: {
+						bottom: 1px solid transparentize($black, 0.9);
+						radius: 3px
+					};
+					color: inherit;
+					display: inline-block;
+					padding: 0 5px;
+					text: {
+						decoration: none;
+						shadow: 0 1px 0 white;
+					}
+				}
+			}
+		}
+
+		> .summary {
+			font: {
+				size: 14px;
+				weight: bold;
+			};
+			margin: $gutter-width;
+			text-align: center;
+
+			.map-toggle {
+				margin-bottom: $gutter-width;
+
+				img {
+					@include box-sizing(border-box);
+					border: 3px solid $white;
+					box-shadow: 0 3px 3px -3px transparentize($black, 0.33);
+					display: block;
+					height: 130px;
+					width: 100%;
+				}
+
+				> .thumbnail > img {
+					display: none;
+				}
+			}
+
+			.information {
+				font-size: 12px;
+				margin: 1em 0;
+				text-align: left;
+
+				> div {
+					.label {
+						display: inline-block;
+						width: 40%;
+						vertical-align: bottom;
+					}
+
+					.value {
+						display: inline-block;
+						max-width: 45%;
+						overflow: hidden;
+						vertical-align: bottom;
+					}
+				}
+			}
+
+			button {
+				@include box-sizing(border-box);
+				background: $blue;
+				border: 0;
+				color: $white;
+				font: {
+					family: inherit;
+					size: inherit;
+					weight: inherit;
+				};
+				padding: 5px 0;
+				text-align: center;
+				width: 100%;
+			}
+
+			> .talk {
+				@include contain-floats;
+
+				button {
+					float: left;
+					width: 49%;
+
+					&:first-child {
+						margin-right: 1%;
+					}
+				}
+			}
+		}
+	}
+
+	&.show-map {
+		> .image > .selection-area {
+			@include transform(scale(0.01));
+			opacity: 0;
+		}
+
+		> .options > .summary > .map-toggle {
+			> .thumbnail > img {
+				display: block;
+			}
+
+			> .map > img {
+				display: none;
+			}
+		}
+	}
+
+	@import "tutorial";
+}
+
+.classifier.dialog {
+	@include transition(opacity 0.25s ease-in-out);
+	background: $white;
+	border: {
+		radius: 3px;
+		top: 5px solid $blue;
+	};
+	margin-left: -130px;
+	padding: ($gutter-width / 2) 0;
+	position: absolute;
+	opacity: 0;
+	z-index: 5;
+
+	.content {
+		padding: ($gutter-width / 2) $gutter-width;
+	}
+
+	.buttons {
+		border-top: 1px solid $gray-light;
+		padding: ($gutter-width / 2) $gutter-width;
+		text-align: center;
+
+		button {
+			@include box-sizing(border-box);
+			@include linear-gradient($gray-light, $gray-dark);
+			border: 1px solid $gray-darker;
+			color: $blue-dark;
+			font: {
+				family: inherit;
+				size: inherit;
+				weight: inherit;
+			};
+			margin: 0 0.25em;
+			padding: 0em 2em;
+		}
+	}
+
+	&.open {
+		opacity: 1;
+	}
+}
+
+.dialog-blocker {
+	@include transition(opacity 0.25s ease-in-out);
+	background: transparentize($white, 0.75);
+	position: absolute;
+	z-index: 4;
+
+	&.open {
+		opacity: 1;
+	}
+}

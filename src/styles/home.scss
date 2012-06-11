@@ -1,0 +1,24 @@
+@import "common";
+
+[data-page="home"] {
+  .map {
+    height: 250px;
+    width: 100%;
+  }
+
+  .dive-in {
+    @include linear-gradient($orange, $orange-dark);
+    border: 1px solid $orange-darker {
+      radius: 5px;
+    };
+    box-shadow: 0 1px 0 $orange-light inset;
+    color: $white;
+    float: right;
+    font-size: 20px;
+    padding: ($gutter-width / 2) ($gutter-width * 3);
+    text: {
+      decoration: none;
+      shadow: 0 1px 0px $orange-dark;
+    }
+  }
+}

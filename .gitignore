@@ -1,8 +1,5 @@
-.sass-cache
-
-_site
-
-_plugins
-
+*.js
 scripts/lib
+
+*.css
 styles/lib

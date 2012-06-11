@@ -1,0 +1,38 @@
+@import "common";
+
+[data-page="about"] {
+  > [data-page="data"] {
+    > section > section {
+      border-top: 1px solid $gray-light;
+
+      > .example {
+        float: left;
+        margin-right: $gutter-width;
+      }
+    }
+
+    > [data-page="ground-covers"] > section > .example {
+      width: $full-width * (2 / 5);
+    }
+
+    > [data-page="species"] > section > .example {
+      width: $full-width / 2;
+    }
+  }
+
+  > [data-page="people"] > section > section {
+    @include contain-floats;
+    border-top: 1px solid $gray-light;
+
+    > .headshot {
+      display: block;
+      float: left;
+      margin: $gutter-width;
+      width: ($full-width / 5) - ($gutter-width * 2);
+    }
+
+    > .content {
+      margin: $gutter-width;
+    }
+  }
+}

@@ -1,149 +1,179 @@
 <!DOCTYPE html>
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
+  <head>
+    <meta charset="utf-8" />
 
-		<title>Seafloor Zoo</title>
+    <title>Seafloor Zoo</title>
 
-		<link href="styles/main.css" rel="stylesheet" />
+    <link href="styles/zooniverse/main.css" rel="stylesheet" />
+    <link href="styles/main.css" rel="stylesheet" />
 
-		<!--[if lt IE 9]>
-			<script src="scripts/lib/html5shiv.js" type="text/javascript"></script>
-		<![endif]-->
-	</head>
+    <!--[if lt IE 9]><script src="scripts/lib/html5shiv.js" type="text/javascript"></script><![endif]-->
+  </head>
 
-	<body>
-		<section id="wrapper">
-			<header>
-				<h1><a href="#/home"><img src="images/navigation/logo.png" alt="Sea Floor Explorer" /></a></h1>
-				<nav>
-					<ul>
-						<li><a href="#/home">Home</a></li>
-						<li><a href="#/about">About</a></li>
-						<li><a href="#/classify">Classify</a></li>
-						<li><a href="#/profile">Profile</a></li>
-						<li><a href="#/talk">Talk</a></li>
-						<li><a href="#/blog">Blog</a></li>
-					</ul>
-				</nav>
-			</header>
+  <body>
+    <section id="wrapper" class="seafloor-explorer app">
+      <header>
+        <h1><a href="#!/home"><img src="images/navigation/logo.png" alt="Sea Floor Explorer" /></a></h1>
+        <nav>
+          <ul>
+            <li><a href="#!/home">Home</a></li>
+            <li><a href="#!/about">About</a></li>
+            <li><a href="#!/classify">Classify</a></li>
+            <li><a href="#!/profile">Profile</a></li>
+            <li><a href="#!/talk">Talk</a></li>
+            <li><a href="#!/blog">Blog</a></li>
+          </ul>
+        </nav>
+      </header>
 
-			<div id="main">
-				<section data-page="home">
-					<section>
-						<div class="map">
-							<img src="http://placehold.it/1000x250.png&amp;text=%28Map%29+1000x250" style="display: block;" />
-						</div>
+      <div id="main" class="main">
+        <section data-page="home" class="active">
+          <section>
+            <div class="map"></div>
+            <div class="scoreboard"></div>
+          </section>
 
-						<div class="scoreboard"></div>
-					</section>
+          <section class="content">
+            <a href="#!/classify" class="dive-in">Dive in!</a>
+            <h2>Help explore the ocean floor.</h2>
+            <p>Habitat is a concept which describes the kind of environment in which a population of organisms live. It includes seafloor type (sand, gravel, boulder), organism distribution (what kinds of organisms and their abundance), oceanographic conditions (temperature, salinity, depth, amount of food) and ecological interactions (predator-prey). HabCam pictures contain information on all of these elements so we can paint a picture describing the variety of seafloor habitats.</p>
+            <p>If a picture is worth a thousand words, 1/2 million pictures a day must be worth a library of words. HabCam is making a library of seafloor life along the northeast continental shelf.</p>
+          </section>
+        </section>
 
-					<section class="content">
-						<a href="#/classify" class="dive-in">Dive in!</a>
-						<h2>Help explore the ocean floor.</h2>
-						<h3>Avast, ye! This be a placeholder. Argh.</h3>
-						<p>The Woods Hole Oceanographic Institute’s HabCam imagery offers a rare glimpse at the diverse creatures of the sea. The WHOI HabCam team needs your help to classify all of those species, so begin today!</p>
-					</section>
-				</section>
+        <section data-page="about">
+          <section data-page="data" class="details">
+            <nav>
+              <ul>
+                <li><a href="#!/about/data/ground-cover">Ground cover</a></li>
+                <li><a href="#!/about/data/species">Species</a></li>
+              </ul>
+            </nav>
 
-				<section data-page="about">
-					<section data-page="data" class="details">
-						<nav>
-							<ul>
-								<li><a href="#/about/data/ground-cover">Ground cover</a></li>
-								<li><a href="#/about/data/species">Species</a></li>
-							</ul>
-						</nav>
+            <section data-page="ground-cover" class="active">
+              <section data-page="sand" class="active">
+                <img src="http://placehold.it/400x400.png" class="two-fifths example" />
+                <div class="content">
+                  <h3>Sand</h3>
+                  <h4>Identifying</h4>
+                  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+                </div>
+              </section>
 
-						<section data-page="ground-cover" class="active">
-							<section data-page="sand" class="active">
-								<img src="http://placehold.it/400x400.png" class="two-fifths example" />
-								<div class="content">
-									<h3>Sand</h3>
-									<h4>Identifying</h4>
-									<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-								</div>
-							</section>
+              <section data-page="gravel">Gravel</section>
+              <section data-page="shell-hash">Shell hash</section>
+              <section data-page="cobble">Cobble</section>
+              <section data-page="boulder">Boulder</section>
 
-							<section data-page="gravel">Gravel</section>
-							<section data-page="cobble">Cobble</section>
-							<section data-page="boulder">Boulder</section>
-							<section data-page="shell-hash">Shell hash</section>
+              <nav>
+                <ul>
+                  <li><a href="#!/about/data/ground-cover/sand">Sand</a></li>
+                  <li><a href="#!/about/data/ground-cover/gravel">Gravel</a></li>
+                  <li><a href="#!/about/data/ground-cover/shell-hash">Shell hash</a></li>
+                  <li><a href="#!/about/data/ground-cover/cobble">Cobble</a></li>
+                  <li><a href="#!/about/data/ground-cover/boulder">Boulder</a></li>
+                </ul>
+              </nav>
+            </section>
 
-							<nav>
-								<ul>
-									<li><a href="#/about/data/ground-cover/sand">Sand</a></li>
-									<li><a href="#/about/data/ground-cover/gravel">Gravel</a></li>
-									<li><a href="#/about/data/ground-cover/cobble">Cobble</a></li>
-									<li><a href="#/about/data/ground-cover/boulder">Boulder</a></li>
-									<li><a href="#/about/data/ground-cover/shell-hash">Shell hash</a></li>
-								</ul>
-							</nav>
-						</section>
+            <section data-page="species">
+              <section data-page="scallops" class="active">Scallops</section>
+              <section data-page="fish">
+                <img src="http://placehold.it/500x400.png" class="half example" />
+                <div class="content">
+                  <h3>Sea stars</h3>
+                  <h4>Identifying</h4>
+                  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+                  <h4>Marking</h4>
+                  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+                </div>
+              </section>
+              <section data-page="seastars">Seastars</section>
+              <section data-page="crustaceans">Crustaceans</section>
 
-						<section data-page="species">
-							<section data-page="fish" class="active">
-								<img src="http://placehold.it/500x400.png" class="half example" />
-								<div class="content">
-									<h3>Sea stars</h3>
-									<h4>Identifying</h4>
-									<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-									<h4>Marking</h4>
-									<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-								</div>
-							</section>
-							<section data-page="seastars">Seastars</section>
-							<section data-page="scallops">Scallops</section>
-							<section data-page="crustaceans">Crustaceans</section>
+              <nav>
+                <ul>
+                  <li><a href="#!/about/data/species/scallops" class="scallop">Scallops</a></li>
+                  <li><a href="#!/about/data/species/fish" class="fish">Fish</a></li>
+                  <li><a href="#!/about/data/species/seastars" class="seastar">Seastars</a></li>
+                  <li><a href="#!/about/data/species/crustaceans" class="crustacean">Crustaceans</a></li>
+                </ul>
+              </nav>
+            </section>
+          </section>
 
-							<nav>
-								<ul>
-									<li><a href="#/about/data/species/fish" class="fish">Fish</a></li>
-									<li><a href="#/about/data/species/seastars" class="seastar">Seastars</a></li>
-									<li><a href="#/about/data/species/scallops" class="scallop">Scallops</a></li>
-									<li><a href="#/about/data/species/crustaceans" class="crustacean">Crustaceans</a></li>
-								</ul>
-							</nav>
-						</section>
-					</section>
+          <section data-page="people" class="details">
+            <nav>
+              <ul>
+                <li><a href="#!/about/people/organizations">Organizations</a></li>
+                <li><a href="#!/about/people/science-team">Science team</a></li>
+                <li><a href="#!/about/people/development-team">Development team</a></li>
+              </ul>
+            </nav>
 
-					<section data-page="people" class="details">
-						<nav>
-							<ul>
-								<li><a href="#/about/people/organizations">Organizations</a></li>
-								<li><a href="#/about/people/science-team">Science team</a></li>
-								<li><a href="#/about/people/development-team">Development team</a></li>
-							</ul>
-						</nav>
+            <section data-page="organizations" class="active">
+              ORG
+            </section>
 
-						<section data-page="organizations" class="active">
-							ORG
-						</section>
+            <section data-page="science-team">
+              <section>
+                <img src="http://placehold.it/160x200.png" class="headshot" />
+                <div class="content">
+                  <h4>Karen L. Bolles</h4>
+                  <p>Karen is an independent fisheries biologist and marine educator. In 1994, she volunteered on a NOAA Sea Scallop Survey and, since then, has worked in and around the commercial fishing industry and has had contracts with NOAA in the bioacoustics, food web, and population dynamics programs. In Iceland, she researched Atlantic cod stock structure using mainly meristic and gadid egg and larvae imaging techniques. In Australia, she worked cooperatively with the commercial reef fishing industry and also researched sea turtle populations and nesting dynamics. She obtained a B.S. from Westfield State University and a M.Sc. in Fisheries and Wildlife Conservation from The University of Massachusetts Amherst. Her thesis involved discriminating Atlantic herring stocks using morphometrics and imaging tools. Since 2006, she has been conducting cooperative research with the commercial scallop industry. In the HabCam Project, she mainly analyzes images, conducts quality control procedures, and coordinates the outreach and education programs.</p>
+                </div>
+              </section>
 
-						<section data-page="science-team">
-							SCI
-						</section>
+              <section>
+                <img src="http://placehold.it/160x200.png" class="headshot" />
+                <div class="content">
+                  <h4>Scott Gallager</h4>
+                  <p>Scott started life in electrical engineering but was advised in 1970 that that field was a dead end (obviously a very short sighted advisor). He finished his undergraduate degrees in pre-medicine and Limnology. Realizing that Oceanography was much more fun than studying lakes and medicine was just not his style, he started working at the Woods Hole Oceanographic Institution (WHOI) and finished a Ph.D. He is currently a tenured Associate Scientist at WHOI with engineering interests in the development of optical instrumentation. On the science side, he is involved in developing automated image informatics for identification of plankton and benthic organisms to address questions related to changes in biodiversity and community structure in response to physical forcing (currents, mixing, nutrient exchange, climate change, ocean acidification, etc.)</p>
+                </div>
+              </section>
 
-						<section data-page="development-team">
-							DEV
-						</section>
-					</section>
-				</section>
+              <section>
+                <img src="http://placehold.it/160x200.png" class="headshot" />
+                <div class="content">
+                  <h4>Amber York</h4>
+                  <p>Amber’s marine science inspiration started early as the daughter of two marine biologists living on Oahu, Hawaii. After her early years she moved to another seaside location near the Woods Hole Community on Cape Cod, MA. After her undergraduate Marine Biology work at Boston University, she started working at the Woods Hole Oceanographic Institution in Dr. Scott Gallager’s lab where she learned how important computer science is to large volumes of biological data, especially imagery. Though she does not intend to abandon her biological roots, she is currently pursuing a second degree in Computer Science. As a Research Associate in Scott’s lab, in addition to HabCam projects, she works on a variety of projects including underwater marine observatories. Her interests include seastar taxonomy, data visualization, database design and management, and fish behaviour. She is involved in a wide range of tasks within the HabCam Group from participating in research cruises, to processing images, fiber-optic termination, physical sampling, species identification, data management, and image annotation.</p>
+                </div>
+              </section>
+            </section>
 
-				<section data-page="classify">
-					<section id="classifier"></section>
-				</section>
+            <section data-page="development-team">
+              DEV
+            </section>
+          </section>
+        </section>
 
-				<section data-page="profile"></section>
+        <section data-page="classify">
+          <section id="classifier"></section>
+        </section>
 
-				<section data-page="talk">Talk</section>
+        <section data-page="profile"></section>
 
-				<section data-page="blog">Blog</section>
-			</div>
-		</section>
+        <section data-page="talk">Talk</section>
 
-		<script src="scripts/lib/raphael.js" type="text/javascript"></script>
-		<script src="scripts/lib/require.js" data-main="scripts/main" type="text/javascript"></script>
-	</body>
+        <section data-page="blog">Blog</section>
+      </div>
+    </section>
+
+    <script src="scripts/lib/raphael.js"></script>
+    <script>
+      var development = '<script src="scripts/lib/require.js" data-main="scripts/main"><'+'/script>';
+      var production = '<script src="scripts/build/seafloorExplorer.js"><'+'/script>';
+
+      // Being on port 80 loads the production JS.
+      var port80 = +location.port === 80;
+      // But any URL with ?debug=1 loads development JS.
+      var debug = ~location.search.indexOf('debug=1');
+      // And any URL with ?build=1 loads production JS.
+      var build = ~location.search.indexOf('build=1');
+
+      document.write((port80 && debug) || (!port80 && !build) ? development : production);
+    </script>
+  </body>
 </html>

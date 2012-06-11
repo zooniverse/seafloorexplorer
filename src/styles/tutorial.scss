@@ -1,0 +1,112 @@
+@import "common";
+
+.tutorial-step {
+	@include transition(#{
+		background 0.25s ease-in-out,
+		height 0.25s ease-in-out,
+		left 0.25s ease-in 0.125s,
+		top 0.25s ease-out,
+		width 0.25s ease-in-out
+	});
+	background: $white;
+	border: {
+		radius: 3px;
+		top: 5px solid $blue;
+	};
+	box-shadow: 0 1px 3px transparentize($black, 0.5);
+	color: $blue-dark;
+	font-weight: bold;
+	position: absolute;
+	z-index: 20;
+
+	.controls {
+		opacity: 0;
+		position: absolute;
+		right: 0;
+		text-align: right;
+		top: 0;
+
+		button {
+			background: transparent;
+			border: 0;
+			color: inherit;
+			cursor: pointer;
+			font: {
+				family: inherit;
+				size: inherit;
+				weight: inherit;
+			}
+			height: 20px;
+			margin: 0;
+			opacity: 0.125;
+			padding: 0;
+			width: 20px;
+		}
+
+		&:hover {
+			button {
+				opacity: 0.25;
+			}
+		}
+	}
+
+	.message {
+		margin: 20px;
+	}
+
+	.continue {
+		text-align: center;
+
+		button {
+			@include linear-gradient($white, $gray-dark);
+			border: 1px solid $gray-darker;
+			color: $blue-dark;
+			cursor: pointer;
+			font: {
+				family: inherit;
+				size: inherit;
+				weight: inherit;
+			};
+			margin: 0;
+			padding: 5px 20px;
+		}
+	}
+
+	.arrow {
+		$arrow-color: #666; // TODO: Figure out a better color.
+		$arrow-size: 10px;
+
+	  border: $arrow-size solid transparent;
+	  position: absolute;
+
+	  &.down-center {
+	    border-top-color: $arrow-color;
+	    border-bottom-width: 0;
+	    left: 50%;
+	    margin-left: -$arrow-size;
+	    top: 100%;
+	  }
+
+	  &.right-middle {
+	    border-left-color: $arrow-color;
+	    border-right-width: 0;
+	    left: 100%;
+	    margin-top: -$arrow-size;
+	    top: 50%;
+	  }
+	}
+
+	&:hover {
+		.controls {
+			opacity: 1;
+		}
+	}
+}
+
+.tutorial-blocker {
+	background: $white;
+	cursor: not-allowed;
+	opacity: 0;
+	position: absolute;
+	z-index: 10;
+}

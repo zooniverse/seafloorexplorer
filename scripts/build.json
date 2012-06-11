@@ -1,0 +1,7 @@
+{
+  "mainConfigFile": "main.js",
+  "name": "lib/almond.js",
+  "include": "seafloorExplorer",
+  "out": "build/seafloorExplorer.js",
+  "insertRequire": ["seafloorExplorer"]
+}
