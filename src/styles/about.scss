@@ -1,6 +1,6 @@
 @import "common";
 
-[data-page="about"] {
+.main [data-page="about"] {
   > [data-page="data"] {
     > section > section {
       border-top: 1px solid $gray-light;
