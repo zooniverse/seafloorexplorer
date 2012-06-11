@@ -1,39 +1,4 @@
-// Colors
-
-$black: rgb(0, 0, 0);
-$white: rgb(241, 241, 241);
-$gray-light: #dbdbdb;
-$gray-dark: rgb(227, 227, 227);
-$gray-darker: rgb(190, 190, 190);
-
-$blue: rgb(0, 168, 198);
-$blue-dark: rgb(0, 66, 80);
-$blue-darker: #001e29;
-
-$orange-light: #feb34d;
-$orange: #fd9000;
-$orange-dark: #f56205;
-$orange-darker: #9f3d0b;
-
-// Classification types
-
-$fish-color: #0bc7e8;
-$scallop-color: #fd6500;
-$crustacean-color: #b9ca00;
-$seastar-color: #c512e0;
-$cool-color: #001e29;
-
-// Grid:
-
-$twelfth-width: 65px;
-$gutter-width: 20px;
-$sixth-width: ($twelfth-width * 2) + $gutter-width;
-$quarter-width: ($twelfth-width * 3) + ($gutter-width * 2);
-$third-width: ($twelfth-width * 4) + ($gutter-width * 3);
-$half-width: ($twelfth-width * 6) + ($gutter-width * 5);
-$two-third-width: ($third-width * 2) + $gutter-width;
-$three-quarter-width: ($quarter-width * 3) + ($gutter-width * 2);
-$full-width: ($twelfth-width * 12) + ($gutter-width * 11);
+@import "common";
 
 // Cross-broswer:
 
