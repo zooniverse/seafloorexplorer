@@ -2,11 +2,10 @@ define (require, exports, module) ->
   Spine = require 'Spine'
   $ = require 'jQuery'
 
-  App = require 'zooniverse/models/App'
+  config = require 'zooniverse/config'
+
   User = require 'zooniverse/models/User'
-
   ZooniverseProfile = require 'zooniverse/controllers/Profile'
-
   Map = require 'zooniverse/controllers/Map'
   Scoreboard = require 'controllers/Scoreboard'
 
@@ -51,8 +50,8 @@ define (require, exports, module) ->
       if User.current?
         @usernameContainer.html User.current.name
 
-        query = "SELECT * FROM #{App.first().cartoTable} WHERE user_id='#{User.current.id}'"
-        url = "http://#{App.first().cartoUser}.cartodb.com/tiles/#{App.first().cartoTable}/{z}/{x}/{y}.png?sql=#{query}"
+        query = "SELECT * FROM #{config.cartoTable} WHERE user_id='#{User.current.id}'"
+        url = "http://#{config.cartoUser}.cartodb.com/tiles/#{config.cartoTable}/{z}/{x}/{y}.png?sql=#{query}"
         @userLayer = @map.addLayer url
 
     signOut: (e) =>

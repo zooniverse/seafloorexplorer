@@ -1,4 +1,4 @@
-require
+require.config
   paths:
     base64: 'lib/base64'
     jquery: 'lib/jquery'
@@ -20,6 +20,7 @@ require
     jQuery:
       deps: ['jquery']
       exports: ($) ->
+        $.support.cors = true
         $.noConflict()
 
     Spine:

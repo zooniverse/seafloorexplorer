@@ -1,18 +1,18 @@
 define (require, exports, module) ->
   $ = require 'jQuery'
+
+  config = require 'zooniverse/config'
   {delay} = require 'zooniverse/util'
 
   ZooniverseClassifier = require 'zooniverse/controllers/Classifier'
+  tutorialSteps = require 'tutorialSteps'
+
+  Classification = require 'zooniverse/models/Classification'
+  User = require 'zooniverse/models/User'
 
   CreaturePicker = require 'controllers/CreaturePicker'
   MarkerIndicator = require 'controllers/MarkerIndicator'
   Pager = require 'zooniverse/controllers/Pager'
-
-  Subject = require 'zooniverse/models/Subject'
-  Classification = require 'zooniverse/models/Classification'
-  User = require 'zooniverse/models/User'
-
-  tutorialSteps = require 'tutorialSteps'
 
   TEMPLATE = require 'views/Classifier'
 
@@ -24,14 +24,13 @@ define (require, exports, module) ->
 
     tutorialSteps: tutorialSteps
 
-    availableGroundCovers: {
+    availableGroundCovers:
       sand: 'Sand'
       gravel: 'Gravel'
       shellHash: 'Shell hash'
       cobble: 'Cobble'
       boulder: 'Boulder'
       cantTell: 'Can\'t tell'
-    }
 
     events:
       'click .ground-cover .toggles button': 'toggleGroundCover'
@@ -77,7 +76,6 @@ define (require, exports, module) ->
         @groundCoverList.append """
           <li><button value="#{id}">#{description}</button></li>
         """
-
 
       User.bind 'sign-in', @updateFavoriteButton
       @updateFavoriteButton()
@@ -199,7 +197,7 @@ define (require, exports, module) ->
         subject = @workflow.selection[0]
         annotations = @classification.annotations
 
-        query = "INSERT INTO #{@workflow.project.app.cartoTable} (" +
+        query = "INSERT INTO #{config.cartoTable} (" +
           'the_geom, user_id, scallops, fish, seastars, crustaceans) ' +
           'VALUES (' +
           "ST_SetSRID(ST_Point(#{subject.coords[0]}, #{subject.coords[1]}), 4326), " +
@@ -210,9 +208,9 @@ define (require, exports, module) ->
           "#{(annotation for annotation in annotations when annotation.species is 'crustacean').length}" +
           ')'
 
-        $.post "http://#{@workflow.project.app.cartoUser}.cartodb.com/api/v2/sql",
+        $.post "http://#{config.cartoUser}.cartodb.com/api/v2/sql",
           q: query
-          api_key: @workflow.project.app.cartoApiKey
+          api_key: config.cartoApiKey
 
     toggleMap: (show) =>
       unless typeof show is 'boolean' then show = (do -> arguments[0])
