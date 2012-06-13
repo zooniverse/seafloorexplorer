@@ -7,6 +7,7 @@ define (require, exports, module) ->
   Subject = require 'zooniverse/models/Subject'
 
   Classifier = require 'controllers/Classifier'
+  tutorialSteps = require 'tutorialSteps'
   Map = require 'zooniverse/controllers/Map'
   Map::apiKey = '21a5504123984624a5e1a856fc00e238' # TODO: This is Brian's.
   Scoreboard = require 'controllers/Scoreboard'
@@ -35,6 +36,7 @@ define (require, exports, module) ->
               id: '4fa408de54558f3d6a000002'
               controller: new Classifier
                 el: '#classifier'
+                tutorialSteps: tutorialSteps
 
               tutorialSubjects: [
                 new Subject

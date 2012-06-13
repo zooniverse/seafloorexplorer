@@ -5,7 +5,6 @@ define (require, exports, module) ->
   {delay} = require 'zooniverse/util'
 
   ZooniverseClassifier = require 'zooniverse/controllers/Classifier'
-  tutorialSteps = require 'tutorialSteps'
 
   Classification = require 'zooniverse/models/Classification'
   User = require 'zooniverse/models/User'
@@ -21,8 +20,6 @@ define (require, exports, module) ->
 
     picker: null
     indicator: null
-
-    tutorialSteps: tutorialSteps
 
     availableGroundCovers:
       sand: 'Sand'
