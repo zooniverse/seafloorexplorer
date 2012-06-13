@@ -1,5 +1,5 @@
 [
-	{"http://requirejs.org/docs/release/2.0.1/comments/require.js": "scripts/lib/require.js"},
+	{"http://requirejs.org/docs/release/2.0.2/comments/require.js": "scripts/lib/require.js"},
 	{"https://raw.github.com/jrburke/almond/latest/almond.js": "scripts/lib/almond.js"},
 
 	{"http://code.jquery.com/jquery-1.7.2.js": "scripts/lib/jquery.js"},
