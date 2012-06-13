@@ -1,3 +1,5 @@
+.zoo_server_pids
+
 *.js
 scripts/lib
 
