@@ -4,21 +4,25 @@ Seafloor Zoo
 Install
 -------
 
+Install the `src/scripts/lib/zooniverse` submodule:
+
 ```bash
-# Install coffee, sass, and grabass
-bundle install
-
-# Download jQuery, Spine, Raphael, etc.
-grabass assets.json
-
-# Clone the framework repo
-git clone git@github.com:zooniverse/Front-End-Assets.git -b framework scripts/src/lib/zooniverse
+git submodule init
+git submodule update
 ```
 
-Run
----
+You'll also need the `zoo` script. Currently you have to build its gem manually:
 
 ```bash
-# Run coffee and sass compilers, serve at localhost:8000
-cake dev
+git clone git@github.com:zooniverse/Front-End-Assets.git -b app
+cd Front-End-Assets
+gem buidl zoo.gemspec
+gem install zoo-0.0.3.gem
+```
+
+Server
+------
+
+```bash
+zoo serve 8080
 ```
