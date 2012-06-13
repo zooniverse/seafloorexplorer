@@ -1,7 +1,7 @@
 {
-  "mainConfigFile": "lib/zooniverse/main.js",
-  "name": "lib/almond.js",
-  "include": "setup",
+  "mainConfigFile": "main.js",
+  "name": "lib/almond",
   "out": "build/main.js",
-  "insertRequire": ["seafloorExplorer"]
+  "insertRequire": ["site"],
+  "# optimize": "none"
 }
