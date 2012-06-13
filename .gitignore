@@ -1,7 +1,4 @@
-.zoo_server_pids
-
-*.js
-scripts/lib
-
-*.css
-styles/lib
+/.zoo_server_pids
+/scripts
+/styles
+/build-*
