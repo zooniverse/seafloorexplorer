@@ -8,15 +8,8 @@
       > .example {
         float: left;
         margin-right: $gutter-width;
+        width: $full-width * (2 / 5);
       }
-    }
-
-    > [data-page="ground-covers"] > section > .example {
-      width: $full-width * (2 / 5);
-    }
-
-    > [data-page="species"] > section > .example {
-      width: $full-width / 2;
     }
   }
 
