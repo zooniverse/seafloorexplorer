@@ -1,9 +1,10 @@
 define (require, exports, module) ->
   Spine = require 'Spine'
   $ = require 'jQuery'
-  {delay} = require 'zooniverse/util'
 
-  App = require 'zooniverse/models/App'
+  {delay} = require 'zooniverse/util'
+  config = require 'zooniverse/config'
+
   User = require 'zooniverse/models/User'
   Classification = require 'zooniverse/models/Classification'
 
@@ -27,12 +28,12 @@ define (require, exports, module) ->
 
       User.bind 'sign-in', @update
       Classification.bind 'persist', @update
+      delay @update
 
     update: =>
-      return unless App.first()?
       return if @forUser and not User.current?
 
-      url = "http://#{App.first().cartoUser}.cartodb.com/api/v2/sql?callback=?"
+      url = "http://#{config.cartoUser}.cartodb.com/api/v2/sql?callback=?"
 
       query = 'SELECT ' +
         'SUM(ALL(scallops)) AS scallops, ' +
@@ -40,7 +41,7 @@ define (require, exports, module) ->
         'SUM(ALL(seastars)) AS seastars, ' +
         'SUM(ALL(crustaceans)) AS crustaceans, ' +
         'COUNT(ALL(created_at)) AS classifications ' +
-        "FROM #{App.first().cartoTable}"
+        "FROM #{config.cartoTable}"
 
       if @forUser and User.current?
         query += " where user_id='#{User.current.id}'"
