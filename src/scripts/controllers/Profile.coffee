@@ -56,6 +56,7 @@ define (require, exports, module) ->
 
         delay =>
           @userLayer = @map.addLayer url
+          @map.resized()
 
     signOut: (e) =>
       e.preventDefault()
