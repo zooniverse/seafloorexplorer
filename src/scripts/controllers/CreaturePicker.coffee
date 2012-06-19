@@ -61,7 +61,7 @@ define (require, exports, module) ->
           @classifier.indicator.setStep 0
 
     reset: =>
-      @image.attr 'src', @classifier.workflow.selection[0].location
+      @image.attr 'src', @classifier.workflow.selection[0].location.standard
       subject = @classifier.workflow.selection[0]
       @map.attr 'src', "http://maps.googleapis.com/maps/api/staticmap?center=#{subject.coords[0]},#{subject.coords[1]}&zoom=10&size=745x570&maptype=satellite&sensor=false"
       @scale.css width: @classifier.workflow.selection[0].metadata.mm_pix * 100

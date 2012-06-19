@@ -6,7 +6,7 @@ define (require, exports, module) ->
 
     """
       <li>
-        <a href="#{subject.talkHref()}"> <img src="#{subject.location}" class="thumbnail" /></a>
+        <a href="#{subject.talkHref()}"> <img src="#{subject.location.thumbnail}" class="thumbnail" /></a>
 
         <div class="description">
           <div class="location">

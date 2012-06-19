@@ -89,7 +89,7 @@ define (require, exports, module) ->
       @steps.removeClass 'finished'
 
       delay 500, =>
-        @imageThumbnail.attr 'src', @workflow.selection[0].location
+        @imageThumbnail.attr 'src', @workflow.selection[0].location.thumbnail
 
         @mapThumbnail.attr 'src', """
           http://maps.googleapis.com/maps/api/staticmap

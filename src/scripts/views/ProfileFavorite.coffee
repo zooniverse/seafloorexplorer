@@ -7,7 +7,7 @@ define (require, exports, module) ->
     """
       <li>
         <a href="#{subject.talkHref()}">
-          <img src="#{subject.location}" class="thumbnail" />
+          <img src="#{subject.location.thumbnail}" class="thumbnail" />
           <span class="info">
             <span class="visited">#{formatDate favorite.createdAt}</span>
           </span>
