@@ -2,6 +2,7 @@ define (require, exports, module) ->
   Spine = require 'Spine'
   $ = require 'jQuery'
 
+  {delay} = require 'zooniverse/util'
   config = require 'zooniverse/config'
 
   User = require 'zooniverse/models/User'
@@ -52,7 +53,9 @@ define (require, exports, module) ->
 
         query = "SELECT * FROM #{config.cartoTable} WHERE user_id='#{User.current.id}'"
         url = "http://#{config.cartoUser}.cartodb.com/tiles/#{config.cartoTable}/{z}/{x}/{y}.png?sql=#{query}"
-        @userLayer = @map.addLayer url
+
+        delay =>
+          @userLayer = @map.addLayer url
 
     signOut: (e) =>
       e.preventDefault()
