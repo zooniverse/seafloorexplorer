@@ -93,13 +93,12 @@ body {
             }
 
             &:hover {
-              box-shadow: 0 0 2px $white inset;
+              box-shadow: 0 0 1px 1px transparentize($black, 0.9) inset;
             }
 
             &.active {
-              box-shadow:
-                0 0 5px $white inset,
-                0 1px 1px transparentize($black, 0.75);
+              background: transparentize($black, 0.9);
+              box-shadow: 0 1px 1px transparentize($black, 0.9) inset;
             }
           }
         }
