@@ -317,13 +317,13 @@
       var production = '<script src="scripts/build/main.js"><'+'/script>';
 
       // Being on port 80 loads the production JS.
-      var port80 = +location.port === 80;
+      var rootPort = +location.port < 1024;
       // But any URL with ?debug=1 loads development JS.
       var debug = ~location.search.indexOf('debug=1');
       // And any URL with ?build=1 loads production JS.
       var build = ~location.search.indexOf('build=1');
 
-      document.write((port80 && debug) || (!port80 && !build) ? development : production);
+      document.write((rootPort && debug) || (!rootPort && !build) ? development : production);
     </script>
   </body>
 </html>
