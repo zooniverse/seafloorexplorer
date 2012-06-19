@@ -21,7 +21,6 @@ define (require, exports, module) ->
     cartoUser: 'brian-c'
     cartoApiKey: 'CARTO_API_KEY'
     cartoTable: 'seafloor_explorer_beta'
-    facebookId: ''
 
     app: new App
       el: '#main'
@@ -29,13 +28,13 @@ define (require, exports, module) ->
 
       projects: [
         new Project
-          id: '4fa4088d54558f3d6a000001' # Dev
-          # id: '4fdf8fb3c32dab6c95000001' # Prod
+          id: '4fdf8fb3c32dab6c95000001'
+          devID: '4fa4088d54558f3d6a000001'
 
           workflows: [
             new Workflow
-              id: '4fa408de54558f3d6a000002' # Dev
-              # id: '4fdf8fb3c32dab6c95000002' # Prod
+              id: '4fdf8fb3c32dab6c95000002'
+              devID: '4fa408de54558f3d6a000002'
               controller: new Classifier
                 el: '#classifier'
                 tutorialSteps: tutorialSteps
