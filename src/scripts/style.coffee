@@ -7,7 +7,6 @@ define (require, exports, module) ->
 				'text-anchor': 'start'
 
 			deleteButton:
-				cursor: 'pointer'
 				stroke: 'none'
 				'stroke-width': 0
 
