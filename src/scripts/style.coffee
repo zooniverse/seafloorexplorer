@@ -7,6 +7,7 @@ define (require, exports, module) ->
 				'text-anchor': 'start'
 
 			deleteButton:
+				cursor: 'pointer'
 				stroke: 'none'
 				'stroke-width': 0
 
@@ -20,6 +21,7 @@ define (require, exports, module) ->
 				'stroke-width': 0
 
 		circle:
+			cursor: 'move'
 			fill: '#fff'
 			r: 5
 			stroke: 'none'
@@ -29,6 +31,7 @@ define (require, exports, module) ->
 				r: 7
 
 		crossCircle:
+			cursor: 'move'
 			fill: '#fff'
 			r: 7
 			stroke: '#fff'
