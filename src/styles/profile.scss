@@ -80,6 +80,7 @@
         > a {
           display: block;
           position: relative;
+          text-align: center;
 
           .thumbnail {
             @include box-sizing(border-box);
@@ -95,13 +96,10 @@
             bottom: 10px;
             color: $white;
             font-weight: bold;
+            left: 0;
             opacity: 0;
             position: absolute;
-            right: 15px;
-            text: {
-              align: right;
-              shadow: 0 1px 2px transparentize($black, 0.5);
-            }
+            width: 100%;
           }
 
           &:hover {
