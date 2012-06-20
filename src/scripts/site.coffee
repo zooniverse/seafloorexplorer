@@ -42,8 +42,8 @@ define (require, exports, module) ->
               tutorialSubjects: [
                 new Subject
                   location:
-                    standard: './sample-images/UNQ.20060928.010920609.jpg'
-                    thumbnail: './sample-images/UNQ.20060928.010920609.jpg'
+                    standard: 'images/tutorial-subject.jpg'
+                    thumbnail: 'images/tutorial-subject.jpg'
                   coords: [0, 0]
                   metadata: {
                     depth: 0
