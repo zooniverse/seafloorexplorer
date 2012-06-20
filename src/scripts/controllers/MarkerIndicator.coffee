@@ -63,6 +63,7 @@ define (require, exports, module) ->
         @setStep 0
 
     setStep: (step) =>
+      return unless @species
       step %= @helpers[@species].points.length
       return if step is @step
       @step = step
