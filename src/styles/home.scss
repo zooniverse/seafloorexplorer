@@ -9,7 +9,7 @@
   .dive-in {
     @include linear-gradient($orange, $orange-dark);
     border: 1px solid $orange-darker {
-      radius: 5px;
+      radius: 3px;
     };
     box-shadow: 0 1px 0 $orange-light inset;
     color: $white;

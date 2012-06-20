@@ -59,7 +59,9 @@
 
 		button {
 			@include linear-gradient($white, $gray-dark);
-			border: 1px solid $gray-darker;
+			border: 1px solid $gray-darker {
+				radius: 3px;
+			};
 			color: $blue-dark;
 			cursor: pointer;
 			font: {
