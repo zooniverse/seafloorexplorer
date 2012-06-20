@@ -127,6 +127,7 @@ body {
 
     &.active {
       opacity: 1; filter: alpha(opacity=100);
+      overflow: visible;
       pointer-events: all;
       position: relative;
       top: 0;
