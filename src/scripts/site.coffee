@@ -58,12 +58,13 @@ define (require, exports, module) ->
           ]
       ]
 
+  config.set
     profile: new Profile
       el: '[data-page="profile"]'
 
     homeMap: new Map
       el: '[data-page="home"] .map'
-      layers: ["http://brian-c.cartodb.com/tiles/seafloor_explorer_beta/{z}/{x}/{y}.png"]
+      layers: ["http://#{config.cartoUser}.cartodb.com/tiles/#{config.cartoTable}/{z}/{x}/{y}.png"]
 
     homeScoreboard: new Scoreboard
       el: '[data-page="home"] .scoreboard'
