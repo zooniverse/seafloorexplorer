@@ -2,15 +2,16 @@
 
 .main [data-page="profile"] {
   > .login-form {
+    margin: 100px auto 0;
     text-align: center;
+    width: 40%;
 
     label {
       display: block;
-      margin: 0 0 ($gutter-width / 2);
+      margin: ($gutter-width / 2) 0;
 
       > span {
-        display: inline-block;
-        width: 8em;
+        display: block;
       }
     }
 
