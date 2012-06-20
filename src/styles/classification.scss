@@ -292,6 +292,7 @@
 
 			> .help {
 				bottom: 0;
+				font-size: 11px;
 				left: 0;
 				padding: ($gutter-width / 2) 0;
 				position: absolute;
@@ -300,17 +301,11 @@
 
 				> a {
 					background: transparentize($black, 0.9);
-					border: {
-						bottom: 1px solid transparentize($black, 0.9);
-						radius: 3px
-					};
+					border-radius: 3px;
 					color: inherit;
 					display: inline-block;
-					padding: 0 5px;
-					text: {
-						decoration: none;
-						shadow: 0 1px 0 white;
-					}
+					padding: 3px 6px;
+					text-decoration: none;
 				}
 			}
 		}

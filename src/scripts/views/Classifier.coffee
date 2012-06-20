@@ -36,7 +36,7 @@ define (require, exports, module) ->
 				</div>
 
 				<div class="help">
-					<span>Need some help?</span>
+					<span>Need help?</span>
 					<a href="#!/about" title="Check out the field guide" class="field-guide">Field guide</a>
 					<a href="#start-tutorial" title="Go through the tutorial again" class="tutorial-again">Tutorial</a>
 				</div>
