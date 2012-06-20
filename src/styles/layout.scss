@@ -139,7 +139,7 @@ body {
       background: $white;
       border-top: 5px solid $blue-darker;
       border-radius: 3px;
-      box-shadow: 0 3px 3px -3px transparentize($black, 0.33);
+      box-shadow: 0 4px 6px -4px #00697c;
       margin-bottom: $gutter-width;
 
       // Provide padding either on the module or on its child(ren).
