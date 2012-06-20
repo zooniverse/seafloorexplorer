@@ -247,6 +247,7 @@
 					@include box-sizing(border-box);
 					@include linear-gradient($gray-light, $gray-dark);
 					border: 1px solid $gray-darker;
+					cursor: pointer;
 					color: $blue-dark;
 					display: block;
 					float: left;
