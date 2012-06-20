@@ -9,12 +9,11 @@
 		width 0.25s ease-in-out
 	});
 	background: $white;
-	border: {
+	border: 4px solid $blue-darker {
 		radius: 3px;
-		top: 5px solid $blue;
 	};
 	box-shadow: 0 1px 3px transparentize($black, 0.5);
-	color: $blue-dark;
+	color: $blue-darker;
 	font-weight: bold;
 	position: absolute;
 	z-index: 20;
@@ -75,7 +74,7 @@
 	}
 
 	.arrow {
-		$arrow-color: #666; // TODO: Figure out a better color.
+		$arrow-color: $blue-darker;
 		$arrow-size: 10px;
 
 	  border: $arrow-size solid transparent;
