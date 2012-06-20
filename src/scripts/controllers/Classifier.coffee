@@ -185,31 +185,6 @@ define (require, exports, module) ->
       @steps.addClass 'finished'
       @saveClassification()
 
-    saveClassification: =>
-      super
-
-      # NOTE:
-      # This doesn't work in IE.
-      # But eventually it wil be handled on the back end anyway.
-      unless @workflow.selection[0] is @workflow.tutorialSubjects[0]
-        subject = @workflow.selection[0]
-        annotations = @classification.annotations
-
-        query = "INSERT INTO #{config.cartoTable} (" +
-          'the_geom, user_id, scallops, fish, seastars, crustaceans) ' +
-          'VALUES (' +
-          "ST_SetSRID(ST_Point(#{subject.coords[0]}, #{subject.coords[1]}), 4326), " +
-          "'#{User.current?.id || ''}', " +
-          "#{(annotation for annotation in annotations when annotation.species is 'scallop').length}, " +
-          "#{(annotation for annotation in annotations when annotation.species is 'fish').length}, " +
-          "#{(annotation for annotation in annotations when annotation.species is 'seastar').length}, " +
-          "#{(annotation for annotation in annotations when annotation.species is 'crustacean').length}" +
-          ')'
-
-        $.post "http://#{config.cartoUser}.cartodb.com/api/v2/sql",
-          q: query
-          api_key: config.cartoApiKey
-
     toggleMap: (show) =>
       unless typeof show is 'boolean' then show = (do -> arguments[0])
       @el.toggleClass 'show-map', show
