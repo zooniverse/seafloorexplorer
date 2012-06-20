@@ -21,13 +21,14 @@ define (require, exports, module) ->
     picker: null
     indicator: null
 
-    availableGroundCovers:
-      sand: 'Sand'
-      gravel: 'Gravel'
-      shellHash: 'Shell hash'
-      cobble: 'Cobble'
-      boulder: 'Boulder'
-      cantTell: 'Can\'t tell'
+    availableGroundCovers: [
+      {sand: 'Sand'}
+      {shell: 'Shell'}
+      {gravel: 'Gravel'}
+      {cobble: 'Cobble'}
+      {boulder: 'Boulder'}
+      {cantTell: 'Can\'t tell'}
+    ]
 
     events:
       'click .ground-cover .toggles button': 'toggleGroundCover'
@@ -68,7 +69,7 @@ define (require, exports, module) ->
 
       new Pager el: pager for pager in @el.find('[data-page]').parent()
 
-      for id, description of @availableGroundCovers
+      for map in @availableGroundCovers then for id, description of map
         # TODO: Include this in the view.
         @groundCoverList.append """
           <li><button value="#{id}">#{description}</button></li>
