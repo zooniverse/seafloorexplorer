@@ -64,7 +64,7 @@ define (require, exports, module) ->
       @image.attr 'src', @classifier.workflow.selection[0].location.standard
       subject = @classifier.workflow.selection[0]
       @map.attr 'src', "http://maps.googleapis.com/maps/api/staticmap?center=#{subject.coords[0]},#{subject.coords[1]}&zoom=10&size=745x570&maptype=satellite&sensor=false"
-      @scale.css width: @classifier.workflow.selection[0].metadata.mm_pix * 100
+      @scale.css width: @classifier.workflow.selection[0].metadata.mm_pix * 50 # We're showing 50mm.
 
     getSize: =>
       width: @image.width(), height: @image.height()

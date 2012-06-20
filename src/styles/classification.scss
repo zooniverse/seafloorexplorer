@@ -67,17 +67,17 @@
 			> .scale {
 				@include transition(width 0.5s ease-in-out);
 				bottom: 10px;
-				height: 15px;
+				height: 7px;
 				left: 10px;
-				opacity: 0.5;
+				opacity: 0.75;
 				pointer-events: none;
 				position: absolute;
-				width: 100px; // This will change depending on the image
+				width: 10px; // This will change depending on the image
 
 				&:after {
-					background: black;
+					background: $white;
 					content: " ";
-					height: 2px;
+					height: 1px;
 					left: 0;
 					margin-top: -1px;
 					position: absolute;
@@ -88,18 +88,18 @@
 				> .mark {
 					float: left;
 					height: 100%;
-					margin-left: 33.3%;
+					margin-left: 20%;
 					position: relative;
 					width: 0;
 
 					&:after {
-						background: black;
+						background: $white;
 						content: " ";
 						height: 100%;
 						left: 0;
 						position: absolute;
 						top: 0;
-						width: 2px;
+						width: 1px;
 					}
 
 					&:first-child {
@@ -108,16 +108,16 @@
 				}
 
 				> .label {
-					color: black;
+					color: $white;
 					font: {
-						size: 12px;
+						size: 11px;
 						weight: bold;
 					};
 					left: 100%;
 					line-height: 1;
 					margin-left: 1em;
 					position: absolute;
-					top: 0;
+					top: -2px;
 					white-space: nowrap;
 				}
 			}
