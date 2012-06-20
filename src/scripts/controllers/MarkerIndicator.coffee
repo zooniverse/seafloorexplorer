@@ -18,7 +18,7 @@ define (require, exports, module) ->
     helpers:
       fish:
         image: 'images/indicator/fish.png'
-        points: [{x: 10, y: 26}, {x: 175, y: 25}, {x: 45, y: 5}, {x: 45, y: 50}]
+        points: [{x: 7, y: 27}, {x: 183, y: 23}, {x: 56, y: 17}, {x: 57, y: 46}]
       seastar:
         image: 'images/indicator/seastar.png'
         points: [{x: 35, y: 35}, {x: 50, y: 5}]
