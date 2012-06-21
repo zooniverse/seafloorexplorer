@@ -143,6 +143,10 @@
       font-weight: bold;
       padding-left: $gutter-width / 2;
       width: 75%;
+
+      .visited {
+        font-weight: normal;
+      }
     }
   }
 

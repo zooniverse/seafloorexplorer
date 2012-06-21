@@ -10,9 +10,9 @@ define (require, exports, module) ->
 
         <div class="description">
           <div class="location">
-            <div>Lat: #{subject.coords[0]}</div>
-            <div>Lng: #{subject.coords[1]}</div>
-            <div>Visited on #{formatDate recent.createdAt}</div>
+            <div class="lat">Lat: #{subject.coords[0]}</div>
+            <div class="long">Lng: #{subject.coords[1]}</div>
+            <div class="visited">Visited on #{formatDate recent.createdAt}</div>
           </div>
         </div>
       </li>
