@@ -45,6 +45,8 @@ define (require, exports, module) ->
       @species = species
 
       @circles?.remove()
+      @image.removeAttr 'src'
+
       @step = -1
 
       if @species of @helpers
