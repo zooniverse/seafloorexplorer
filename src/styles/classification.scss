@@ -274,7 +274,9 @@
 			.finished {
 				@include box-shadow(0 1px $orange-lighter inset);
 				@include linear-gradient($orange-light, $orange-dark);
-				border: 1px solid $orange-darker;
+				border: 1px solid $orange-darker {
+					radius: 3px;
+				};
 				color: $white;
 				cursor: pointer;
 				font: {
@@ -358,8 +360,10 @@
 
 			button {
 				@include box-sizing(border-box);
-				background: $blue;
-				border: 0;
+				background: $blue-darker;
+				border: 0 {
+					radius: 3px;
+				};
 				color: $white;
 				cursor: pointer;
 				font: {
