@@ -141,7 +141,8 @@
 			@include transition(#{
 				opacity 0.25s ease-in-out,
 				right 0.25s ease-in-out,
-				-moz-transform 0.25s ease-in-out
+				-moz-transform 0.25s ease-in-out,
+				-webkit-transform 0.25s ease-in-out
 			});
 			background: $white;
 			border-radius: 0 3px 3px 0;

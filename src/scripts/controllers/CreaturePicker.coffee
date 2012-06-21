@@ -37,6 +37,9 @@ define (require, exports, module) ->
 
     events:
       'mousedown': 'onMouseDown'
+      'touchstart': 'onTouchStart'
+      'touchmove': 'onTouchMove'
+      'touchend': 'onTouchEnd'
 
     constructor: ->
       super
@@ -137,7 +140,7 @@ define (require, exports, module) ->
 
       @classifier.indicator.setStep @strayCircles.length
 
-      e.preventDefault() # Disable text selection.
+      e.preventDefault?() # Disable text selection.
 
     dragThreshold: 10
     mouseMoves: 0
@@ -244,6 +247,16 @@ define (require, exports, module) ->
       @el.trigger 'create-marking'
 
       annotation
+
+    onTouchStart: (e) =>
+      e.preventDefault()
+      @onMouseDown e.originalEvent.touches[0]
+
+    onTouchMove: (e) =>
+      @onMouseMove e.originalEvent.touches[0]
+
+    onTouchEnd: (e) =>
+      @onMouseUp e.originalEvent.touches[0]
 
     setDisabled: (@disabled) =>
       if @disabled then marker.deselect() for marker in @markers or [] when marker.selected
