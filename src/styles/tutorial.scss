@@ -13,7 +13,7 @@
 	color: $blue-darker;
 	font-weight: bold;
 	position: absolute;
-	z-index: 20;
+	z-index: 10;
 
 	.controls {
 		opacity: 0;
@@ -107,8 +107,8 @@
 }
 
 .tutorial-blocker {
-	background: $white;
 	cursor: not-allowed;
+	filter: alpha(opacity = 01);
 	opacity: 0;
 	position: absolute;
 	z-index: 10;
