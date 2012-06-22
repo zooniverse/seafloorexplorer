@@ -45,12 +45,13 @@ define (require, exports, module) ->
       @species = species
 
       @circles?.remove()
-      @image.removeAttr 'src'
+      @image.css display: 'none'
 
       @step = -1
 
       if @species of @helpers
         @image.attr 'src', @helpers[@species].image
+        @image.css display: ''
         @image.one 'load', =>
           @paper.setSize @image.width(), @image.height()
 
