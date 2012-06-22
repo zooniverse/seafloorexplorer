@@ -2,11 +2,12 @@ define (require, exports, module) ->
   $ = require 'jQuery'
 
   config = require 'zooniverse/config'
-  {delay} = require 'zooniverse/util'
+  {delay, remove} = require 'zooniverse/util'
 
   ZooniverseClassifier = require 'zooniverse/controllers/Classifier'
 
   Classification = require 'zooniverse/models/Classification'
+  Annotation = require 'zooniverse/models/Annotation'
   User = require 'zooniverse/models/User'
 
   CreaturePicker = require 'controllers/CreaturePicker'
@@ -20,6 +21,8 @@ define (require, exports, module) ->
 
     picker: null
     indicator: null
+
+    groundCoverAnnotation: null
 
     availableGroundCovers: [
       {sand: 'Sand'}
@@ -82,7 +85,12 @@ define (require, exports, module) ->
       @picker.reset()
 
       super
-      @classification.metadata = groundCovers: []
+      @groundCoverAnnotation = new Annotation
+        classification: @classification,
+        value: groundCovers: []
+      @otherSpeciesAnnotation = new Annotation
+        classification: @classification
+        value: otherSpecies: null
 
       location.hash = '#!/classify/ground-cover' if ~location.hash.indexOf '/classify'
       @changeSpecies null
@@ -114,12 +122,13 @@ define (require, exports, module) ->
       @renderSpeciesPage()
 
     renderGroundCoverPage: =>
+      return unless @groundCoverAnnotation
       for button in @groundCoverList.find 'button'
         button = $(button)
-        groundCoverActive = button.attr('value') in @classification.metadata.groundCovers
+        groundCoverActive = button.attr('value') in @groundCoverAnnotation.value.groundCovers
         button.toggleClass 'active', groundCoverActive
 
-      groundCoverPicked = @classification.metadata.groundCovers.length isnt 0
+      groundCoverPicked = @groundCoverAnnotation.value.groundCovers.length isnt 0
       @groundCoverFinishedButton.attr 'disabled', not groundCoverPicked
 
     renderSpeciesPage: =>
@@ -133,10 +142,11 @@ define (require, exports, module) ->
         countElement = button.find '.count'
         countElement.html parseInt(countElement.html(), 10) + 1
 
-      @otherYes.toggleClass 'active', @classification.metadata.otherSpecies is true
-      @otherNo.toggleClass 'active', @classification.metadata.otherSpecies is false
+      return unless @otherSpeciesAnnotation
+      @otherYes.toggleClass 'active', @otherSpeciesAnnotation.value.otherSpecies is true
+      @otherNo.toggleClass 'active', @otherSpeciesAnnotation.value.otherSpecies is false
 
-      @speciesFinishedButton.attr 'disabled', not @classification.metadata.otherSpecies?
+      @speciesFinishedButton.attr 'disabled', not @otherSpeciesAnnotation.value.otherSpecies?
 
     updateFavoriteButton: =>
       if User.current?
@@ -147,11 +157,10 @@ define (require, exports, module) ->
     toggleGroundCover: (e) =>
       value = $(e.target).val()
 
-      if value in @classification.metadata.groundCovers
-        for gc, i in @classification.metadata.groundCovers when gc is value
-          @classification.metadata.groundCovers.splice i, 1
+      if value in @groundCoverAnnotation.value.groundCovers
+        remove value, from: @groundCoverAnnotation.value.groundCovers
       else
-        @classification.metadata.groundCovers.push value
+        @groundCoverAnnotation.value.groundCovers.push value
 
       @classification.trigger 'change'
 
@@ -177,7 +186,7 @@ define (require, exports, module) ->
     changeOther: (e) =>
       target = $(e.target)
       value = target.val() is 'yes'
-      @classification.metadata.otherSpecies = value
+      @otherSpeciesAnnotation.value.otherSpecies = value
       @classification.trigger 'change'
 
     finishSpecies: =>
