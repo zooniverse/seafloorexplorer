@@ -20,12 +20,21 @@
     > .headshot {
       display: block;
       float: left;
-      margin: $gutter-width;
-      width: ($full-width / 5) - ($gutter-width * 2);
+      margin: $gutter-width {right: 0;};
+      width: 80px;
+
+      & + .content {
+        float: left;
+        width: $full-width - 80 - ($gutter-width * 3);
+
+        :first-child {
+          margin-top: 0;
+        }
+      }
     }
 
     > .content {
-      margin: $gutter-width;
+      margin: $gutter-width {right: 0;};
     }
   }
 }
