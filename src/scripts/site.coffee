@@ -10,6 +10,7 @@ define (require, exports, module) ->
   tutorialSteps = require 'tutorialSteps'
   Map = require 'zooniverse/controllers/Map'
   Map::apiKey = '21a5504123984624a5e1a856fc00e238' # TODO: This is Brian's.
+  Map::tilesId = 65990
   Scoreboard = require 'controllers/Scoreboard'
   Profile = require 'controllers/Profile'
 
@@ -64,6 +65,9 @@ define (require, exports, module) ->
 
     homeMap: new Map
       el: '[data-page="home"] .map'
+      latitude: 41.172222
+      longitude: -70.296944
+      zoom: 9
       layers: ["http://#{config.cartoUser}.cartodb.com/tiles/#{config.cartoTable}/{z}/{x}/{y}.png"]
 
     homeScoreboard: new Scoreboard
