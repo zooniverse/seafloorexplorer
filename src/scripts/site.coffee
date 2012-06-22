@@ -65,9 +65,9 @@ define (require, exports, module) ->
 
     homeMap: new Map
       el: '[data-page="home"] .map'
-      latitude: 41.172222
-      longitude: -70.296944
-      zoom: 9
+      latitude: 38.1
+      longitude: -74.1
+      zoom: 8
       layers: ["http://#{config.cartoUser}.cartodb.com/tiles/#{config.cartoTable}/{z}/{x}/{y}.png"]
 
     homeScoreboard: new Scoreboard

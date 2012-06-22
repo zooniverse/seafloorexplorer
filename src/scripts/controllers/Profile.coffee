@@ -38,6 +38,10 @@ define (require, exports, module) ->
 
       @map = new Map
         el: @mapContainer
+        latitude: 38.1
+        longitude: -74.1
+        zoom: 8
+
 
       @scoreboard = new Scoreboard
         el: @scoreboardContainer
