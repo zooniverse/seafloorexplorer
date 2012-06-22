@@ -14,7 +14,7 @@ define (require, exports, module) ->
         <div class="mark"></div>
         <div class="mark"></div>
         <div class="mark"></div>
-        <div class="label">50mm</div>
+        <div class="label">100mm</div>
       </div>
     </div>
   '''
