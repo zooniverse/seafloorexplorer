@@ -78,9 +78,8 @@ define (require, exports, module) ->
 
 				<button class="favorite">Add to my favorites</button>
 
-				<p>Would you like to discuss this image in Talk?</p>
-
 				<div class="talk">
+					<p>Would you like to discuss this image in Talk?</p>
 					<button value="yes">Yes</button>
 					<button value="no">No</button>
 				</div>

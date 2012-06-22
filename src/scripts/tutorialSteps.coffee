@@ -73,6 +73,7 @@ define (require, exports, module) ->
       style: width: 490
       nextOn: 'mouseup': '#classifier'
       arrowClass: 'down-center'
+      block: '.species .finished'
 
     new Step
       content: [
@@ -83,6 +84,7 @@ define (require, exports, module) ->
       style: width: 310
       nextOn: 'create-marking': '#classifier'
       arrowClass: 'right-middle'
+      block: '.species .finished'
 
     new Step
       heading: 'Identifying species'
@@ -105,6 +107,7 @@ define (require, exports, module) ->
       attach: x: 'right', to: '.creature-picker', at: x: 0.67, y: 0.15
       nextOn: 'create-marking': '#classifier'
       arrowClass: 'right-middle'
+      block: '.species .finished'
 
     new Step
       heading: 'Other species'
@@ -116,6 +119,7 @@ define (require, exports, module) ->
       style: width: 310
       nextOn: click: '.other-creatures [value="yes"]'
       arrowClass: 'right-middle'
+      block: '.species .finished'
 
     new Step
       heading: 'Done Identifying and Marking'
@@ -133,7 +137,7 @@ define (require, exports, module) ->
         'You can use Talk to discuss images with other volunteers if you have questions or find something interesting.'
         'This concludes the tutorial. Now you\'re ready to dive in and complete some classifications on your own!'
       ]
-      attach: x: 'right', to: '.talk', at: x: 'left'
+      attach: x: 'right', to: '.talk p', at: x: 'left'
       style: width: 400
       arrowClass: 'right-middle'
       nextOn: click: '.talk button'
