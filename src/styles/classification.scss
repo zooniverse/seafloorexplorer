@@ -19,6 +19,7 @@
 
 	> .image {
 		@include box-sizing(border-box);
+		cursor: crosshair;
 		background: $white;
 		height: $classification-height;
 		position: relative;

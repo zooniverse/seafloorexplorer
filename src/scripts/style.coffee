@@ -3,17 +3,20 @@ define (require, exports, module) ->
 		label:
 			text:
 				fill: '#fff'
-				font: '11px "Open Sans", sans-serif'
+				font: 'bold 11px "Open Sans", sans-serif'
 				'text-anchor': 'start'
+				cursor: 'default'
 
 			deleteButton:
 				stroke: 'none'
 				'stroke-width': 0
+				cursor: 'pointer'
 
 				text:
 					fill: '#fff'
-					font: '11px "Open Sans", sans-serif'
+					font: 'bold 12px "Open Sans", sans-serif'
 					'text-anchor': 'start'
+					cursor: 'pointer'
 
 			rect:
 				stroke: 'none'
