@@ -420,7 +420,7 @@
 	padding: ($gutter-width / 2) 0;
 	position: absolute;
 	opacity: 0;
-	z-index: 5;
+	z-index: 50;
 
 	.content {
 		padding: ($gutter-width / 2) $gutter-width;
@@ -455,7 +455,7 @@
 	@include transition(opacity 0.25s ease-in-out);
 	background: transparentize($white, 0.75);
 	position: absolute;
-	z-index: 4;
+	z-index: 40;
 
 	&.open {
 		opacity: 1;
