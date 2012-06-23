@@ -5,5 +5,7 @@
 /build-*
 /beta
 
+/src/scripts/lib
+/src/styles/lib
 /scripts
 /styles
