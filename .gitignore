@@ -1,5 +1,9 @@
+# Created by `zoo server`
 /.zoo_server_pids
-/scripts
-/styles
+
+# Created by `zoo build`
 /build-*
 /beta
+
+/scripts
+/styles
