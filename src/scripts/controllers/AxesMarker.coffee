@@ -70,13 +70,9 @@ define (require, exports, module) ->
 			points = @annotation.value.points
 
 			grads = [
-				(points[0].y - points[1].y) / (points[0].x - points[1].x)
-				(points[2].y - points[3].y) / (points[2].x - points[3].x)
+				(points[0].y - points[1].y) / ((points[0].x - points[1].x) || 0.00001)
+				(points[2].y - points[3].y) / ((points[2].x - points[3].x) || 0.00001)
 			]
-
-			# Check for divide-by-zero errors.
-			for grad, i in grads
-				if isNaN(grad) or grad is Infinity or grad is -Infinity then grads[i] = 0.001
 
 			interX = ((points[2].y - points[0].y) + (grads[0] * points[0].x - grads[1] * points[2].x)) / (grads[0] - grads[1])
 			interY = grads[0] * (interX - points[0].x) + points[0].y
