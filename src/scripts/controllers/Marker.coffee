@@ -49,7 +49,7 @@ define (require, exports, module) ->
     askIfHalfVisible: =>
       dialog = new Dialog
         content: "Is at least half of that #{@annotation.value.species} visible in the image?"
-        buttons: [{'No': false}, {'Yes': true}]
+        buttons: [{'Yes': true}, {'No': false}]
         target: @picker.classifier.el.parent()
         className: 'classifier'
         done: (halfInValue) =>
