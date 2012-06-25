@@ -18,11 +18,17 @@ define (require, exports, module) ->
     name: 'Seafloor Explorer'
     slug: 'seafloor-explorer'
     description: 'Help explore the ocean floor!'
+
+    domain: 'seafloorExplorer.org'
     talkHost: 'http://talk.seafloorexplorer.org'
+
+    googleAnalytics: 'UA-1224199-30'
+
     cartoUser: 'brian-c'
     cartoApiKey: 'CARTO_API_KEY'
     cartoTable: 'seafloor_explorer_beta'
 
+  config.set
     app: new App
       el: '#main'
       languages: ['en']
