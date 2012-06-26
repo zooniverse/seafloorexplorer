@@ -78,11 +78,3 @@ define (require, exports, module) ->
 
     homeScoreboard: new Scoreboard
       el: '[data-page="home"] .scoreboard'
-
-  $ = require 'jQuery'
-  $(document).on 'click', "a[href^='#{config.talkHost}']", (e) ->
-    e.preventDefault()
-    alert '''
-      BETA NOTE
-      Talk for Seafloor Explorer is coming soon!
-    '''
