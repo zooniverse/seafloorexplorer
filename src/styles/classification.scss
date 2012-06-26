@@ -329,6 +329,7 @@
 					@include box-sizing(border-box);
 					border: 3px solid $white;
 					box-shadow: 0 3px 3px -3px transparentize($black, 0.33);
+					cursor: pointer;
 					display: block;
 					height: 130px;
 					width: 100%;

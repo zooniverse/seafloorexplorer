@@ -30,18 +30,27 @@ define (require, exports, module) ->
       ]
       attach: x: 'right', to: '[value="gravel"]', at: x: 'left'
       nextOn: click: '.ground-cover [value="gravel"]'
-      style: width: 260
+      style: width: 280
       arrowClass: 'right-middle'
       block: '.ground-cover .toggles button:not([value="gravel"]), .ground-cover .finished'
 
     new Step
       content: [
-        '...and a bit of shell as well.'
+        '...and a bit of shell...'
       ]
       attach: x: 'right', to: '[value="shell"]', at: x: 'left'
       nextOn: click: '.ground-cover [value="shell"]'
       arrowClass: 'right-middle'
       block: '.ground-cover .toggles button:not([value="shell"]), .ground-cover .finished'
+
+    new Step
+      content: [
+        '...and there\'s a big boulder on the left.'
+      ]
+      attach: x: 'right', to: '[value="boulder"]', at: x: 'left'
+      nextOn: click: '.ground-cover [value="boulder"]'
+      arrowClass: 'right-middle'
+      block: '.ground-cover .toggles button:not([value="boulder"]), .ground-cover .finished'
 
     new Step
       content: [
@@ -113,7 +122,7 @@ define (require, exports, module) ->
       heading: 'Other species'
       content: [
         'If there are species in the image other than the ones in the list, we\'d like to know!'
-        'There\'s a sea cucumber toward the bottom right of this image, so let\'s say "Yes"!'
+        'There are a few sea sponges in this image, so let\'s answer "Yes" to this question.'
       ]
       attach: x: 'right', to: '.other-creatures [value="yes"]', at: x: 'left'
       style: width: 310
