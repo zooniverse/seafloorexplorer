@@ -159,8 +159,8 @@ define (require, exports, module) ->
       @movementCircle ||= @createStrayCircle()
 
       fauxPoint =
-        x: Marker::limit (e.pageX - left) / width, 0.02
-        y: Marker::limit (e.pageY - top) / height, 0.04
+        x: Marker::limit (e.pageX - left) / width, 0.01
+        y: Marker::limit (e.pageY - top) / height, 0.01
 
       @movementCircle.attr
         cx: fauxPoint.x * width
