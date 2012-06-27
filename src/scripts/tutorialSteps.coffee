@@ -80,7 +80,7 @@ define (require, exports, module) ->
       ]
       attach: y: 'top', to: '.creature-picker', at: y: 'top'
       style: width: 490
-      nextOn: 'mouseup': '#classifier'
+      nextOn: 'create-half-axes-marker': '#classifier'
       arrowClass: 'down-center'
       block: '.species .finished'
 
@@ -91,7 +91,7 @@ define (require, exports, module) ->
       ]
       attach: x: 'left', to: '.creature-picker', at: x: 'left', y: 0.67
       style: width: 310
-      nextOn: 'create-marking': '#classifier'
+      nextOn: 'create-axes-marker': '#classifier'
       arrowClass: 'right-middle'
       block: '.species .finished'
 

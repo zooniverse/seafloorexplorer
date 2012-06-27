@@ -142,7 +142,7 @@ define (require, exports, module) ->
 
       e.preventDefault?() # Disable text selection.
 
-    dragThreshold: 10
+    dragThreshold: 3
     mouseMoves: 0
     movementCircle: null
     movementAxis: null
@@ -194,6 +194,8 @@ define (require, exports, module) ->
       if @strayCircles.length is 2
         if @selectedMarkerType is 'circle'
           marker = @createCircleMarker()
+        else
+          @el.trigger 'create-half-axes-marker'
       else if @strayCircles.length is 3
         @strayCircles.pop().remove()
       else if @strayCircles.length is 4
@@ -221,12 +223,16 @@ define (require, exports, module) ->
       marker = new CircleMarker
         annotation: marking
         picker: @
+      @el.trigger 'create-circle-marker'
+      marker
 
     createAxesMarker: =>
       marking = @createMarking()
       marker = new AxesMarker
         annotation: marking
         picker: @
+      @el.trigger 'create-axes-marker'
+      marker
 
     createMarking: =>
       {width, height} = @getSize()
@@ -245,7 +251,6 @@ define (require, exports, module) ->
           points: points
 
       @el.trigger 'create-marking'
-
       annotation
 
     onTouchStart: (e) =>
