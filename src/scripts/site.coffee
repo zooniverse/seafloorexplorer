@@ -1,7 +1,7 @@
 define (require, exports, module) ->
   config = require 'zooniverse/config'
 
-  App = require 'zooniverse/models/App'
+  App = require 'zooniverse/controllers/App'
   Project = require 'zooniverse/models/Project'
   Workflow = require 'zooniverse/models/Workflow'
   Subject = require 'zooniverse/models/Subject'
@@ -25,7 +25,6 @@ define (require, exports, module) ->
     googleAnalytics: 'UA-1224199-30'
 
     cartoUser: 'brian-c'
-    cartoApiKey: 'CARTO_API_KEY'
     cartoTable: 'seafloor_explorer_beta'
 
   config.set
