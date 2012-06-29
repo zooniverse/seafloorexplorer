@@ -74,9 +74,25 @@
       > li {
         @include box-sizing(border-box);
         display: block;
+        float: left;
         margin: 0;
         padding: 0 0 $gutter-width $gutter-width;
-        float: left;
+        position: relative;
+
+        .delete {
+          @include transition(opacity 0.25s ease-in-out);
+          background: transparent;
+          border: 0;
+          color: $white;
+          cursor: pointer;
+          font-weight: bold;
+          opacity: 0;
+          padding: 0;
+          position: absolute;
+          right: 3px;
+          top: 3px;
+          z-index: 1;
+        }
 
         > a {
           display: block;
@@ -85,6 +101,7 @@
 
           .thumbnail {
             @include box-sizing(border-box);
+            background: #ccc;
             border-radius: 4px;
             box-shadow: 0 1px 0 #fff;
             display: block;
@@ -102,11 +119,12 @@
             position: absolute;
             width: 100%;
           }
+        }
 
-          &:hover {
-            .info {
-              opacity: 1;
-            }
+        &:hover {
+          .delete,
+          .info {
+            opacity: 1;
           }
         }
       }

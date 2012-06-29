@@ -6,6 +6,7 @@ define (require, exports, module) ->
 
     """
       <li>
+        <button data-favorite="#{favorite.id}" class="delete">&times;</button>
         <a href="#{subject.talkHref()}">
           <img src="#{subject.location.thumbnail}" class="thumbnail" />
           <span class="info">
