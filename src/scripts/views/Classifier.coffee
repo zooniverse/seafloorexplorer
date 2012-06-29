@@ -76,7 +76,10 @@ define (require, exports, module) ->
 						<span class="value"></span> kts</div>
 				</div>
 
-				<button class="favorite">Add to my favorites</button>
+				<div class="favorite">
+					<div class="create"><button>Add to my favorites</button></div>
+					<div class="destroy">Favorite added! <button>Undo</button></div>
+				</div>
 
 				<div class="talk">
 					<p>Would you like to discuss this image in Talk?</p>

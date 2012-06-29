@@ -2,7 +2,7 @@ define (require, exports, module) ->
   $ = require 'jQuery'
 
   config = require 'zooniverse/config'
-  {delay, remove} = require 'zooniverse/util'
+  {delay, remove, arraysMatch} = require 'zooniverse/util'
 
   ZooniverseClassifier = require 'zooniverse/controllers/Classifier'
 
@@ -39,7 +39,8 @@ define (require, exports, module) ->
       'click .species .toggles button': 'changeSpecies'
       'click .species .other-creatures button': 'changeOther'
       'click .species .finished': 'finishSpecies'
-      'click .summary .favorite': 'addFavorite'
+      'click .favorite .create button': 'createFavorite'
+      'click .favorite .destroy button': 'destroyFavorite'
       'click .map-toggle img': 'toggleMap'
       'click .talk [value="yes"]': 'goToTalk'
       'click .talk [value="no"]': 'nextSubjects'
@@ -53,7 +54,8 @@ define (require, exports, module) ->
       '.species .other-creatures [value="yes"]': 'otherYes'
       '.species .other-creatures [value="no"]': 'otherNo'
       '.species .finished': 'speciesFinishedButton'
-      '.summary .favorite': 'favoriteButton'
+      '.summary .favorite .create': 'favoriteCreation'
+      '.summary .favorite .destroy': 'favoriteDestruction'
       '.summary .map-toggle .thumbnail img': 'imageThumbnail'
       '.summary .map-toggle .map img': 'mapThumbnail'
 
@@ -78,8 +80,7 @@ define (require, exports, module) ->
           <li><button value="#{id}">#{description}</button></li>
         """
 
-      User.bind 'sign-in', @updateFavoriteButton
-      @updateFavoriteButton()
+      User.bind 'sign-in', @updateFavoriteButtons
 
     reset: =>
       @picker.reset()
@@ -105,6 +106,8 @@ define (require, exports, module) ->
           ?center=#{@workflow.selection[0].coords[0]},#{@workflow.selection[0].coords[1]}
           &zoom=10&size=745x570&maptype=satellite&sensor=false
         """.replace /\n/g, ''
+
+        @updateFavoriteButtons()
 
         @el.toggleClass 'show-map', false
 
@@ -148,11 +151,10 @@ define (require, exports, module) ->
 
       @speciesFinishedButton.attr 'disabled', not @otherSpeciesAnnotation.value.otherSpecies?
 
-    updateFavoriteButton: =>
-      if User.current?
-        @favoriteButton.css display: ''
-      else
-        @favoriteButton.css display: 'none'
+    updateFavoriteButtons: =>
+      signedIn = User.current?
+      tutorial = arraysMatch @workflow.selection, @workflow.tutorialSubjects
+      @el.toggleClass 'can-favorite', signedIn and not tutorial
 
     toggleGroundCover: (e) =>
       value = $(e.target).val()

@@ -361,6 +361,23 @@
 				}
 			}
 
+			.favorite {
+				display: none;
+
+				.create {}
+
+				.destroy {
+					display: none;
+
+					button {
+						display: inline-block;
+						font-size: 10px;
+						padding: 0 2px;
+						width: auto;
+					}
+				}
+			}
+
 			button {
 				@include box-sizing(border-box);
 				background: $blue-darker;
@@ -406,6 +423,24 @@
 
 			> .map > img {
 				display: none;
+			}
+		}
+	}
+
+	&.can-favorite > .options > .summary {
+		.favorite {
+			display: block;
+		}
+	}
+
+	&.is-favored > .options > .summary {
+		.favorite {
+			.create {
+				display: none;
+			}
+
+			.destroy {
+				display: block;
 			}
 		}
 	}
