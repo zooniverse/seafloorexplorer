@@ -55,10 +55,7 @@ define (require, exports, module) ->
 			@boundingCircle.attr
 				cx: centerPoint.x * w
 				cy: centerPoint.y * h
-				r: do ->
-					aSquared = Math.pow (centerPoint.x * w) - (radiusPoint.x * w), 2
-					bSquared = Math.pow (centerPoint.y * h) - (radiusPoint.y * h), 2
-					Math.sqrt aSquared + bSquared
+				r: @getRadius centerPoint, radiusPoint
 
 		radiusHandleDrag: (dx, dy) =>
 			@moved = true
@@ -71,11 +68,18 @@ define (require, exports, module) ->
 
 			@annotation.trigger 'change'
 
+		getRadius: (centerPoint, radiusPoint) ->
+			{width: w, height: h} = @picker.getSize()
+			aSquared = Math.pow (centerPoint.x * w) - (radiusPoint.x * w), 2
+			bSquared = Math.pow (centerPoint.y * h) - (radiusPoint.y * h), 2
+			Math.sqrt aSquared + bSquared
+
 		select: =>
 			super
 
 			{width: w, height: h} = @picker.getSize()
 
+			centerPoint = @annotation.value.points[0]
 			radiusPoint = @annotation.value.points[@annotation.value.points.length - 1]
 			@radiusHandle.animate
 				cx: radiusPoint.x * w
@@ -87,6 +91,7 @@ define (require, exports, module) ->
 				250
 
 			@boundingCircle.animate
+				r: @getRadius centerPoint, radiusPoint
 				opacity: 1
 				250
 
@@ -106,6 +111,7 @@ define (require, exports, module) ->
 				125
 
 			@boundingCircle.animate
+				r: 0
 				opacity: 0
 				250
 
