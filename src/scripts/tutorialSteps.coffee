@@ -145,6 +145,7 @@ define (require, exports, module) ->
       content: [
         'You can use Talk to discuss images with other volunteers if you have questions or find something interesting.'
         'This concludes the tutorial. Now you\'re ready to dive in and complete some classifications on your own!'
+        'If you\'re ever unsure of what to mark, you can always consult the field guide on the "About" page for descriptions of the ground covers and species. You can then return to the "Classify" page when you\'re ready.'
       ]
       attach: x: 'right', to: '.talk p', at: x: 'left'
       style: width: 400
