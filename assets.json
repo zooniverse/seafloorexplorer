@@ -3,7 +3,6 @@
 	{"https://raw.github.com/jrburke/almond/latest/almond.js": "scripts/lib/almond.js"},
 
 	{"http://code.jquery.com/jquery-1.7.2.js": "scripts/lib/jquery.js"},
-	{"https://raw.github.com/tlianza/ajaxHooks/master/src/ajax/xdr.js": "scripts/lib/xdr.js"},
 
 	{"https://github.com/maccman/spine/raw/master/lib/spine.js": "scripts/lib/spine.js"},
 
