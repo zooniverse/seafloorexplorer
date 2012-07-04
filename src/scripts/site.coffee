@@ -41,9 +41,6 @@ define (require, exports, module) ->
             new Workflow
               id: '4fdf8fb3c32dab6c95000002'
               devID: '4fa408de54558f3d6a000002'
-              controller: new Classifier
-                el: '#classifier'
-                tutorialSteps: tutorialSteps
 
               tutorialSubjects: [
                 new Subject
@@ -66,6 +63,11 @@ define (require, exports, module) ->
       ]
 
   config.set
+    classifier: new Classifier
+      el: '#classifier'
+      tutorialSteps: tutorialSteps
+      workflow: config.app.projects[0].workflows[0]
+
     profile: new Profile
       el: '[data-page="profile"]'
 
