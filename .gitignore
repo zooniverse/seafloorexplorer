@@ -9,3 +9,6 @@
 /src/styles/lib
 /scripts
 /styles
+
+# Edited by developer per-machine
+src/scripts/ids.coffee
