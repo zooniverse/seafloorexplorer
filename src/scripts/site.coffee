@@ -1,4 +1,6 @@
 define (require, exports, module) ->
+  $ = require 'jQuery'
+
   config = require 'zooniverse/config'
   ids = require 'ids'
 
@@ -12,6 +14,7 @@ define (require, exports, module) ->
   Map = require 'zooniverse/controllers/Map'
   Scoreboard = require 'controllers/Scoreboard'
   Profile = require 'controllers/Profile'
+  ImageFlipper = require 'controllers/ImageFlipper'
 
   config.set
     name: 'Seafloor Explorer'
@@ -73,6 +76,10 @@ define (require, exports, module) ->
 
     homeScoreboard: new Scoreboard
       el: '[data-page="home"] .scoreboard'
+
+  for el in $('[data-image-flipper]')
+    current = $(el).attr 'data-image-flipper'
+    new ImageFlipper {el, current}
 
   devRefs =
     config: require 'zooniverse/config'
