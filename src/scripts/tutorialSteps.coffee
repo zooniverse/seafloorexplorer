@@ -5,10 +5,11 @@ define (require, exports, module) ->
     new Step
       heading: 'Welcome to Seafloor Explorer!'
       content: [
-        'This tutorial will step you through the classification process.'
+        'This short tutorial will guide you through the classification process.'
+        'Please read each step carefully and follow the instructions.'
       ]
       continueText: 'Begin'
-      style: width: 410
+      style: width: 450
       attach: to: '.creature-picker'
       block: '.options'
 
@@ -16,6 +17,7 @@ define (require, exports, module) ->
       heading: 'Identify ground cover'
       content: [
         'First, choose one or more ground cover from the list that best describes what you see in the image'
+        'Consult the field guide to learn how to identify the different ground covers.'
         'This one looks like mostly sand...'
       ]
       attach: x: 'right', to: '[value="sand"]', at: x: 'left'
@@ -64,6 +66,7 @@ define (require, exports, module) ->
       heading: 'Identify species'
       content: [
         'Next, identify the species in the image.'
+        'Consult the field guide to learn how to identify and mark different species. Make sure you don\'t mark dead creatures!'
         'We\'ll mark all the fish first. Choose "Fish" from the list of species.'
       ]
       attach: x: 'right', to: '[value="fish"]', at: x: 'left'
