@@ -64,4 +64,26 @@
       margin: $gutter-width {right: 0;};
     }
   }
+
+  [data-page="organizations"] {
+    text-align: center;
+
+    figure {
+      @include box-sizing(border-box);
+      display: inline-block;
+      height: 125px;
+      margin: 0 0 3px;
+      line-height: 140px;
+      padding: 10px;
+      vertical-align: middle;
+      width: 19%;
+
+      img {
+        max-height: 100px;
+        max-width: 100px;
+      }
+
+      figcaption {}
+    }
+  }
 }
