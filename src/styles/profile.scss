@@ -129,6 +129,17 @@
         }
       }
     }
+
+    p.more {
+      display: none;
+      text-align: right;
+
+      button {
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+      }
+    }
   }
 
   > .recents {
@@ -145,6 +156,17 @@
         border-top: 1px solid $gray-light;
         display: block;
         padding: 10px;
+      }
+    }
+
+    p.more {
+      display: none;
+      text-align: right;
+
+      button {
+        background: transparent;
+        border: 0;
+        cursor: pointer;
       }
     }
 
@@ -185,6 +207,10 @@
   &.has-groups > .groups {
     > .none {
       display: none;
+    }
+
+    > p.more {
+      display: block;
     }
 
     > ul {
