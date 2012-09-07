@@ -16,7 +16,7 @@ define (require, exports, module) ->
     new Step
       heading: 'Identify ground cover'
       content: [
-        'First, choose one or more ground cover from the list that best describes what you see in the image'
+        'First, choose one or more ground cover from the list that best describes what you see in the image.'
         'Consult the field guide to learn how to identify the different ground covers.'
         'This one looks like mostly sand...'
       ]
