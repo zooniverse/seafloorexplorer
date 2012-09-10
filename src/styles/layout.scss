@@ -226,3 +226,15 @@ body {
     }
   }
 }
+
+.map .cartodb-logo {
+  bottom: 2px;
+  opacity: 0.5;
+  position: absolute;
+  right: 8px;
+  z-index: 2;
+
+  &:hover {
+    opacity: 1;
+  }
+}

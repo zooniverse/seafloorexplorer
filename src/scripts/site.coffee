@@ -24,8 +24,8 @@ define (require, exports, module) ->
     domain: 'seafloorExplorer.org'
     talkHost: 'http://talk.seafloorexplorer.org'
 
-    cartoUser: 'brian-c'
-    cartoTable: 'seafloor_explorer_beta'
+    cartoUser: 'the-zooniverse'
+    cartoTable: 'seafloor_explorer'
 
     googleAnalytics: 'UA-1224199-30'
 
@@ -73,6 +73,7 @@ define (require, exports, module) ->
       longitude: -75
       zoom: 5
       layers: ["http://#{config.cartoUser}.cartodb.com/tiles/#{config.cartoTable}/{z}/{x}/{y}.png"]
+      cartoLogo: true
 
     homeScoreboard: new Scoreboard
       el: '[data-page="home"] .scoreboard'
