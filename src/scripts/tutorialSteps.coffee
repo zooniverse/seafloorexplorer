@@ -102,8 +102,57 @@ define (require, exports, module) ->
       heading: 'Identifying species'
       content: [
         'We\'ve finished marking all the fish in this image.'
-        'Scallops and crustaceans are marked exactly the same way as fish.'
-        'Seastars are a little different, so let\'s do one now. Choose "seastar" from the species list.'
+        'Next let\'s try a scallop. Select "scallop" from the species list.'
+      ]
+      attach: x: 'right', to: '[value="scallop"]',  at: x: 'left'
+      style: width: 460
+      nextOn: click: '.species .toggles button:contains("Scallop")'
+      arrowClass: 'right-middle'
+      block: '.species .toggles button:not(:contains("Scallop")), .species .finished'
+
+
+
+    new Step
+      heading: 'Ignore dead scallops'
+      content: [
+        'This scallop is dead. Its shell is pale and has a hole in it.'
+        'The field guide has other tips on how to identify dead scallops.'
+        '<strong>Do not mark dead scallops!</strong> Let\'s move on to a living one.'
+      ]
+      style: width: 480
+      attach: x: 'right', to: '.creature-picker', at: x: 0.8, y: 0.5
+      arrowClass: 'right-middle'
+      block: '#classifier'
+
+    new Step
+      heading: 'Mark living scallops'
+      content: [
+        'Here\'s a nice, colorful living scallop. We\'ll mark it the same way we marked the fish.'
+        'Drag your mouse from the base of the flat "hinge" to the round end of the scallop...'
+      ]
+      attach: x: 'left', to: '.creature-picker', at: x: 0.3, y: 0.1
+      style: width: 440
+      nextOn: 'create-half-axes-marker': '#classifier'
+      arrowClass: 'left-middle'
+      block: '.species .finished'
+
+    new Step
+      content: [
+        '...then drag across the width of the scallop.'
+      ]
+      attach: x: 'left', to: '.creature-picker', at: x: 0.33, y: 0.1
+      style: width: 370
+      nextOn: 'create-axes-marker': '#classifier'
+      arrowClass: 'left-middle'
+      block: '.species .finished'
+
+
+
+    new Step
+      heading: 'Identifying species'
+      content: [
+        'Crustaceans are marked exactly the same way as fish and scallops. We don\'t see any here, but there is a seastar.'
+        'Seastars are a little different, so let\'s mark this one now. Choose "seastar" from the species list.'
       ]
       attach: x: 'right', to: '[value="seastar"]', at: x: 'left'
       style: width: 460
