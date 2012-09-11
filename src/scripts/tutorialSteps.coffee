@@ -102,7 +102,8 @@ define (require, exports, module) ->
       heading: 'Identifying species'
       content: [
         'We\'ve finished marking all the fish in this image.'
-        'Next we\'ll mark the seastars. Choose "seastar" from the species list.'
+        'Scallops and crustaceans are marked exactly the same as fish.'
+        'Seastars are a little different, so let\'s do one now. Choose "seastar" from the species list.'
       ]
       attach: x: 'right', to: '[value="seastar"]', at: x: 'left'
       style: width: 460
