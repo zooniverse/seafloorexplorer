@@ -147,7 +147,7 @@ define (require, exports, module) ->
     new Step
       heading: 'Great job!'
       content: [
-        'You can use Talk to discuss images with other volunteers if you have questions or find something interesting.'
+        'You can use Talk to discuss images with other volunteers if you have questions or find something interesting. Talk will open in a new window - you can just close it to get back to the main classification interface.'
         'This concludes the tutorial. Now you\'re ready to dive in and complete some classifications on your own!'
         'If you\'re ever unsure of what to mark, you can always consult the field guide on the "About" page for descriptions of the ground covers and species. You can then return to the "Classify" page when you\'re ready.'
       ]
