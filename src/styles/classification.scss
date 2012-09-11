@@ -461,6 +461,22 @@
 
 	.content {
 		padding: ($gutter-width / 2) $gutter-width;
+
+		.zooniverse-login-form {
+			form {
+				margin-bottom: 10px;
+
+				label {
+					display: block;
+					margin: 10px 0;
+
+					> span {
+						display: inline-block;
+						width: 10em;
+					}
+				}
+			}
+		}
 	}
 
 	.buttons {

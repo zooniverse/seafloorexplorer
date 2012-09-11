@@ -121,6 +121,7 @@ define (require, exports, module) ->
         @el.find('.summary .speed .value').html @classification.subjects[0].metadata.speed
 
     render: =>
+      super
       @renderGroundCoverPage()
       @renderSpeciesPage()
 
