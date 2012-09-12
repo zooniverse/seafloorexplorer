@@ -10,6 +10,6 @@ define (require, exports, module) ->
     ids =
       project: 'sea_floor'
       workflow: '4fdf8fb3c32dab6c95000002'
-      tutorialSubject: '4fea1ca7c32dab27fa000002'
+      tutorialSubject: '5050e725c4996131a801e0c5'
 
   module.exports = ids
