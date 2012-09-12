@@ -86,6 +86,14 @@ define (require, exports, module) ->
 					<button value="yes">Yes</button>
 					<button value="no">No</button>
 				</div>
+
+				<div class="share">
+					<p>Share this on...</p>
+					<p>
+						<a href="#" target="_blank" class="facebook">Facebook</a>
+						<a href="#" target="_blank" class="twitter">Twitter</a>
+					</p>
+				</div>
 			</div>
 		</div>
 	'''

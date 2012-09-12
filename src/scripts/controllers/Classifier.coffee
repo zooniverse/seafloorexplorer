@@ -58,6 +58,8 @@ define (require, exports, module) ->
       '.summary .favorite .destroy': 'favoriteDestruction'
       '.summary .map-toggle .thumbnail img': 'imageThumbnail'
       '.summary .map-toggle .map img': 'mapThumbnail'
+      '.summary .share .twitter': 'twitterLink'
+      '.summary .share .facebook': 'facebookLink'
 
     constructor: ->
       super
@@ -119,6 +121,9 @@ define (require, exports, module) ->
         @el.find('.summary .salinity .value').html @classification.subjects[0].metadata.salinity
         @el.find('.summary .temperature .value').html @classification.subjects[0].metadata.temperature
         @el.find('.summary .speed .value').html @classification.subjects[0].metadata.speed
+
+        @twitterLink.attr href: @workflow.selection[0].twitterHref()
+        @facebookLink.attr href: @workflow.selection[0].facebookHref()
 
     render: =>
       super
