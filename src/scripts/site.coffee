@@ -32,6 +32,7 @@ define (require, exports, module) ->
   config.set
     app: new App
       el: '#main'
+      appName: 'Seafloor Explorer'
       languages: ['en']
 
       projects: new Project
