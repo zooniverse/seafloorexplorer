@@ -115,14 +115,15 @@ define (require, exports, module) ->
 
         @el.toggleClass 'show-map', false
 
-        @el.find('.summary .latitude .value').html @classification.subjects[0].coords[0]
-        @el.find('.summary .longitude .value').html @classification.subjects[0].coords[1]
-        @el.find('.summary .depth .value').html @classification.subjects[0].metadata.depth
-        @el.find('.summary .altitude .value').html @classification.subjects[0].metadata.alt
-        # @el.find('.summary .heading .value').html @classification.subjects[0].metadata.heading
-        @el.find('.summary .salinity .value').html @classification.subjects[0].metadata.salinity
-        @el.find('.summary .temperature .value').html @classification.subjects[0].metadata.temp
-        @el.find('.summary .speed .value').html @classification.subjects[0].metadata.speed
+        meta = @classification.subjects[0].metadata
+        @el.find('.summary .latitude .value').html @classification.subjects[0].coords[0] || '?'
+        @el.find('.summary .longitude .value').html @classification.subjects[0].coords[1] || '?'
+        @el.find('.summary .depth .value').html meta.depth || '?'
+        @el.find('.summary .altitude .value').html meta.alt || meta.altitude || '?'
+        # @el.find('.summary .heading .value').html meta.heading || '?'
+        @el.find('.summary .salinity .value').html meta.sal || meta.salinity || '?'
+        @el.find('.summary .temperature .value').html meta.temp || meta.temperature || '?'
+        @el.find('.summary .speed .value').html meta.speed || '?'
 
         @twitterLink.attr href: @workflow.selection[0].twitterHref()
         @facebookLink.attr href: @workflow.selection[0].facebookHref()
