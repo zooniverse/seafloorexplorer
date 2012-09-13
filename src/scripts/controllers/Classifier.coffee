@@ -13,6 +13,7 @@ define (require, exports, module) ->
   CreaturePicker = require 'controllers/CreaturePicker'
   MarkerIndicator = require 'controllers/MarkerIndicator'
   Pager = require 'zooniverse/controllers/Pager'
+  GoogleAnalytics = require 'zooniverse/controllers/GoogleAnalytics'
 
   TEMPLATE = require 'views/Classifier'
 
@@ -45,6 +46,7 @@ define (require, exports, module) ->
       'click .talk [value="yes"]': 'goToTalk'
       'click .talk [value="no"]': 'nextSubjects'
       'click .tutorial-again': 'startTutorial'
+      'click .summary .share a': 'onShareLinkClick'
 
     elements:
       '.steps': 'steps'
@@ -205,5 +207,8 @@ define (require, exports, module) ->
     toggleMap: (show) =>
       unless typeof show is 'boolean' then show = (do -> arguments[0])
       @el.toggleClass 'show-map', show
+
+    onShareLinkClick: (e) =>
+      GoogleAnalytics.track $(e.target).attr 'href'
 
   module.exports = Classifier

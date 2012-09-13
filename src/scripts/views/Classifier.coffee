@@ -88,9 +88,10 @@ define (require, exports, module) ->
 				</div>
 
 				<div class="share">
-					<p>Share this on...</p>
+					<p>Share this image on...</p>
 					<p>
 						<a href="#" target="_blank" class="facebook">Facebook</a>
+						or
 						<a href="#" target="_blank" class="twitter">Twitter</a>
 					</p>
 				</div>
