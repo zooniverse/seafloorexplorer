@@ -62,9 +62,9 @@ define (require, exports, module) ->
 					<div class="altitude">
 						<span class="label">Altitude</span>
 						<span class="value"></span> M</div>
-					<div class="heading">
+					<!--<div class="heading">
 						<span class="label">Heading</span>
-						<span class="value"></span>°</div>
+						<span class="value"></span>°</div>-->
 					<div class="salinity">
 						<span class="label">Salinity</span>
 						<span class="value"></span> PSU</div>

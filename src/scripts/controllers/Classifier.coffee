@@ -118,10 +118,10 @@ define (require, exports, module) ->
         @el.find('.summary .latitude .value').html @classification.subjects[0].coords[0]
         @el.find('.summary .longitude .value').html @classification.subjects[0].coords[1]
         @el.find('.summary .depth .value').html @classification.subjects[0].metadata.depth
-        @el.find('.summary .altitude .value').html @classification.subjects[0].metadata.altitude
-        @el.find('.summary .heading .value').html @classification.subjects[0].metadata.heading
+        @el.find('.summary .altitude .value').html @classification.subjects[0].metadata.alt
+        # @el.find('.summary .heading .value').html @classification.subjects[0].metadata.heading
         @el.find('.summary .salinity .value').html @classification.subjects[0].metadata.salinity
-        @el.find('.summary .temperature .value').html @classification.subjects[0].metadata.temperature
+        @el.find('.summary .temperature .value').html @classification.subjects[0].metadata.temp
         @el.find('.summary .speed .value').html @classification.subjects[0].metadata.speed
 
         @twitterLink.attr href: @workflow.selection[0].twitterHref()
