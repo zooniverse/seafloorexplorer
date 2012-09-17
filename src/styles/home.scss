@@ -5,6 +5,19 @@
     height: 250px;
     width: 100%;
   }
+  
+  .content p{
+    width: 740px;
+    margin-top: 4px;
+    font-weight: 400;
+  }
+  
+  .main > section > section.content {
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+  }
 
   .dive-in {
     @include linear-gradient($orange, $orange-dark);
@@ -15,7 +28,9 @@
     color: $white;
     float: right;
     font-size: 20px;
-    padding: ($gutter-width / 2) ($gutter-width * 3);
+    padding: ($gutter-width / 2) (($gutter-width * 3) - 5);
+    margin: 15px 15px 0px 0px;
+    line-height: 35px;
     text: {
       decoration: none;
       shadow: 0 1px 0px $orange-dark;
