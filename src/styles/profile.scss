@@ -70,13 +70,14 @@
       @include contain-floats;
       margin: 0;
       padding: 0;
+      border-top: 1px solid #DBDBDB;
 
       > li {
         @include box-sizing(border-box);
         display: block;
         float: left;
         margin: 0;
-        padding: 0 0 $gutter-width $gutter-width;
+        padding: 10px 0px $gutter-width $gutter-width;
         position: relative;
 
         .delete {
