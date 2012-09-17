@@ -44,8 +44,8 @@ define (require, exports, module) ->
           tutorialSubjects: new Subject
               id: ids.tutorialSubject
               location:
-                standard: "subjects/standard/tutorial.jpg"
-                thumbnail: "subjects/standard/tutorial.jpg"
+                standard: "http://www.seafloorexplorer.org/subjects/standard/tutorial.jpg"
+                thumbnail: "http://www.seafloorexplorer.org/subjects/standard/tutorial.jpg"
               coords: [0, 0]
               metadata:
                 depth: 0
@@ -56,7 +56,7 @@ define (require, exports, module) ->
                 speed: 0
                 mm_pix: 1
 
-  Map::apiKey = '21a5504123984624a5e1a856fc00e238' # TODO: This is Brian's.
+  Map::apiKey = '21a5504123984624a5e1a856fc00e238'
   Map::tilesId = 65990
 
   config.set
