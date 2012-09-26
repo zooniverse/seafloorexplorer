@@ -73,7 +73,7 @@ define (require, exports, module) ->
       latitude: 40
       longitude: -75
       zoom: 5
-      layers: ["http://#{config.cartoUser}.cartodb.com/tiles/#{config.cartoTable}/{z}/{x}/{y}.png"]
+      layers: ["http://d3clx83h4jp73a.cloudfront.net/tiles/#{config.cartoTable}/{z}/{x}/{y}.png"]
       cartoLogo: true
 
     homeScoreboard: new Scoreboard
