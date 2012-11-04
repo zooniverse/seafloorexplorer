@@ -16,6 +16,14 @@ define (require, exports, module) ->
   Profile = require 'controllers/Profile'
   ImageFlipper = require 'controllers/ImageFlipper'
 
+  noop = ->
+  window.console ||=
+    log: noop
+    debug: noop
+    info: noop
+    warn: noop
+    error: noop
+
   config.set
     name: 'Seafloor Explorer'
     slug: 'seafloor-explorer'
