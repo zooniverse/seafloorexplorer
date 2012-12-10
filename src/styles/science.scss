@@ -1,0 +1,19 @@
+@import "common";
+
+.main [data-page="science"] {
+  > section > div {
+    img.science {
+      display: inline;
+      float: right;
+      margin: $gutter-width {right: 0;};
+      width: 300px;
+    }
+    
+    img.science.left {
+      display: inline;
+      float: left;
+      margin: $gutter-width {left: 0;};
+      width: 300px;
+    }
+  }
+}
