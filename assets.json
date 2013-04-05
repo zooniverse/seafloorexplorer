@@ -6,7 +6,7 @@
 
 	{"https://github.com/maccman/spine/raw/master/lib/spine.js": "scripts/lib/spine.js"},
 
-	{"http://stringencoders.googlecode.com/svn/trunk/javascript/base64.js": "scripts/lib/base64.js"},
+	{"https://raw.github.com/zooniverse/Zooniverse/master/vendor/base64.js": "scripts/lib/base64.js"},
 
 	{"http://github.com/DmitryBaranovskiy/raphael/raw/master/raphael.js": "scripts/lib/raphael.js"},
 
