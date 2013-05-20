@@ -12,6 +12,10 @@ define (require, exports, module) ->
       style: width: 450
       attach: to: '.creature-picker'
       block: '.options'
+      onLeave: -> 
+        sleuth?.logCustomEvent
+          type: 'tutorial-step'
+          value: 1
 
     new Step
       heading: 'Identify ground cover'
@@ -25,6 +29,10 @@ define (require, exports, module) ->
       arrowClass: 'right-middle'
       style: width: 360
       block: '.ground-cover .toggles button:not([value="sand"]), .ground-cover .finished'
+      onLeave: -> 
+        sleuth?.logCustomEvent
+          type: 'tutorial-step'
+          value: 2
 
     new Step
       content: [
@@ -35,6 +43,10 @@ define (require, exports, module) ->
       style: width: 280
       arrowClass: 'right-middle'
       block: '.ground-cover .toggles button:not([value="gravel"]), .ground-cover .finished'
+      onLeave: -> 
+        sleuth?.logCustomEvent
+          type: 'tutorial-step'
+          value: 3
 
     new Step
       content: [
@@ -44,6 +56,10 @@ define (require, exports, module) ->
       nextOn: click: '.ground-cover [value="shell"]'
       arrowClass: 'right-middle'
       block: '.ground-cover .toggles button:not([value="shell"]), .ground-cover .finished'
+      onLeave: -> 
+        sleuth?.logCustomEvent
+          type: 'tutorial-step'
+          value: 4
 
     new Step
       content: [
@@ -53,6 +69,10 @@ define (require, exports, module) ->
       nextOn: click: '.ground-cover [value="boulder"]'
       arrowClass: 'right-middle'
       block: '.ground-cover .toggles button:not([value="boulder"]), .ground-cover .finished'
+      onLeave: -> 
+        sleuth?.logCustomEvent
+          type: 'tutorial-step'
+          value: 5
 
     new Step
       content: [
@@ -61,6 +81,10 @@ define (require, exports, module) ->
       attach: x: 'right', to: '.ground-cover .finished', at: x: 'left'
       nextOn: click: '.ground-cover .finished'
       arrowClass: 'right-middle'
+      onLeave: -> 
+        sleuth?.logCustomEvent
+          type: 'tutorial-step'
+          value: 6
 
     new Step
       heading: 'Identify species'
@@ -74,6 +98,10 @@ define (require, exports, module) ->
       nextOn: click: '.species [value="fish"]'
       arrowClass: 'right-middle'
       block: '.species .toggles button:not([value="fish"]), .species .finished'
+      onLeave: -> 
+        sleuth?.logCustomEvent
+          type: 'tutorial-step'
+          value: 7
 
     new Step
       heading: 'Marking'
@@ -86,6 +114,10 @@ define (require, exports, module) ->
       nextOn: 'create-half-axes-marker': '#classifier'
       arrowClass: 'down-center'
       block: '.species .finished'
+      onLeave: -> 
+        sleuth?.logCustomEvent
+          type: 'tutorial-step'
+          value: 8
 
     new Step
       content: [
@@ -97,6 +129,10 @@ define (require, exports, module) ->
       nextOn: 'create-axes-marker': '#classifier'
       arrowClass: 'right-middle'
       block: '.species .finished'
+      onLeave: -> 
+        sleuth?.logCustomEvent
+          type: 'tutorial-step'
+          value: 9
 
     new Step
       heading: 'Identifying species'
@@ -109,8 +145,10 @@ define (require, exports, module) ->
       nextOn: click: '.species .toggles button:contains("Scallop")'
       arrowClass: 'right-middle'
       block: '.species .toggles button:not(:contains("Scallop")), .species .finished'
-
-
+      onLeave: -> 
+        sleuth?.logCustomEvent
+          type: 'tutorial-step'
+          value: 10
 
     new Step
       heading: 'Ignore dead scallops'
@@ -123,6 +161,10 @@ define (require, exports, module) ->
       attach: x: 'right', to: '.creature-picker', at: x: 0.8, y: 0.5
       arrowClass: 'right-middle'
       block: '#classifier'
+      onLeave: -> 
+        sleuth?.logCustomEvent
+          type: 'tutorial-step'
+          value: 11
 
     new Step
       heading: 'Mark living scallops'
@@ -135,6 +177,10 @@ define (require, exports, module) ->
       nextOn: 'create-half-axes-marker': '#classifier'
       arrowClass: 'left-middle'
       block: '.species .finished'
+      onLeave: -> 
+        sleuth?.logCustomEvent
+          type: 'tutorial-step'
+          value: 12
 
     new Step
       content: [
@@ -145,8 +191,10 @@ define (require, exports, module) ->
       nextOn: 'create-axes-marker': '#classifier'
       arrowClass: 'left-middle'
       block: '.species .finished'
-
-
+      onLeave: -> 
+        sleuth?.logCustomEvent
+          type: 'tutorial-step'
+          value: 13
 
     new Step
       heading: 'Identifying species'
@@ -159,6 +207,10 @@ define (require, exports, module) ->
       nextOn: click: '.species .toggles button:contains("Seastar")'
       arrowClass: 'right-middle'
       block: '.species .toggles button:not(:contains("Seastar")), .species .finished'
+      onLeave: -> 
+        sleuth?.logCustomEvent
+          type: 'tutorial-step'
+          value: 14
 
     new Step
       heading: 'Marking'
@@ -170,6 +222,10 @@ define (require, exports, module) ->
       nextOn: 'create-marking': '#classifier'
       arrowClass: 'right-middle'
       block: '.species .finished'
+      onLeave: -> 
+        sleuth?.logCustomEvent
+          type: 'tutorial-step'
+          value: 15
 
     new Step
       heading: 'Other species'
@@ -182,6 +238,10 @@ define (require, exports, module) ->
       nextOn: click: '.other-creatures [value="yes"]'
       arrowClass: 'right-middle'
       block: '.species .finished'
+      onLeave: -> 
+        sleuth?.logCustomEvent
+          type: 'tutorial-step'
+          value: 16
 
     new Step
       heading: 'Done Identifying and Marking'
@@ -192,6 +252,10 @@ define (require, exports, module) ->
       style: width: 390
       nextOn: click: '.species .finished'
       arrowClass: 'right-middle'
+      onLeave: -> 
+        sleuth?.logCustomEvent
+          type: 'tutorial-step'
+          value: 17
 
     new Step
       heading: 'Great job!'
@@ -204,4 +268,8 @@ define (require, exports, module) ->
       style: width: 400
       arrowClass: 'right-middle'
       nextOn: click: '.talk button'
+      onLeave: -> 
+        sleuth?.logCustomEvent
+          type: 'tutorial-step'
+          value: 18
   ]

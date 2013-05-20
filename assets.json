@@ -4,7 +4,7 @@
 
 	{"http://code.jquery.com/jquery-1.7.2.js": "scripts/lib/jquery.js"},
 
-	{"https://github.com/maccman/spine/raw/master/lib/spine.js": "scripts/lib/spine.js"},
+	{"https://github.com/spine/spine/raw/master/lib/spine.js": "scripts/lib/spine.js"},
 
 	{"https://raw.github.com/zooniverse/Zooniverse/master/vendor/base64.js": "scripts/lib/base64.js"},
 
