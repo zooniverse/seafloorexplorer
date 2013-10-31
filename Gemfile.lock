@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/zooniverse/Front-End-Assets.git
+  remote: git@github.com:zooniverse/Front-End-Assets.git
   revision: 7d069e043e9974c20daf86b86d39e5e8d0b0570b
   branch: app
   specs:
@@ -13,7 +13,7 @@ GIT
       thor
 
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     bourbon (3.1.8)
       sass (>= 3.2.0)
