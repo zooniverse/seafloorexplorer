@@ -1,10 +1,14 @@
 Seafloor Explorer
 =================
 
-Requires the [`zoo` gem](https://github.com/zooniverse/Front-End-Assets/tree/app).
+```
+bundle install
+bundle exec zoo install
+```
+
+bundle exec zoo serve 5340
+```
 
 ```
-zoo clone Oceans
-cd Oceans
-zoo serve 5340
+bundle exec zoo build
 ```
