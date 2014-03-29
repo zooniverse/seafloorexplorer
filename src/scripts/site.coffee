@@ -64,9 +64,6 @@ define (require, exports, module) ->
                 speed: 0
                 mm_pix: 1
 
-  Map::apiKey = '21a5504123984624a5e1a856fc00e238'
-  Map::tilesId = 65990
-
   config.set
     classifier: new Classifier
       el: '#classifier'
@@ -81,6 +78,7 @@ define (require, exports, module) ->
       latitude: 40
       longitude: -75
       zoom: 5
+      tilesProvider: 'Stamen.Watercolor'
       layers: ["http://d3clx83h4jp73a.cloudfront.net/tiles/#{config.cartoTable}/{z}/{x}/{y}.png"]
       cartoLogo: true
 

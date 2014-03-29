@@ -41,6 +41,7 @@ define (require, exports, module) ->
         latitude: 40
         longitude: -75
         zoom: 5
+        tilesProvider: 'Stamen.Watercolor'
         cartoLogo: true
 
       @scoreboard = new Scoreboard
