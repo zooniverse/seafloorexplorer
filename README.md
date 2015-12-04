@@ -1,21 +1,23 @@
 Seafloor Explorer
 =================
 
+## Installing
+
 ```
-npm install coffee-script@1.4.0
-bundle install
+bundle
 bundle exec zoo install
+grabass
+npm install .
 ```
 
-```
-bundle exec zoo serve 5340
-```
+## Running
 
 ```
-npm install requirejs@2.0.0 publisssh
-bundle exec zoo build
+npm start
 ```
 
+## Deploying
+
 ```
-publisssh --ignore node_modules ./build-* zooniverse-static/www.seafloorexplorer.org
+npm run deploy
 ```
