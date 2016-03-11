@@ -1,11 +1,11 @@
 {
   "dependencies": {
     "coffee-script": "~1.4.0",
-    "publisssh": "~0.2.3",
+    "publisssh": "~1.1.0",
     "requirejs": "~2.0.0"
   },
   "scripts": {
     "start": "bundle exec zoo serve 3475",
-    "deploy": "bundle exec zoo build ./build-dir && publisssh --ignore node_modules ./build-dir zooniverse-static/www.seafloorexplorer.org && rm -rf ./build-dir"
+    "deploy": "bundle exec zoo build ./build-dir && publisssh ./build-dir zooniverse-static/www.seafloorexplorer.org --force --ignore node_modules && rm -rf ./build-dir"
   }
 }
