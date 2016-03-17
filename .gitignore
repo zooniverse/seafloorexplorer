@@ -5,11 +5,12 @@
 /build-*
 /beta
 
-/src/scripts/lib
-/src/styles/lib
-/scripts
-/styles
+/scripts/*
+!/scripts/lib
+
+/styles/*
+!/styles/lib
 
 /node_modules
-/.rvmrc
+
 /Gemfile.lock

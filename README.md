@@ -4,10 +4,8 @@ Seafloor Explorer
 ## Installing
 
 ```
-bundle
-bundle exec zoo install
-grabass
-npm install .
+bundle install --path ./.bundle
+npm install
 ```
 
 ## Running
