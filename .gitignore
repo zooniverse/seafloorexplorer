@@ -8,7 +8,7 @@
 /scripts/*
 !/scripts/lib
 
-/styles
+/styles/*
 !/styles/lib
 
 /node_modules
