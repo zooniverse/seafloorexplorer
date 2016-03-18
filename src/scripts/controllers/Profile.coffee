@@ -57,7 +57,7 @@ define (require, exports, module) ->
         @usernameContainer.html User.current.name
 
         query = "SELECT * FROM #{config.cartoTable} WHERE user_id='#{User.current.id}'"
-        url = "http://#{config.cartoUser}.cartodb.com/tiles/#{config.cartoTable}/{z}/{x}/{y}.png?sql=#{query}"
+        url = "https://#{config.cartoUser}.cartodb.com/tiles/#{config.cartoTable}/{z}/{x}/{y}.png?sql=#{query}"
 
         delay =>
           @userLayer = @map.addLayer url

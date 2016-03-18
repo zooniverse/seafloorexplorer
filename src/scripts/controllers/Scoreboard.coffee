@@ -33,7 +33,7 @@ define (require, exports, module) ->
     update: =>
       return if @forUser and not User.current?
 
-      url = "http://#{config.cartoUser}.cartodb.com/api/v2/sql?callback=?"
+      url = "https://#{config.cartoUser}.cartodb.com/api/v2/sql?callback=?"
 
       query = 'SELECT ' +
         'SUM(ALL(scallops)) AS scallops, ' +
