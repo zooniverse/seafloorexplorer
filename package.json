@@ -6,6 +6,7 @@
   },
   "scripts": {
     "start": "bundle exec zoo serve 3475",
-    "deploy": "bundle exec zoo build ./build-dir && publisssh ./build-dir zooniverse-static/www.seafloorexplorer.org --force --ignore node_modules && rm -rf ./build-dir"
+    "deploy": "bundle exec zoo build ./build-dir && publisssh ./build-dir zooniverse-static/www.seafloorexplorer.org --force --ignore node_modules && rm -rf ./build-dir",
+    "deploy-preview": "bundle exec zoo build ./build-dir && publisssh ./build-dir zooniverse-static/preview.zooniverse.org/oceans/ --ignore node_modules && rm -rf ./build-dir"
   }
 }
